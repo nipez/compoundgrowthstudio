@@ -55,6 +55,11 @@ async function submitLead(form: HTMLFormElement, tag: 'lead_magnet' | 'newslette
   const client = supabase();
   if (!client) {
     markSuccess(form);
+    if (tag === 'lead_magnet') {
+      window.setTimeout(() => {
+        window.location.assign('/guides/meta-ads/?thanks=1');
+      }, 350);
+    }
     return;
   }
   const { error } = await client.from('leads').insert({
@@ -68,6 +73,11 @@ async function submitLead(form: HTMLFormElement, tag: 'lead_magnet' | 'newslette
     return;
   }
   markSuccess(form);
+  if (tag === 'lead_magnet') {
+    window.setTimeout(() => {
+      window.location.assign('/guides/meta-ads/?thanks=1');
+    }, 350);
+  }
 }
 
 async function submitContact(form: HTMLFormElement) {

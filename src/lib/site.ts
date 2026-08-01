@@ -63,6 +63,12 @@ export const pages: Record<string, PageMeta> = {
     description:
       'A 24/7 AI inbound voice agent demo for clinics — answer calls, qualify interest, and keep the consult pipeline moving after hours.',
   },
+  'guides-meta-ads': {
+    path: '/guides/meta-ads/',
+    title: "Top 10 reasons your clinic's ads are struggling on Meta | Compound Growth Studio",
+    description:
+      'The rejection triggers, targeting mistakes, and landing-page gaps clinics hit most on Meta — and what to fix first.',
+  },
 };
 
 export const NAV_CTA = 'Find Your Growth Gaps';
