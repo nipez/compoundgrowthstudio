@@ -128,14 +128,17 @@ const stages = doc?.stages?.length ? doc.stages : defaults.stages;
               <div>
                 <h2 style="margin: 0 0 4px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 24px; letter-spacing: -.5px;">{stage.title ?? fallback?.title}</h2>
                 <div style="margin: 0 0 12px; font-size: 15px; font-weight: 600; color: #1A4FD0;">{stage.tag ?? fallback?.tag}</div>
-                <p style="margin: 0 0 18px; max-width: 460px; font-size: 15px; line-height: 1.6; color: rgba(10,29,56,.68);">{stage.desc ?? fallback?.desc}</p>
-                <div style="display: flex; flex-wrap: wrap; gap: 8px 18px;">
-                  {builds.map((item) => (
-                    <div style="display: flex; align-items: center; gap: 9px; font-size: 13.5px; color: rgba(10,29,56,.62);"><span style="flex-shrink: 0; width: 5px; height: 5px; border-radius: 50%; background: #7FB0FF;"></span>{item}</div>
-                  ))}
+                <p style="margin: 0 0 20px; max-width: 520px; font-size: 15px; line-height: 1.6; color: rgba(10,29,56,.68);">{stage.desc ?? fallback?.desc}</p>
+                <div class="cgs-stage-builds">
+                  <div style="margin-bottom: 10px; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(10,29,56,.45);">What we build</div>
+                  <ul style="display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none;">
+                    {builds.map((item) => (
+                      <li style="display: inline-flex; align-items: center; padding: 7px 12px; background: #EEF3FC; color: #0A1D38; font-size: 13px; font-weight: 600; letter-spacing: -.15px; line-height: 1.25; border-radius: 4px; border: 1px solid rgba(26,79,208,.08);">{item}</li>
+                    ))}
+                  </ul>
                 </div>
               </div>
-              <div style="align-self: center; border-left: 2px solid rgba(10,29,56,.12); padding-left: 22px;">
+              <div class="cgs-stage-handoff" style="align-self: center; border-left: 2px solid rgba(10,29,56,.12); padding-left: 22px;">
                 <div style="margin-bottom: 8px; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(10,29,56,.45);">{stage.handoffLabel ?? fallback?.handoffLabel}</div>
                 <div style="font-size: 14.5px; font-style: italic; line-height: 1.45; color: #1A4FD0;">{stage.handoff ?? fallback?.handoff}</div>
               </div>
@@ -146,3 +149,20 @@ const stages = doc?.stages?.length ? doc.stages : defaults.stages;
     </div>
   </section>
 </div>
+
+<style>
+  @media (max-width: 860px) {
+    :global(.cgs-h33) {
+      grid-template-columns: 1fr !important;
+      gap: 22px !important;
+      padding: 26px 22px !important;
+    }
+    :global(.cgs-stage-handoff) {
+      border-left: none !important;
+      border-top: 2px solid rgba(10,29,56,.12);
+      padding-left: 0 !important;
+      padding-top: 18px;
+      align-self: stretch !important;
+    }
+  }
+</style>
