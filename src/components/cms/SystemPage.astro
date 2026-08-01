@@ -1,4 +1,5 @@
 ---
+import {preventWidow, splitSentences} from '../../lib/copy';
 import type {ClosingCta, StagePill, SystemDoc, SystemStage} from '../../lib/sanity';
 
 interface Props {
@@ -96,6 +97,7 @@ const stageLabels = doc?.stageLabels?.length ? doc.stageLabels : defaults.stageL
 const stages = doc?.stages?.length ? doc.stages : defaults.stages;
 const closingCta = {...defaults.closingCta, ...(doc?.closingCta ?? {})};
 const stageCount = Math.max(stageLabels.length, 1);
+const timelineHeaderLines = splitSentences(doc?.timelineHeader ?? defaults.timelineHeader);
 ---
 
 <div class="sys-page">
@@ -104,7 +106,7 @@ const stageCount = Math.max(stageLabels.length, 1);
     <div class="sys-hero__glow" aria-hidden="true"></div>
     <div class="sys-hero__inner">
       <div class="sys-hero__eyebrow">{doc?.eyebrow ?? defaults.eyebrow}</div>
-      <h1 class="sys-hero__headline">{doc?.headline ?? defaults.headline}</h1>
+      <h1 class="sys-hero__headline">{preventWidow(doc?.headline ?? defaults.headline)}</h1>
       <p class="sys-hero__subhead">{doc?.subhead ?? defaults.subhead}</p>
 
       <div class="sys-stages" data-cgs-stages style={`--stage-count: ${stageCount};`}>
@@ -138,7 +140,9 @@ const stageCount = Math.max(stageLabels.length, 1);
   <section class="sys-timeline">
     <div class="sys-timeline__inner">
       <h2 class="sys-timeline__header">
-        {doc?.timelineHeader ?? defaults.timelineHeader}
+        {timelineHeaderLines.map((line) => (
+          <span class="sys-timeline__line">{preventWidow(line)}</span>
+        ))}
       </h2>
 
       <div class="sys-timeline__list">
@@ -188,7 +192,7 @@ const stageCount = Math.max(stageLabels.length, 1);
       <div class="sys-cta">
         <div class="sys-cta__copy">
           {closingCta.eyebrow && <div class="sys-cta__eyebrow">{closingCta.eyebrow}</div>}
-          <h2 class="sys-cta__title">{closingCta.title}</h2>
+          <h2 class="sys-cta__title">{preventWidow(closingCta.title ?? '')}</h2>
           <p class="sys-cta__body">{closingCta.body}</p>
         </div>
         <a class="sys-cta__btn cgs-h32" href={closingCta.ctaHref}>{closingCta.ctaLabel}</a>
@@ -419,15 +423,29 @@ const stageCount = Math.max(stageLabels.length, 1);
   }
 
   .sys-timeline__header {
-    margin: 0 0 36px;
-    max-width: 34ch;
+    display: grid;
+    gap: 0.18em;
+    margin: 0 0 40px;
+    max-width: 28em;
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-weight: 800;
     font-size: clamp(26px, 3.4vw, 34px);
-    line-height: 1.15;
+    line-height: 1.18;
     letter-spacing: -1.2px;
     color: #0a1d38;
+    text-wrap: auto;
     animation: rise 0.7s both;
+  }
+
+  .sys-timeline__line {
+    display: block;
+    text-wrap: pretty;
+  }
+
+  @media (min-width: 720px) {
+    .sys-timeline__line {
+      white-space: nowrap;
+    }
   }
 
   .sys-timeline__list {
