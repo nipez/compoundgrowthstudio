@@ -151,6 +151,12 @@ export const systemPage = defineType({
       group: 'content',
       of: [defineArrayMember({type: 'systemStage'})],
     }),
+    defineField({
+      name: 'closingCta',
+      title: 'Closing CTA',
+      type: 'closingCta',
+      group: 'content',
+    }),
   ],
   preview: {prepare: () => ({title: 'Growth System'})},
 })

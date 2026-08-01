@@ -1,5 +1,5 @@
 ---
-import type {StagePill, SystemDoc, SystemStage} from '../../lib/sanity';
+import type {ClosingCta, StagePill, SystemDoc, SystemStage} from '../../lib/sanity';
 
 interface Props {
   doc?: SystemDoc | null;
@@ -83,66 +83,642 @@ const defaults = {
       handoff: 'Sharper targeting to Visibility — and the loop tightens.',
     },
   ] satisfies SystemStage[],
+  closingCta: {
+    eyebrow: 'Ready to connect the stages?',
+    title: 'Find the gaps in your growth system.',
+    body: 'Thirty minutes. We’ll map where patients drop off across visibility, conversion, and follow-up — then tell you what to fix first.',
+    ctaLabel: 'Book a Growth Gap Call',
+    ctaHref: '/contact/',
+  } satisfies ClosingCta,
 };
 
 const stageLabels = doc?.stageLabels?.length ? doc.stageLabels : defaults.stageLabels;
 const stages = doc?.stages?.length ? doc.stages : defaults.stages;
+const closingCta = {...defaults.closingCta, ...(doc?.closingCta ?? {})};
+const stageCount = Math.max(stageLabels.length, 1);
 ---
 
-<div>
-  <header style="background: #0A1D38; color: #F4F7FB; position: relative; overflow: hidden;">
-    <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(127,176,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(127,176,255,.07) 1px, transparent 1px); background-size: 56px 56px;"></div>
-    <div style="position: absolute; top: -160px; right: -120px; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(26,79,208,.32), transparent 62%);"></div>
-    <div style="position: relative; max-width: 1280px; margin: 0 auto; padding: 84px 48px 88px;">
-      <div style="font-size: 12.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #7FB0FF; animation: rise .6s both;">{doc?.eyebrow ?? defaults.eyebrow}</div>
-      <h1 style="margin: 18px 0 0; max-width: 880px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 52px; line-height: 1.06; letter-spacing: -2px; animation: rise .7s .1s both;">{doc?.headline ?? defaults.headline}</h1>
-      <p style="margin: 22px 0 0; max-width: 620px; font-size: 17.5px; line-height: 1.6; color: rgba(244,247,251,.74); animation: rise .7s .2s both;">{doc?.subhead ?? defaults.subhead}</p>
-      <div style="position: relative; margin-top: 64px; animation: fadeIn .8s .3s both;">
-        <svg viewBox="0 0 1184 8" preserveAspectRatio="none" style="position: absolute; top: 32px; left: 0; width: 100%; height: 8px;">
-          <line x1="0" y1="4" x2="1184" y2="4" stroke="rgba(127,176,255,.55)" stroke-width="2" stroke-dasharray="8 6" style="animation: flow 1.2s linear infinite;"></line>
-        </svg>
-        <div style="position: relative; display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px;">
+<div class="sys-page">
+  <header class="sys-hero">
+    <div class="sys-hero__grid" aria-hidden="true"></div>
+    <div class="sys-hero__glow" aria-hidden="true"></div>
+    <div class="sys-hero__inner">
+      <div class="sys-hero__eyebrow">{doc?.eyebrow ?? defaults.eyebrow}</div>
+      <h1 class="sys-hero__headline">{doc?.headline ?? defaults.headline}</h1>
+      <p class="sys-hero__subhead">{doc?.subhead ?? defaults.subhead}</p>
+
+      <div class="sys-stages" data-cgs-stages style={`--stage-count: ${stageCount};`}>
+        <div class="sys-stages__track" aria-hidden="true">
+          <div class="sys-stages__track-base"></div>
+          <div class="sys-stages__track-fill"></div>
+          <div class="sys-stages__track-glow"></div>
+        </div>
+        <div class="sys-stages__nodes">
           {stageLabels.map((stage, index) => (
-            <div style="text-align: center;">
-              <div style="display: grid; place-items: center; width: 64px; height: 64px; margin: 0 auto; background: #0A1D38; border: 2px solid #7FB0FF; color: #7FB0FF; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 20px; border-radius: 50%;">{stage.number ?? defaults.stageLabels[index]?.number}</div>
-              <h3 style="margin: 16px 0 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 16px; letter-spacing: -.2px;">{stage.title ?? defaults.stageLabels[index]?.title}</h3>
+            <div
+              class="sys-stages__node"
+              data-cgs-stage
+              data-state={index === 0 ? 'active' : 'idle'}
+              style={`--i: ${index};`}
+            >
+              <div class="sys-stages__ring" aria-hidden="true"></div>
+              <div class="sys-stages__dot">
+                {stage.number ?? defaults.stageLabels[index]?.number}
+              </div>
+              <h3 class="sys-stages__label">
+                {stage.title ?? defaults.stageLabels[index]?.title}
+              </h3>
             </div>
           ))}
         </div>
       </div>
     </div>
   </header>
-  <section style="max-width: 1120px; margin: 0 auto; padding: 88px 48px 100px;">
-    <h2 style="margin: 0 0 40px; max-width: 760px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 34px; line-height: 1.15; letter-spacing: -1.2px; color: #0A1D38; animation: rise .7s both;">
-      {doc?.timelineHeader ?? defaults.timelineHeader}
-    </h2>
-    <div style="position: relative; padding-left: 88px;">
-      <div style="position: absolute; left: 31px; top: 24px; bottom: 64px; width: 2px; background: linear-gradient(#1A4FD0, #7FB0FF);"></div>
-      <div style="display: grid; gap: 14px;">
+
+  <section class="sys-timeline">
+    <div class="sys-timeline__inner">
+      <h2 class="sys-timeline__header">
+        {doc?.timelineHeader ?? defaults.timelineHeader}
+      </h2>
+
+      <div class="sys-timeline__list">
+        <div class="sys-timeline__rail" aria-hidden="true"></div>
         {stages.map((stage, index) => {
           const fallback = defaults.stages[index];
           const builds = stage.builds?.length ? stage.builds : fallback?.builds ?? [];
+          const isLoop = (stage.handoffLabel ?? fallback?.handoffLabel ?? '')
+            .toLowerCase()
+            .includes('loop');
           return (
-            <div class="cgs-h33" style="position: relative; display: grid; grid-template-columns: 1fr 290px; gap: 40px; padding: 30px 34px; background: #FFFFFF; border-radius: 14px; box-shadow: 0 1px 3px rgba(10,29,56,.06), 0 8px 24px rgba(10,29,56,.04); transition: transform .15s ease, box-shadow .15s ease; animation: rise .8s both; animation-timeline: view(); animation-range: entry 0% entry 50%;">
-              <div style="position: absolute; left: -72px; top: 30px; display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; background: #1A4FD0; color: #FFFFFF; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 20px; box-shadow: 0 4px 14px rgba(26,79,208,.35); z-index: 2;">{stage.number ?? fallback?.number}</div>
-              <div>
-                <h2 style="margin: 0 0 4px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 24px; letter-spacing: -.5px;">{stage.title ?? fallback?.title}</h2>
-                <div style="margin: 0 0 12px; font-size: 15px; font-weight: 600; color: #1A4FD0;">{stage.tag ?? fallback?.tag}</div>
-                <p style="margin: 0 0 18px; max-width: 460px; font-size: 15px; line-height: 1.6; color: rgba(10,29,56,.68);">{stage.desc ?? fallback?.desc}</p>
-                <div style="display: flex; flex-wrap: wrap; gap: 8px 18px;">
-                  {builds.map((item) => (
-                    <div style="display: flex; align-items: center; gap: 9px; font-size: 13.5px; color: rgba(10,29,56,.62);"><span style="flex-shrink: 0; width: 5px; height: 5px; border-radius: 50%; background: #7FB0FF;"></span>{item}</div>
-                  ))}
+            <article class="sys-stage cgs-h33" style={`--delay: ${Math.min(index * 0.05, 0.25)}s;`}>
+              <div class="sys-stage__marker">{stage.number ?? fallback?.number}</div>
+              <div class="sys-stage__card">
+                <div class="sys-stage__main">
+                  <h3 class="sys-stage__title">{stage.title ?? fallback?.title}</h3>
+                  <div class="sys-stage__tag">{stage.tag ?? fallback?.tag}</div>
+                  <p class="sys-stage__desc">{stage.desc ?? fallback?.desc}</p>
+                  <div class="sys-stage__builds">
+                    <span class="sys-stage__builds-label">What we build</span>
+                    <div class="sys-stage__chips">
+                      {builds.map((item) => (
+                        <span class="sys-stage__chip">{item}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <div class={`sys-stage__handoff${isLoop ? ' is-loop' : ''}`}>
+                  <span class="sys-stage__handoff-icon" aria-hidden="true">
+                    {isLoop ? '↻' : '→'}
+                  </span>
+                  <div class="sys-stage__handoff-copy">
+                    <span class="sys-stage__handoff-label">
+                      {stage.handoffLabel ?? fallback?.handoffLabel}
+                    </span>
+                    <span class="sys-stage__handoff-text">
+                      {stage.handoff ?? fallback?.handoff}
+                    </span>
+                  </div>
                 </div>
               </div>
-              <div style="align-self: center; border-left: 2px solid rgba(10,29,56,.12); padding-left: 22px;">
-                <div style="margin-bottom: 8px; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(10,29,56,.45);">{stage.handoffLabel ?? fallback?.handoffLabel}</div>
-                <div style="font-size: 14.5px; font-style: italic; line-height: 1.45; color: #1A4FD0;">{stage.handoff ?? fallback?.handoff}</div>
-              </div>
-            </div>
+            </article>
           );
         })}
+      </div>
+
+      <div class="sys-cta">
+        <div class="sys-cta__copy">
+          {closingCta.eyebrow && <div class="sys-cta__eyebrow">{closingCta.eyebrow}</div>}
+          <h2 class="sys-cta__title">{closingCta.title}</h2>
+          <p class="sys-cta__body">{closingCta.body}</p>
+        </div>
+        <a class="sys-cta__btn cgs-h32" href={closingCta.ctaHref}>{closingCta.ctaLabel}</a>
       </div>
     </div>
   </section>
 </div>
+
+<style>
+  .sys-hero {
+    position: relative;
+    overflow: hidden;
+    background: #0a1d38;
+    color: #f4f7fb;
+  }
+
+  .sys-hero__grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(127, 176, 255, 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(127, 176, 255, 0.07) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .sys-hero__glow {
+    position: absolute;
+    top: -160px;
+    right: -120px;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(26, 79, 208, 0.32), transparent 62%);
+  }
+
+  .sys-hero__inner {
+    position: relative;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 84px 48px 88px;
+  }
+
+  .sys-hero__eyebrow {
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #7fb0ff;
+    animation: rise 0.6s both;
+  }
+
+  .sys-hero__headline {
+    margin: 18px 0 0;
+    max-width: 880px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: clamp(34px, 5vw, 52px);
+    line-height: 1.06;
+    letter-spacing: -2px;
+    animation: rise 0.7s 0.1s both;
+  }
+
+  .sys-hero__subhead {
+    margin: 22px 0 0;
+    max-width: 620px;
+    font-size: 17.5px;
+    line-height: 1.6;
+    color: rgba(244, 247, 251, 0.74);
+    animation: rise 0.7s 0.2s both;
+  }
+
+  .sys-stages {
+    --progress: 0%;
+    position: relative;
+    margin-top: 64px;
+    animation: fadeIn 0.8s 0.3s both;
+  }
+
+  .sys-stages__track {
+    position: absolute;
+    top: 31px;
+    left: calc(100% / var(--stage-count) / 2);
+    right: calc(100% / var(--stage-count) / 2);
+    height: 3px;
+  }
+
+  .sys-stages__track-base {
+    position: absolute;
+    inset: 0;
+    border-radius: 999px;
+    background: rgba(127, 176, 255, 0.22);
+  }
+
+  .sys-stages__track-fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: var(--progress);
+    border-radius: 999px;
+    background: linear-gradient(90deg, #1a4fd0, #7fb0ff);
+    box-shadow: 0 0 18px rgba(127, 176, 255, 0.45);
+    transition: width 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .sys-stages__track-glow {
+    position: absolute;
+    top: 50%;
+    left: var(--progress);
+    width: 10px;
+    height: 10px;
+    margin: -5px 0 0 -5px;
+    border-radius: 50%;
+    background: #f4f7fb;
+    box-shadow: 0 0 0 4px rgba(127, 176, 255, 0.35), 0 0 22px rgba(127, 176, 255, 0.8);
+    transition: left 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .sys-stages__nodes {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(var(--stage-count), minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .sys-stages__node {
+    position: relative;
+    text-align: center;
+  }
+
+  .sys-stages__ring {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 64px;
+    height: 64px;
+    margin-left: -32px;
+    border-radius: 50%;
+    border: 1px solid transparent;
+    opacity: 0;
+    transform: scale(0.85);
+    transition:
+      opacity 0.35s ease,
+      transform 0.35s ease,
+      border-color 0.35s ease;
+  }
+
+  .sys-stages__dot {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto;
+    border-radius: 50%;
+    border: 2px solid rgba(127, 176, 255, 0.55);
+    background: #0a1d38;
+    color: #7fb0ff;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    transition:
+      transform 0.35s ease,
+      background 0.35s ease,
+      color 0.35s ease,
+      border-color 0.35s ease,
+      box-shadow 0.35s ease;
+  }
+
+  .sys-stages__label {
+    margin: 16px 0 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: -0.2px;
+    color: rgba(244, 247, 251, 0.55);
+    transition:
+      color 0.35s ease,
+      transform 0.35s ease;
+  }
+
+  .sys-stages__node[data-state='done'] .sys-stages__dot {
+    background: rgba(127, 176, 255, 0.18);
+    border-color: #7fb0ff;
+    color: #f4f7fb;
+  }
+
+  .sys-stages__node[data-state='done'] .sys-stages__label {
+    color: rgba(244, 247, 251, 0.78);
+  }
+
+  .sys-stages__node[data-state='active'] .sys-stages__dot {
+    background: #7fb0ff;
+    border-color: #7fb0ff;
+    color: #0a1d38;
+    transform: scale(1.08);
+    box-shadow: 0 8px 28px rgba(127, 176, 255, 0.35);
+  }
+
+  .sys-stages__node[data-state='active'] .sys-stages__ring {
+    opacity: 1;
+    border-color: rgba(127, 176, 255, 0.55);
+    animation: sysRing 1.4s ease-out infinite;
+  }
+
+  .sys-stages__node[data-state='active'] .sys-stages__label {
+    color: #f4f7fb;
+    transform: translateY(-1px);
+  }
+
+  @keyframes sysRing {
+    0% {
+      transform: scale(0.95);
+      opacity: 0.9;
+    }
+    100% {
+      transform: scale(1.45);
+      opacity: 0;
+    }
+  }
+
+  .sys-timeline {
+    padding: 88px 48px 100px;
+  }
+
+  .sys-timeline__inner {
+    max-width: 920px;
+    margin: 0 auto;
+  }
+
+  .sys-timeline__header {
+    margin: 0 0 36px;
+    max-width: 34ch;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: clamp(26px, 3.4vw, 34px);
+    line-height: 1.15;
+    letter-spacing: -1.2px;
+    color: #0a1d38;
+    animation: rise 0.7s both;
+  }
+
+  .sys-timeline__list {
+    position: relative;
+    display: grid;
+    gap: 18px;
+  }
+
+  .sys-timeline__rail {
+    position: absolute;
+    left: 22px;
+    top: 28px;
+    bottom: 28px;
+    width: 2px;
+    background: linear-gradient(#1a4fd0, #7fb0ff);
+    border-radius: 999px;
+  }
+
+  .sys-stage {
+    position: relative;
+    display: grid;
+    grid-template-columns: 46px minmax(0, 1fr);
+    gap: 22px;
+    align-items: start;
+    animation: rise 0.8s both;
+    animation-delay: var(--delay, 0s);
+    animation-timeline: view();
+    animation-range: entry 0% entry 50%;
+  }
+
+  .sys-stage__marker {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    margin-top: 28px;
+    border-radius: 50%;
+    background: #1a4fd0;
+    color: #ffffff;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    box-shadow: 0 4px 14px rgba(26, 79, 208, 0.35);
+  }
+
+  .sys-stage__card {
+    display: grid;
+    gap: 0;
+    padding: 28px 30px 22px;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow:
+      0 1px 3px rgba(10, 29, 56, 0.06),
+      0 8px 24px rgba(10, 29, 56, 0.04);
+    transition:
+      transform 0.15s ease,
+      box-shadow 0.15s ease;
+  }
+
+  .sys-stage__title {
+    margin: 0 0 4px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 24px;
+    letter-spacing: -0.5px;
+    color: #0a1d38;
+  }
+
+  .sys-stage__tag {
+    margin: 0 0 12px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a4fd0;
+  }
+
+  .sys-stage__desc {
+    margin: 0 0 18px;
+    max-width: 62ch;
+    font-size: 15px;
+    line-height: 1.6;
+    color: rgba(10, 29, 56, 0.68);
+  }
+
+  .sys-stage__builds-label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(10, 29, 56, 0.42);
+  }
+
+  .sys-stage__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .sys-stage__chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 11px;
+    border-radius: 999px;
+    background: #f4f7fb;
+    border: 1px solid rgba(10, 29, 56, 0.08);
+    font-size: 13px;
+    color: rgba(10, 29, 56, 0.72);
+  }
+
+  .sys-stage__handoff {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 20px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, rgba(26, 79, 208, 0.08), rgba(127, 176, 255, 0.08));
+    border: 1px solid rgba(26, 79, 208, 0.12);
+  }
+
+  .sys-stage__handoff.is-loop {
+    background: linear-gradient(90deg, rgba(10, 29, 56, 0.06), rgba(26, 79, 208, 0.1));
+  }
+
+  .sys-stage__handoff-icon {
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    margin-top: 1px;
+    border-radius: 50%;
+    background: #1a4fd0;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .sys-stage__handoff-copy {
+    display: grid;
+    gap: 3px;
+    min-width: 0;
+  }
+
+  .sys-stage__handoff-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(10, 29, 56, 0.48);
+  }
+
+  .sys-stage__handoff-text {
+    font-size: 14.5px;
+    font-style: italic;
+    line-height: 1.45;
+    color: #1a4fd0;
+  }
+
+  .sys-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 36px;
+    margin-top: 48px;
+    padding: 36px 40px;
+    background: #e7eefa;
+    border-radius: 14px;
+  }
+
+  .sys-cta__eyebrow {
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #1a4fd0;
+  }
+
+  .sys-cta__title {
+    margin: 10px 0 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: clamp(24px, 3vw, 30px);
+    letter-spacing: -1.1px;
+    color: #0a1d38;
+  }
+
+  .sys-cta__body {
+    margin: 0;
+    max-width: 520px;
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: rgba(10, 29, 56, 0.7);
+  }
+
+  .sys-cta__btn {
+    flex-shrink: 0;
+    display: inline-block;
+    padding: 16px 26px;
+    background: #1a4fd0;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 15px;
+    border-radius: 3px;
+    transition:
+      transform 0.2s,
+      background 0.2s;
+  }
+
+  @media (max-width: 820px) {
+    .sys-hero__inner,
+    .sys-timeline {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    .sys-stages__label {
+      font-size: 12.5px;
+    }
+
+    .sys-stages__dot {
+      width: 48px;
+      height: 48px;
+      font-size: 16px;
+    }
+
+    .sys-stages__ring {
+      width: 48px;
+      height: 48px;
+      margin-left: -24px;
+    }
+
+    .sys-stages__track {
+      top: 23px;
+    }
+
+    .sys-cta {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 28px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .sys-stages__nodes {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      row-gap: 22px;
+    }
+
+    .sys-stages__track {
+      display: none;
+    }
+
+    .sys-timeline__rail {
+      left: 17px;
+    }
+
+    .sys-stage {
+      grid-template-columns: 36px minmax(0, 1fr);
+      gap: 14px;
+    }
+
+    .sys-stage__marker {
+      width: 36px;
+      height: 36px;
+      margin-top: 24px;
+      font-size: 15px;
+    }
+
+    .sys-stage__card {
+      padding: 22px 18px 16px;
+    }
+
+    .sys-stage__handoff {
+      flex-direction: column;
+      gap: 8px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sys-stages__track-fill,
+    .sys-stages__track-glow,
+    .sys-stages__dot,
+    .sys-stages__label,
+    .sys-stages__ring {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+</style>

@@ -191,6 +191,36 @@ function initAiDemoHeight() {
   });
 }
 
+function initSystemStages() {
+  const root = document.querySelector<HTMLElement>('[data-cgs-stages]');
+  if (!root) return;
+
+  const nodes = Array.from(root.querySelectorAll<HTMLElement>('[data-cgs-stage]'));
+  if (nodes.length < 2) return;
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let index = 0;
+
+  const paint = () => {
+    const progress = (index / (nodes.length - 1)) * 100;
+    root.style.setProperty('--progress', `${progress}%`);
+    nodes.forEach((node, i) => {
+      if (i < index) node.dataset.state = 'done';
+      else if (i === index) node.dataset.state = 'active';
+      else node.dataset.state = 'idle';
+    });
+  };
+
+  paint();
+  if (reduceMotion) return;
+
+  window.setInterval(() => {
+    index = (index + 1) % nodes.length;
+    paint();
+  }, 1400);
+}
+
 initForms();
 initCounters();
 initAiDemoHeight();
+initSystemStages();
