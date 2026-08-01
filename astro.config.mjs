@@ -9,6 +9,12 @@ const supabaseAnonKey = process.env.SUPABASE_ANON_KEY || process.env.PUBLIC_SUPA
 if (supabaseUrl) process.env.PUBLIC_SUPABASE_URL = supabaseUrl;
 if (supabaseAnonKey) process.env.PUBLIC_SUPABASE_ANON_KEY = supabaseAnonKey;
 
+const sanityProjectId = process.env.SANITY_PROJECT_ID || process.env.PUBLIC_SANITY_PROJECT_ID || '4rag8303';
+const sanityDataset = process.env.SANITY_DATASET || process.env.PUBLIC_SANITY_DATASET || 'production';
+process.env.PUBLIC_SANITY_PROJECT_ID = sanityProjectId;
+process.env.PUBLIC_SANITY_DATASET = sanityDataset;
+
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://compoundgrowthstudio.com',

@@ -14,7 +14,6 @@ pnpm-debug.log*
 
 
 # environment variables
-.env
 .env.production
 
 # macOS-specific files
@@ -24,3 +23,11 @@ pnpm-debug.log*
 .idea/
 
 *.zip
+
+.projects/cache
+.projects/vault
+.projects/state.test.json
+.projects/state.local.test.json
+.env
+.env.*
+!.env.example

@@ -1,14 +1,15 @@
 # Compound Growth Studio
 
-Marketing site for [compoundgrowthstudio.com](https://compoundgrowthstudio.com) — Astro static site with Supabase-backed forms.
+Marketing site for [compoundgrowthstudio.com](https://compoundgrowthstudio.com) — Astro static site with Sanity CMS + Supabase-backed forms.
 
-The original self-contained HTML export lives in [`/site/`](./site/) and is the visual/copy source of truth. Shared chrome and page bodies are generated into `src/content/partials/` via `scripts/convert-site.py`.
+The original self-contained HTML export lives in [`/site/`](./site/). Editable marketing copy is moving into **Sanity**; layout/code stays in this repo (Cursor/GitHub).
 
 ## Stack
 
 - **Astro** (static output)
+- **Sanity** (CMS for Conor + team — Studio in `/studio`)
 - **Supabase** (leads + contact submissions, insert-only RLS)
-- **Railway** (Docker + nginx) — a good fit: static assets are cheap to serve, you already host the AI voice demo on Railway, and env vars map cleanly at build time
+- **Railway** (Docker + nginx)
 
 ## Pages
 
@@ -29,7 +30,7 @@ The original self-contained HTML export lives in [`/site/`](./site/) and is the 
 ```bash
 npm install
 cp .env.example .env
-# fill SUPABASE_URL and SUPABASE_ANON_KEY
+# fill SUPABASE_* and (optionally) SANITY_AUTH_TOKEN for seeding
 npm run dev
 ```
 
@@ -39,6 +40,30 @@ Open the URL Astro prints (usually `http://localhost:4321`).
 npm run build    # output in dist/
 npm run preview  # preview production build
 ```
+
+### Sanity Studio (for Conor)
+
+Project: **CGS Marketing Website** (`4rag8303`)
+
+```bash
+cd studio
+npm install
+npm run dev          # local Studio at http://localhost:3333
+# or, after deploy:
+# https://www.sanity.io/manage/project/4rag8303 → Studios
+```
+
+Invite Conor: [Project members](https://www.sanity.io/manage/project/4rag8303/members) → add `conor@…` as **Editor**.
+
+Seed / refresh content from the current site copy (needs an **Editor** or **Admin** API token):
+
+```bash
+# in repo root .env:
+# SANITY_AUTH_TOKEN=sk...
+npm run sanity:seed
+```
+
+FAQ is wired to Sanity already (falls back to static HTML until content is seeded). Other pages keep static markup while schemas are ready in Studio.
 
 ### Regenerating page partials from `/site/`
 
