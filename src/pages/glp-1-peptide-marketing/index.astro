@@ -1,0 +1,9 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { pages } from '../../lib/site';
+import body from '../../content/partials/glp-1-peptide-marketing.html?raw';
+---
+
+<BaseLayout page={pages['glp-1-peptide-marketing']}>
+  <Fragment set:html={body} />
+</BaseLayout>

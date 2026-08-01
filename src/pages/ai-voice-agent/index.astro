@@ -1,0 +1,9 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { pages } from '../../lib/site';
+import body from '../../content/partials/ai-voice-agent.html?raw';
+---
+
+<BaseLayout page={pages['ai-voice-agent']}>
+  <Fragment set:html={body} />
+</BaseLayout>

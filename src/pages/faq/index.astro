@@ -1,0 +1,9 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { pages } from '../../lib/site';
+import body from '../../content/partials/faq.html?raw';
+---
+
+<BaseLayout page={pages.faq}>
+  <Fragment set:html={body} />
+</BaseLayout>
