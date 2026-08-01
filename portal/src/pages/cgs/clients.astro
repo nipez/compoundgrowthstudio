@@ -1,0 +1,54 @@
+---
+import PortalLayout from '../../layouts/PortalLayout.astro';
+import { requireUser } from '../../lib/auth';
+import { demoClients } from '../../lib/demo-data';
+import { CGS_NAV } from '../../lib/modules';
+import { getSessionUser } from '../../lib/supabase';
+
+const user = await getSessionUser(Astro.request, Astro.cookies);
+requireUser(user, 'cgs_staff');
+---
+
+<PortalLayout title="Clients" user={user} nav={CGS_NAV} portalLabel="CGS ops">
+  <header class="page-head">
+    <div>
+      <p class="eyebrow">Organizations</p>
+      <h1>Clients</h1>
+      <p class="lede">Each clinic is an organization with members, engagements, and a Stripe customer.</p>
+    </div>
+    <div class="actions">
+      <button class="btn btn-primary" type="button" disabled title="Coming with Supabase writes">Add client</button>
+    </div>
+  </header>
+
+  <section class="panel">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Clinic</th>
+          <th>Plan</th>
+          <th>MRR</th>
+          <th>Status</th>
+          <th>Next action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          demoClients.map((c) => (
+            <tr>
+              <td>
+                <strong>{c.name}</strong>
+              </td>
+              <td>{c.plan}</td>
+              <td>{c.mrr}</td>
+              <td>
+                <span class={`pill ${c.status === 'active' ? 'pill-ok' : 'pill-blue'}`}>{c.status}</span>
+              </td>
+              <td>{c.nextAction}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </section>
+</PortalLayout>

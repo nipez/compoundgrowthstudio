@@ -1,0 +1,68 @@
+---
+import PortalLayout from '../../layouts/PortalLayout.astro';
+import { requireUser } from '../../lib/auth';
+import { demoTasks, intakeFields } from '../../lib/demo-data';
+import { CLIENT_NAV } from '../../lib/modules';
+import { getSessionUser } from '../../lib/supabase';
+
+const user = await getSessionUser(Astro.request, Astro.cookies);
+requireUser(user, 'client');
+---
+
+<PortalLayout title="Onboarding" user={user} nav={CLIENT_NAV} portalLabel="Client portal">
+  <header class="page-head">
+    <div>
+      <p class="eyebrow">Kickoff</p>
+      <h1>Onboarding & intake</h1>
+      <p class="lede">
+        Tell us how the clinic runs today so we can build a compliant conversion foundation without rework.
+      </p>
+    </div>
+  </header>
+
+  <div class="grid grid-2">
+    <section class="panel">
+      <h2>Clinic intake</h2>
+      <p class="meta">Saved as draft until you submit for CGS review.</p>
+      <form class="form" method="POST" action="/api/intake/save/">
+        {
+          intakeFields.map((field) => (
+            <div class="field">
+              <label for={field.key}>{field.label}</label>
+              {field.type === 'textarea' ? (
+                <textarea id={field.key} name={field.key} placeholder="…" />
+              ) : (
+                <input id={field.key} name={field.key} type="text" placeholder="…" />
+              )}
+            </div>
+          ))
+        }
+        <div class="actions">
+          <button class="btn btn-ghost" type="submit" name="intent" value="draft">Save draft</button>
+          <button class="btn btn-primary" type="submit" name="intent" value="submit">Submit for review</button>
+        </div>
+      </form>
+      <p class="notice">Demo mode stores nothing yet — wiring lands when Supabase migration `002` is applied.</p>
+    </section>
+
+    <section class="panel">
+      <h2>Kickoff checklist</h2>
+      <p class="meta">Shared ownership between your clinic and CGS.</p>
+      <ul class="list">
+        {
+          demoTasks.map((task) => (
+            <li>
+              <div>
+                <strong>{task.title}</strong>
+                <p class="meta">{task.ownerSide === 'client' ? 'Owner: clinic' : 'Owner: CGS'}</p>
+              </div>
+              <span class={`pill ${task.status === 'in_progress' ? 'pill-blue' : ''}`}>
+                {task.status.replace('_', ' ')}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
+</PortalLayout>

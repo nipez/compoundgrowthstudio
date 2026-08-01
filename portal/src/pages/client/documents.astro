@@ -1,0 +1,45 @@
+---
+import PortalLayout from '../../layouts/PortalLayout.astro';
+import { requireUser } from '../../lib/auth';
+import { demoDocuments } from '../../lib/demo-data';
+import { CLIENT_NAV } from '../../lib/modules';
+import { getSessionUser } from '../../lib/supabase';
+
+const user = await getSessionUser(Astro.request, Astro.cookies);
+requireUser(user, 'client');
+---
+
+<PortalLayout title="Documents" user={user} nav={CLIENT_NAV} portalLabel="Client portal">
+  <header class="page-head">
+    <div>
+      <p class="eyebrow">Vault</p>
+      <h1>Documents</h1>
+      <p class="lede">Contracts, brand kits, and compliance packs — stored in Supabase Storage.</p>
+    </div>
+  </header>
+
+  <section class="panel">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Document</th>
+          <th>Category</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          demoDocuments.map((doc) => (
+            <tr>
+              <td>
+                <strong>{doc.title}</strong>
+              </td>
+              <td>{doc.category}</td>
+              <td>{doc.updated}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </section>
+</PortalLayout>

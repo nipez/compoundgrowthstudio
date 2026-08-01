@@ -1,0 +1,104 @@
+---
+import PortalLayout from '../../layouts/PortalLayout.astro';
+import { requireUser } from '../../lib/auth';
+import {
+  demoApprovals,
+  demoEngagement,
+  demoInvoices,
+  demoOrg,
+  demoTasks,
+} from '../../lib/demo-data';
+import { CLIENT_NAV } from '../../lib/modules';
+import { getSessionUser } from '../../lib/supabase';
+import { PLAN_LABELS, STATUS_LABELS } from '../../lib/types';
+
+const user = await getSessionUser(Astro.request, Astro.cookies);
+requireUser(user, 'client');
+
+const openTasks = demoTasks.filter((t) => t.status !== 'done').length;
+const pendingApprovals = demoApprovals.filter((a) => a.status === 'pending').length;
+const openInvoice = demoInvoices.find((i) => i.status === 'open');
+---
+
+<PortalLayout title="Home" user={user} nav={CLIENT_NAV} portalLabel="Client portal">
+  <header class="page-head">
+    <div>
+      <p class="eyebrow">{demoOrg.name}</p>
+      <h1>Welcome back, {user.fullName.split(' ')[0]}</h1>
+      <p class="lede">
+        Your growth engagement at a glance — finish intake, clear approvals, and keep billing current.
+      </p>
+    </div>
+    <div class="actions">
+      <a class="btn btn-primary" href="/client/onboarding/">Continue onboarding</a>
+      <a class="btn btn-ghost" href="/client/messages/">Message CGS</a>
+    </div>
+  </header>
+
+  <div class="grid grid-3">
+    <div class="panel stat">
+      <div class="label">Engagement</div>
+      <div class="value" style="font-size:20px;">{PLAN_LABELS[demoEngagement.planType]}</div>
+      <p class="meta"><span class="pill pill-blue">{STATUS_LABELS[demoEngagement.status]}</span></p>
+    </div>
+    <div class="panel stat">
+      <div class="label">Open tasks</div>
+      <div class="value">{openTasks}</div>
+      <p class="meta">Checklist items still owed by clinic or CGS</p>
+    </div>
+    <div class="panel stat">
+      <div class="label">Needs approval</div>
+      <div class="value">{pendingApprovals}</div>
+      <p class="meta">Creative or landing pages waiting on you</p>
+    </div>
+  </div>
+
+  <div class="grid grid-2" style="margin-top:16px;">
+    <section class="panel">
+      <h2>Next up</h2>
+      <p class="meta">Keep momentum during onboarding.</p>
+      <ul class="list">
+        {
+          demoTasks.slice(0, 4).map((task) => (
+            <li>
+              <div>
+                <strong>{task.title}</strong>
+                <p class="meta">{task.ownerSide === 'client' ? 'Your team' : 'CGS'} · {task.status.replace('_', ' ')}</p>
+              </div>
+              <span class={`pill ${task.status === 'done' ? 'pill-ok' : task.status === 'in_progress' ? 'pill-blue' : ''}`}>
+                {task.status.replace('_', ' ')}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+    <section class="panel">
+      <h2>Billing snapshot</h2>
+      <p class="meta">Stripe-backed retainers with invoice history in-portal.</p>
+      <ul class="list">
+        <li>
+          <div>
+            <strong>Monthly retainer</strong>
+            <p class="meta">${(demoEngagement.mrrCents / 100).toLocaleString()}/mo</p>
+          </div>
+          <span class="pill pill-ok">Active</span>
+        </li>
+        {
+          openInvoice && (
+            <li>
+              <div>
+                <strong>{openInvoice.number}</strong>
+                <p class="meta">Due {openInvoice.dueDate}</p>
+              </div>
+              <span class="pill pill-warn">${(openInvoice.amountCents / 100).toLocaleString()} open</span>
+            </li>
+          )
+        }
+      </ul>
+      <div class="actions" style="margin-top:16px;">
+        <a class="btn btn-ghost" href="/client/billing/">View billing</a>
+      </div>
+    </section>
+  </div>
+</PortalLayout>

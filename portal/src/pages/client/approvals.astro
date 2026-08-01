@@ -1,0 +1,52 @@
+---
+import PortalLayout from '../../layouts/PortalLayout.astro';
+import { requireUser } from '../../lib/auth';
+import { demoApprovals } from '../../lib/demo-data';
+import { CLIENT_NAV } from '../../lib/modules';
+import { getSessionUser } from '../../lib/supabase';
+
+const user = await getSessionUser(Astro.request, Astro.cookies);
+requireUser(user, 'client');
+---
+
+<PortalLayout title="Approvals" user={user} nav={CLIENT_NAV} portalLabel="Client portal">
+  <header class="page-head">
+    <div>
+      <p class="eyebrow">Sign-off</p>
+      <h1>Approvals</h1>
+      <p class="lede">Review landing pages, ad creative, and copy before anything goes live.</p>
+    </div>
+  </header>
+
+  <div class="grid">
+    {
+      demoApprovals.map((a) => (
+        <section class="panel">
+          <div style="display:flex;justify-content:space-between;gap:16px;align-items:flex-start;">
+            <div>
+              <h2>{a.title}</h2>
+              <p class="meta">{a.kind.replace('_', ' ')}</p>
+            </div>
+            <span
+              class={`pill ${a.status === 'pending' ? 'pill-warn' : a.status === 'approved' ? 'pill-ok' : 'pill-blue'}`}
+            >
+              {a.status.replace('_', ' ')}
+            </span>
+          </div>
+          <div class="actions" style="margin-top:16px;">
+            <form method="POST" action="/api/approvals/decide/">
+              <input type="hidden" name="id" value={a.id} />
+              <input type="hidden" name="decision" value="approved" />
+              <button class="btn btn-primary" type="submit">Approve</button>
+            </form>
+            <form method="POST" action="/api/approvals/decide/">
+              <input type="hidden" name="id" value={a.id} />
+              <input type="hidden" name="decision" value="changes_requested" />
+              <button class="btn btn-ghost" type="submit">Request changes</button>
+            </form>
+          </div>
+        </section>
+      ))
+    }
+  </div>
+</PortalLayout>

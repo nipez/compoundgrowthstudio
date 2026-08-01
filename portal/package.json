@@ -1,0 +1,22 @@
+{
+  "name": "cgs-portal",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev --port 4322",
+    "build": "astro build",
+    "preview": "astro preview --port 4322",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/node": "^11.0.3",
+    "@supabase/ssr": "^0.6.1",
+    "@supabase/supabase-js": "^2.111.0",
+    "astro": "^7.1.6",
+    "stripe": "^18.5.0"
+  }
+}

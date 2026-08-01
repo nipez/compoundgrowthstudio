@@ -1,0 +1,49 @@
+---
+import PortalLayout from '../../layouts/PortalLayout.astro';
+import { requireUser } from '../../lib/auth';
+import { demoMessages, demoOrg } from '../../lib/demo-data';
+import { CGS_NAV } from '../../lib/modules';
+import { getSessionUser } from '../../lib/supabase';
+
+const user = await getSessionUser(Astro.request, Astro.cookies);
+requireUser(user, 'cgs_staff');
+---
+
+<PortalLayout title="Messages" user={user} nav={CGS_NAV} portalLabel="CGS ops">
+  <header class="page-head">
+    <div>
+      <p class="eyebrow">Inbox</p>
+      <h1>Client messages</h1>
+      <p class="lede">Client-visible threads plus internal notes (`is_internal`) that clinics never see.</p>
+    </div>
+  </header>
+
+  <section class="panel">
+    <h2>{demoOrg.name}</h2>
+    <p class="meta">Conversion Foundation — GLP-1</p>
+    <div class="thread">
+      {
+        demoMessages.map((m) => (
+          <div class={`bubble ${m.side}`}>
+            <div class="who">
+              {m.from} · {new Date(m.at).toLocaleString()}
+            </div>
+            <div>{m.body}</div>
+          </div>
+        ))
+      }
+    </div>
+    <form class="form" method="POST" action="/api/messages/send/">
+      <div class="field">
+        <label for="body">Reply to clinic</label>
+        <textarea id="body" name="body" placeholder="Write a client-visible update…"></textarea>
+      </div>
+      <div class="field">
+        <label>
+          <input type="checkbox" name="internal" value="1" /> Internal note (CGS only)
+        </label>
+      </div>
+      <button class="btn btn-primary" type="submit">Send</button>
+    </form>
+  </section>
+</PortalLayout>

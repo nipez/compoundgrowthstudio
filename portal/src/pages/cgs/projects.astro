@@ -1,0 +1,71 @@
+---
+import PortalLayout from '../../layouts/PortalLayout.astro';
+import { requireUser } from '../../lib/auth';
+import { demoClients, demoDeliverables, demoEngagement } from '../../lib/demo-data';
+import { CGS_NAV } from '../../lib/modules';
+import { getSessionUser } from '../../lib/supabase';
+import { PLAN_LABELS, STATUS_LABELS } from '../../lib/types';
+
+const user = await getSessionUser(Astro.request, Astro.cookies);
+requireUser(user, 'cgs_staff');
+---
+
+<PortalLayout title="Projects" user={user} nav={CGS_NAV} portalLabel="CGS ops">
+  <header class="page-head">
+    <div>
+      <p class="eyebrow">Engagements</p>
+      <h1>Projects</h1>
+      <p class="lede">Track plan type, strategist ownership, deliverables, and lifecycle status.</p>
+    </div>
+  </header>
+
+  <div class="grid grid-2">
+    <section class="panel">
+      <h2>{demoEngagement.name}</h2>
+      <p class="meta">
+        {PLAN_LABELS[demoEngagement.planType]} · {STATUS_LABELS[demoEngagement.status]} · Strategist:{' '}
+        {demoEngagement.strategist}
+      </p>
+      <ul class="list">
+        {
+          demoDeliverables.map((d) => (
+            <li>
+              <div>
+                <strong>{d.title}</strong>
+                <p class="meta">
+                  {d.kind} · {d.period}
+                </p>
+              </div>
+              <span class="pill pill-blue">{d.status}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+    <section class="panel">
+      <h2>All engagements</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Clinic</th>
+            <th>Plan</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            demoClients.map((c) => (
+              <tr>
+                <td>{c.name}</td>
+                <td>{c.plan}</td>
+                <td>
+                  <span class="pill">{c.status}</span>
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </section>
+  </div>
+</PortalLayout>

@@ -11,6 +11,21 @@ The original self-contained HTML export lives in [`/site/`](./site/). Editable m
 - **Supabase** (leads + contact submissions, insert-only RLS)
 - **Railway** (Docker + nginx)
 
+## Client portal (`/portal`)
+
+Separate Astro SSR app for **client** and **CGS ops** logins — billing, intake/onboarding, messaging, approvals, deliverables, and documents.
+
+See [`portal/README.md`](./portal/README.md) for modules, local setup, and the Supabase migration [`supabase/migrations/002_portal_foundation.sql`](./supabase/migrations/002_portal_foundation.sql).
+
+```bash
+cd portal
+cp .env.example .env
+npm install
+npm run dev   # http://localhost:4322
+```
+
+Demo mode works without Supabase: open `/login/` → Continue as demo client / CGS ops.
+
 ## Pages
 
 | Route | Page |
