@@ -1,9 +1,17 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ServicesPage from '../../components/cms/ServicesPage.astro';
 import { pages } from '../../lib/site';
-import body from '../../content/partials/services.html?raw';
+import { fetchDocument, pageIds, type ServicesDoc } from '../../lib/sanity';
+
+const cms = await fetchDocument<ServicesDoc>(pageIds.services);
+const page = {
+  ...pages.services,
+  title: cms?.seo?.title || pages.services.title,
+  description: cms?.seo?.description || pages.services.description,
+};
 ---
 
-<BaseLayout page={pages.services}>
-  <Fragment set:html={body} />
+<BaseLayout page={page}>
+  <ServicesPage doc={cms} />
 </BaseLayout>

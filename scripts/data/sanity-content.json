@@ -1,0 +1,846 @@
+{
+  "homePage": {
+    "_type": "homePage",
+    "hero": {
+      "eyebrow": "Marketing for modern health clinics",
+      "headline": "The clinics that win aren't running better ads. They're running compliant ones.",
+      "subhead": "Visibility, education, trust, conversion, follow-up, and optimization — combined into one connected growth system for medically guided programs.",
+      "primaryCta": {
+        "label": "Find the Gaps in Your Growth System",
+        "href": "/contact/"
+      },
+      "secondaryCta": {
+        "label": "See the growth system →",
+        "href": "/system/"
+      }
+    },
+    "heroStats": [
+      {
+        "value": "$150M",
+        "label": "revenue scaled for one brand"
+      },
+      {
+        "value": "100+",
+        "label": "clinic locations grown"
+      }
+    ],
+    "marqueeItems": [
+      "More qualified consultations",
+      "Ads written to pass compliance review",
+      "Local visibility patients trust",
+      "Patient education that builds authority",
+      "Follow-up that turns interest into bookings",
+      "One connected system — not five silos"
+    ],
+    "whyUs": {
+      "eyebrow": "Why clinics choose us",
+      "title": "Specialized strategy for high-value health programs.",
+      "body": "We help modern clinics educate patients, build trust, improve visibility, strengthen provider authority, and create better follow-up systems — so growth compounds instead of stalling.",
+      "cards": [
+        {
+          "title": "We understand the patient journey",
+          "body": "Patients need education, reassurance, and trust before they ever request a consultation."
+        },
+        {
+          "title": "We avoid hype-driven marketing",
+          "body": "Responsible messaging, provider credibility, and claims clinics can review before publishing."
+        },
+        {
+          "title": "We build connected systems",
+          "body": "Content, visibility, landing pages, follow-up, and reporting work together — not in silos."
+        },
+        {
+          "title": "We focus on consult-ready demand",
+          "body": "Not just impressions — clearer education, stronger trust, and more qualified consultations."
+        }
+      ]
+    },
+    "growthSystem": {
+      "eyebrow": "One connected growth system",
+      "title": "Six stages. One system. Not six silos.",
+      "stages": [
+        {
+          "number": "1",
+          "title": "Visibility",
+          "body": "Get found by patients who can actually pay."
+        },
+        {
+          "number": "2",
+          "title": "Education",
+          "body": "Answer the questions that stall a $600/mo decision."
+        },
+        {
+          "number": "3",
+          "title": "Trust",
+          "body": "Make your clinic the safe choice in a skeptical category."
+        },
+        {
+          "number": "4",
+          "title": "Conversion",
+          "body": "Turn interest into booked consultations."
+        },
+        {
+          "number": "5",
+          "title": "Follow-Up",
+          "body": "Stop losing patients between click and consult."
+        },
+        {
+          "number": "6",
+          "title": "Optimization",
+          "body": "Double down on what produces qualified consults."
+        }
+      ],
+      "cta": {
+        "label": "See what we build at each stage →",
+        "href": "/system/"
+      }
+    },
+    "leadMagnet": {
+      "eyebrow": "Free guide",
+      "title": "Top 10 reasons your clinic's ads are struggling on Meta.",
+      "body": "The rejection triggers, targeting mistakes, and landing-page gaps we see most — and what to fix first. Straight to your inbox.",
+      "form": {
+        "emailPlaceholder": "you@yourclinic.com",
+        "submitLabelIdle": "Send Me the Free Guide",
+        "submitLabelDone": "Sent — check your inbox",
+        "noteIdle": "Free guide + the twice-monthly newsletter. Unsubscribe anytime.",
+        "noteDone": "On its way. You’re also on the newsletter — unsubscribe anytime."
+      }
+    },
+    "provenExperience": {
+      "eyebrow": "Proven growth experience",
+      "title": "Built by operators who have scaled brands, teams, and revenue.",
+      "stats": [
+        {
+          "value": "$150M",
+          "title": "B2B Brand & Revenue Growth",
+          "body": "Conor supported revenue growth from $20M to $150M through integrated strategy and demand generation."
+        },
+        {
+          "value": "4B+",
+          "title": "Audience & Media Growth",
+          "body": "A global media brand built to 300,000+ followers and over 4 billion impressions across platforms."
+        },
+        {
+          "value": "$25M ARR",
+          "title": "Scaled From the Ground Up",
+          "body": "Nick helped scale Bitwage's U.S. ARR from essentially zero to ~$25M as VP of Growth."
+        },
+        {
+          "value": "100+",
+          "title": "Healthcare Growth Infrastructure",
+          "body": "Marketing direction for a PE-backed healthcare organization with 100+ locations in multiple states."
+        }
+      ]
+    }
+  },
+  "servicesPage": {
+    "_type": "servicesPage",
+    "hero": {
+      "eyebrow": "Services",
+      "headline": "Services your clinic can actually use.",
+      "subhead": "Every service, organized by the six stages of the growth system — for clinics offering GLP-1, peptide therapy, medical weight loss, hormone, longevity, metabolic, functional health, and wellness programs."
+    },
+    "serviceGroups": [
+      {
+        "number": "Stage 1",
+        "stage": "Visibility",
+        "items": [
+          {
+            "title": "Local SEO + Service Pages",
+            "body": "Service pages, location pages, blog content, and copy that helps local patients understand and act."
+          },
+          {
+            "title": "Paid Acquisition + Landing Pages",
+            "body": "Campaign creative, landing page copy, lead forms, and consult flows designed around qualified interest."
+          }
+        ]
+      },
+      {
+        "number": "Stage 2",
+        "stage": "Education",
+        "items": [
+          {
+            "title": "Treatment Education + Messaging",
+            "body": "Credible content for GLP-1, peptide therapy, weight loss, hormone health, and longevity — eligibility, expectations, and provider oversight."
+          },
+          {
+            "title": "Social Media Management",
+            "body": "Educational content for Instagram, Facebook, TikTok, LinkedIn, YouTube Shorts, and Google Business Profile."
+          }
+        ]
+      },
+      {
+        "number": "Stage 3",
+        "stage": "Trust",
+        "items": [
+          {
+            "title": "Provider Authority",
+            "body": "Content that helps clinic owners and providers become trusted local voices."
+          },
+          {
+            "title": "Trust + Reputation Systems",
+            "body": "Review workflows, responsible trust signals, provider credibility, and patient-story structure for clinic approval."
+          }
+        ]
+      },
+      {
+        "number": "Stage 4",
+        "stage": "Conversion",
+        "items": [
+          {
+            "title": "Website + Conversion Copy",
+            "body": "Homepage, service page, landing page, and consult-flow copy that makes complex programs easier to understand."
+          },
+          {
+            "title": "Program Launch Campaigns",
+            "body": "Campaigns for new medically guided programs, new locations, seasonal education, and service rollouts."
+          }
+        ]
+      },
+      {
+        "number": "Stage 5",
+        "stage": "Follow-Up",
+        "items": [
+          {
+            "title": "Email + SMS Follow-Up",
+            "body": "Lead education, consult reminders, reactivation, retention, and patient follow-up sequences."
+          }
+        ]
+      },
+      {
+        "number": "Stage 6",
+        "stage": "Optimization",
+        "items": [
+          {
+            "title": "Reporting + Optimization",
+            "body": "Dashboards, call tracking, attribution, and conversion testing that show which campaigns produce consultations."
+          }
+        ]
+      }
+    ],
+    "closingCta": {
+      "eyebrow": "Next step",
+      "title": "Build the right marketing mix for your clinic.",
+      "body": "Start with the services your clinic needs now, then expand as demand, capacity, and patient education mature.",
+      "cta": {
+        "label": "Find the Gaps in Your Growth System",
+        "href": "/contact/"
+      }
+    }
+  },
+  "systemPage": {
+    "_type": "systemPage",
+    "hero": {
+      "eyebrow": "One connected growth system",
+      "headline": "Six stages that hand qualified patients to the next.",
+      "subhead": "Most clinics buy these as six separate projects from six vendors — and the seams cost them patients. We run them as one system, so every stage feeds the next instead of dropping the lead.",
+      "stageLabels": [
+        {
+          "number": "1",
+          "title": "Visibility"
+        },
+        {
+          "number": "2",
+          "title": "Education"
+        },
+        {
+          "number": "3",
+          "title": "Trust"
+        },
+        {
+          "number": "4",
+          "title": "Conversion"
+        },
+        {
+          "number": "5",
+          "title": "Follow-Up"
+        },
+        {
+          "number": "6",
+          "title": "Optimization"
+        }
+      ]
+    },
+    "stages": [
+      {
+        "number": "1",
+        "title": "Visibility",
+        "tag": "Get found by patients who can actually pay.",
+        "desc": "Cash-pay GLP-1 and peptide patients are searching right now. We make sure your clinic shows up — through ads that clear Meta’s health-category review instead of getting rejected.",
+        "builds": [
+          "Compliant paid acquisition",
+          "Local SEO",
+          "Google Business Profile"
+        ],
+        "handoffLabel": "Passes on",
+        "handoff": "A visitor who found you but isn’t ready to book."
+      },
+      {
+        "number": "2",
+        "title": "Education",
+        "tag": "Answer the questions that stall a $600/mo decision.",
+        "desc": "Peptide and hormone patients don’t convert on impulse. We build the content that resolves their doubts — dosing, safety, “is this legit” — before they ever fill out a form.",
+        "builds": [
+          "Treatment explainers",
+          "Provider-led content",
+          "FAQ resources"
+        ],
+        "handoffLabel": "Passes on",
+        "handoff": "A patient who understands the treatment but not yet you."
+      },
+      {
+        "number": "3",
+        "title": "Trust",
+        "tag": "Make your clinic the safe choice in a skeptical category.",
+        "desc": "Weight-loss and TRT buyers have been burned by shady telehealth. We establish the provider authority and proof that separates you from the compounding-pharmacy noise.",
+        "builds": [
+          "Provider authority",
+          "Reviews",
+          "Responsible, compliant messaging"
+        ],
+        "handoffLabel": "Passes on",
+        "handoff": "A patient who trusts you and is ready to act."
+      },
+      {
+        "number": "4",
+        "title": "Conversion",
+        "tag": "Turn interest into booked consultations.",
+        "desc": "A ready patient still leaves if the path is clunky. We build the landing pages, intake, and CTAs that move them from “interested” to on your calendar — with conversion tracking that survives Meta’s data restrictions.",
+        "builds": [
+          "Landing pages",
+          "Intake forms",
+          "Conversion tracking (CAPI)"
+        ],
+        "handoffLabel": "Passes on",
+        "handoff": "A booked lead worth keeping warm."
+      },
+      {
+        "number": "5",
+        "title": "Follow-Up",
+        "tag": "Stop losing patients between click and consult.",
+        "desc": "No-shows and cold leads quietly bleed revenue. We keep qualified prospects engaged with automated nurture so the consultation actually happens.",
+        "builds": [
+          "Email nurture",
+          "SMS reminders",
+          "Lead routing"
+        ],
+        "handoffLabel": "Passes on",
+        "handoff": "The data on who booked and who didn’t."
+      },
+      {
+        "number": "6",
+        "title": "Optimization",
+        "tag": "Double down on what produces qualified consults.",
+        "desc": "Most clinics can’t tell which ad produced which patient. We track it end to end, then reinvest in what works — so the whole system compounds instead of plateaus.",
+        "builds": [
+          "Attribution",
+          "Campaign reporting",
+          "Conversion testing"
+        ],
+        "handoffLabel": "Loops back",
+        "handoff": "Sharper targeting to Visibility — and the loop tightens."
+      }
+    ]
+  },
+  "glpPage": {
+    "_type": "glpPage",
+    "hero": {
+      "eyebrow": "GLP-1 + Peptide Marketing",
+      "headline": "Marketing for GLP-1 and peptide programs, built to survive ad review.",
+      "subhead": "These are the hardest programs in health marketing: platform policy is strict, patients arrive skeptical and price-sensitive, and every competitor is running the same three ads. We build the education, trust, and conversion layer that makes a clinic the credible option.",
+      "primaryCta": {
+        "label": "Find the Gaps in Your Growth System",
+        "href": "/contact/"
+      },
+      "secondaryCta": {
+        "label": "See the six-stage system →",
+        "href": "/system/"
+      }
+    },
+    "whyDifferent": {
+      "eyebrow": "Why it's different",
+      "title": "Three reasons these programs stall.",
+      "cards": [
+        {
+          "title": "Platform policy blocks the obvious ads",
+          "body": "Prescription-medication language, before-and-after imagery, and outcome claims get rejected. Clinics either water everything down or keep resubmitting the same campaign."
+        },
+        {
+          "title": "Patients arrive skeptical",
+          "body": "They have read conflicting things about compounded versus brand, side effects, and cost. Without education, interest never becomes a consultation request."
+        },
+        {
+          "title": "Every competitor looks identical",
+          "body": "Same offer, same stock photo, same price anchor. Without provider credibility and a real point of view, the decision defaults to whoever is cheapest."
+        }
+      ]
+    },
+    "whatWeBuild": {
+      "eyebrow": "What we build",
+      "title": "The GLP-1 and peptide growth stack.",
+      "items": [
+        {
+          "number": "01",
+          "title": "Program positioning",
+          "body": "What your program includes, who it is for, and why it is worth more than the cheapest option in town — stated plainly."
+        },
+        {
+          "number": "02",
+          "title": "Compliant ad creative",
+          "body": "Meta and Google campaigns structured around policy from the first draft, with creative that gets attention without triggering review."
+        },
+        {
+          "number": "03",
+          "title": "Eligibility-first landing pages",
+          "body": "Pages that qualify patients as they read — eligibility, expectations, provider oversight, cost transparency — then route them into intake."
+        },
+        {
+          "number": "04",
+          "title": "Patient education library",
+          "body": "Treatment explainers, FAQs, and comparison content that answers the real questions before someone books."
+        },
+        {
+          "number": "05",
+          "title": "Provider-led authority content",
+          "body": "Your clinicians on camera and in writing, so the trust signal comes from a person rather than a brand."
+        },
+        {
+          "number": "06",
+          "title": "Nurture for the undecided",
+          "body": "Email and SMS sequences for the majority who are interested but not ready — the largest missed opportunity in these programs."
+        }
+      ]
+    },
+    "compliance": {
+      "eyebrow": "Compliance posture",
+      "title": "Written for review, not around it.",
+      "body": "Most clinic campaigns fail twice — once at platform review, and again when a patient decides whether to book. We design for both from the first draft, and your providers approve every clinical claim before it publishes.",
+      "points": [
+        {
+          "title": "Your providers approve clinical content",
+          "body": "Treatment details, eligibility, and any medical claim go through your licensed reviewers before publishing."
+        },
+        {
+          "title": "No outcome promises or before-and-afters",
+          "body": "We build credibility through process, oversight, and education instead of results imagery that platforms reject."
+        },
+        {
+          "title": "Structured for prescription-ad review",
+          "body": "Landing pages and creative follow platform requirements for regulated health categories from the start."
+        },
+        {
+          "title": "Documented and auditable",
+          "body": "Every claim traces back to an approved source, so a review request never becomes a scramble."
+        }
+      ]
+    },
+    "closingCta": {
+      "eyebrow": "Next step",
+      "title": "Find out why your program isn't converting.",
+      "body": "Thirty minutes on your visibility, consult path, and follow-up — with a written summary of the gaps we find.",
+      "cta": {
+        "label": "Find the Gaps in Your Growth System",
+        "href": "/contact/"
+      }
+    }
+  },
+  "pricingPage": {
+    "_type": "pricingPage",
+    "hero": {
+      "eyebrow": "Get started",
+      "headline": "Start small. Scale when it works.",
+      "subhead": "Four ways in — a compliant foundation, ongoing strategy, a full growth system, or a one-time fix when your ads are stuck."
+    },
+    "intro": "One path, four entry points — most clinics start in the middle and grow up.",
+    "tiers": [
+      {
+        "name": "Clinic Growth Community",
+        "price": "$100",
+        "period": "/month",
+        "description": "Strategy, ideas, and frameworks before execution — for clinics that want direction without a full engagement.",
+        "features": [
+          "Practical clinic marketing guidance",
+          "Patient education ideas and templates",
+          "Frameworks you can apply immediately",
+          "Strategy support before you commit"
+        ],
+        "cta": {
+          "label": "Join the Community",
+          "href": "/contact/"
+        },
+        "highlighted": false,
+        "badge": null
+      },
+      {
+        "name": "Conversion Foundation",
+        "price": "$1,000",
+        "period": "/month",
+        "description": "A managed acquisition foundation for one program: compliant landing page, intake flow, and continuous optimization. No setup fee, cancel anytime.",
+        "features": [
+          "Compliant landing page + full intake flow",
+          "Written to pass prescription-ad review",
+          "Ongoing updates and A/B testing monthly",
+          "Conversion tracking + monthly reporting",
+          "Grows with you — add paid, SEO, or nurture"
+        ],
+        "cta": {
+          "label": "Start With the Foundation",
+          "href": "/contact/"
+        },
+        "highlighted": true,
+        "badge": "Where most clinics start"
+      },
+      {
+        "name": "Full Growth System",
+        "price": "Custom",
+        "period": " / retainer",
+        "description": "The complete six-stage system run as one engine — visibility, education, trust, conversion, follow-up, and optimization working together.",
+        "features": [
+          "All six stages managed as one system",
+          "Paid acquisition, local SEO, and content",
+          "Provider authority + reputation systems",
+          "Email/SMS nurture for the undecided",
+          "Fractional growth leadership for your clinic"
+        ],
+        "cta": {
+          "label": "Book a Growth Call",
+          "href": "/contact/"
+        },
+        "highlighted": false,
+        "badge": null
+      }
+    ],
+    "recovery": {
+      "eyebrow": "One-time fix · Fixed timeline",
+      "title": "Ad Account Recovery",
+      "body": "Ads rejected, account flagged, or campaigns stuck in review? We audit your setup, rebuild the copy and landing page for compliance, and get you clear to run — in a fixed two-week window, no retainer required.",
+      "priceLabel": "Fixed price",
+      "timeline": "Delivered in 2 weeks",
+      "cta": {
+        "label": "See What's Included",
+        "href": "/contact/"
+      }
+    },
+    "footerNote": {
+      "textBeforeLink": "Not sure where to start?",
+      "linkLabel": "Find the gaps in your growth system →",
+      "linkHref": "/contact/"
+    },
+    "newsletter": {
+      "emailPlaceholder": "you@yourclinic.com",
+      "submitLabelIdle": "Send Me the Newsletter",
+      "submitLabelDone": "You're in — check your inbox",
+      "noteIdle": "Twice a month. Unsubscribe anytime.",
+      "noteDone": "Thanks. First issue lands within two weeks."
+    }
+  },
+  "leadershipPage": {
+    "_type": "leadershipPage",
+    "hero": {
+      "eyebrow": "Leadership",
+      "headline": "Operators, not account managers.",
+      "subhead": "Experience across healthcare, SaaS, fintech, B2B, consumer, media, and multi-location growth environments — applied to modern health clinics."
+    },
+    "founders": [
+      {
+        "name": "Conor",
+        "role": "Co-Founder · Brand & Demand",
+        "bio": "Supported B2B revenue growth from $20M to $150M through integrated strategy and demand generation, and built a global media brand to 300,000+ followers and 4B+ impressions.",
+        "photoSrc": "/images/conor.jpg",
+        "photoAlt": "Conor"
+      },
+      {
+        "name": "Nick",
+        "role": "Co-Founder · Growth & Healthcare",
+        "bio": "Scaled Bitwage's U.S. ARR from zero to ~$25M as VP of Growth, and directed marketing for a PE-backed healthcare organization with 100+ locations across multiple states.",
+        "photoSrc": "/images/nick.jpg",
+        "photoAlt": "Nick"
+      }
+    ],
+    "partnersSection": {
+      "title": "Specialist partners",
+      "subhead": "Co-founders lead the studio. Specialist partners support client delivery across creative, systems, and client experience.",
+      "partners": [
+        {
+          "name": "Tony Pardilla",
+          "role": "Creative Partner, Design & Web",
+          "bio": "Tony supports creative and web execution behind the studio’s clinic growth work — turning strategy into polished landing pages, campaign creative, visual systems, and conversion-focused digital experiences.",
+          "helps": [
+            "Website design direction",
+            "Landing pages",
+            "Brand identity support",
+            "Campaign creative",
+            "Social templates",
+            "Conversion-focused design"
+          ]
+        },
+        {
+          "name": "Chris Cyril",
+          "role": "Systems & Technology Partner",
+          "bio": "Chris supports the systems and technology layer behind the growth engine — connecting forms, tracking, CRM workflows, automation, integrations, analytics, and reporting.",
+          "helps": [
+            "Lead form setup",
+            "CRM workflow support",
+            "Tracking",
+            "Automation systems",
+            "Funnel infrastructure",
+            "Reporting systems"
+          ]
+        },
+        {
+          "name": "Jessica Rodrigues",
+          "role": "Client Experience Coordinator",
+          "bio": "Jessica supports onboarding, communication, scheduling, follow-ups, asset collection, and project coordination — so clinic teams always know what is happening and what comes next.",
+          "helps": [
+            "Onboarding",
+            "Scheduling",
+            "Client communication",
+            "Follow-ups",
+            "Asset collection",
+            "Project coordination"
+          ]
+        }
+      ]
+    },
+    "trackRecord": {
+      "title": "Track record",
+      "items": [
+        "Led growth at Capital One Shopping, increasing the user base by more than 600% in six months.",
+        "Founded a digital marketing agency that was successfully acquired.",
+        "Led a 25+ person global demand generation organization.",
+        "Managed growth across more than a dozen SaaS products simultaneously.",
+        "Generated 500 qualified leads nationally for a new service vertical.",
+        "Created $1M in new recurring revenue through subscription-based programs."
+      ]
+    }
+  },
+  "faqPage": {
+    "_type": "faqPage",
+    "hero": {
+      "eyebrow": "FAQ",
+      "headline": "Questions clinics ask before they start.",
+      "subhead": null
+    },
+    "faqs": [
+      {
+        "question": "Do you only work with GLP-1 and weight loss clinics?",
+        "answer": "Those are the most common, but the system applies to any medically guided program with a high-value consultation: peptide therapy, hormone health, longevity, metabolic and functional health, and wellness programs."
+      },
+      {
+        "question": "Can you keep our ads from getting rejected?",
+        "answer": "We structure pages, creative, and copy around prescription-advertising policy from the start — that is the single biggest reason clinic campaigns stall. We cannot guarantee a platform decision, but compliance is designed in rather than patched later."
+      },
+      {
+        "question": "Who approves medical claims?",
+        "answer": "You do. Every treatment detail, eligibility statement, and patient-facing clinical claim goes to your licensed providers for review before it publishes. We write for review, not around it."
+      },
+      {
+        "question": "How long until we see results?",
+        "answer": "Conversion work (landing pages, intake flows, follow-up) tends to show movement in the first 30–60 days. Visibility and education compound over 3–6 months. We report on both timelines so you can tell which is which."
+      },
+      {
+        "question": "Do we have to buy the whole system?",
+        "answer": "No. Most clinics start with one stage — usually Conversion — and add Visibility, Follow-Up, or Optimization as capacity and demand grow. The stages are built to connect later."
+      },
+      {
+        "question": "Will you work with our existing website or agency?",
+        "answer": "Yes. We often build alongside an existing site and hand off documentation. If you already have an agency running paid media, we can own conversion and follow-up and feed them better inputs."
+      },
+      {
+        "question": "What do you need from us to start?",
+        "answer": "Access to your site, ad accounts, and analytics; one clinical reviewer for content approval; and roughly an hour a month from someone who can answer program questions. We handle the rest."
+      },
+      {
+        "question": "What happens on the growth gap call?",
+        "answer": "Thirty minutes. We look at your visibility, your consult path, and your follow-up, then send a written summary of the gaps we found and what we would fix first — whether or not you hire us."
+      }
+    ],
+    "closingCta": {
+      "title": "Still deciding?",
+      "body": "One call, no pitch — we'll show you where the gaps are.",
+      "cta": {
+        "label": "Find the Gaps in Your Growth System",
+        "href": "/contact/"
+      }
+    }
+  },
+  "contactPage": {
+    "_type": "contactPage",
+    "hero": {
+      "eyebrow": "Clinic growth call",
+      "headline": "Bring us the clinic. We'll map the growth system.",
+      "subhead": "In one call we'll identify the clearest acquisition opportunities, conversion gaps, and follow-up improvements for your clinic."
+    },
+    "bullets": [
+      "30 minutes, no pitch deck",
+      "A written summary of the gaps we find",
+      "Clear next step whether or not you hire us"
+    ],
+    "form": {
+      "fields": [
+        {
+          "name": "name",
+          "placeholder": "Your name",
+          "required": true
+        },
+        {
+          "name": "clinic",
+          "placeholder": "Clinic name",
+          "required": false
+        },
+        {
+          "name": "email",
+          "placeholder": "Work email",
+          "required": true,
+          "type": "email"
+        },
+        {
+          "name": "message",
+          "placeholder": "Which program are you trying to grow?",
+          "required": false,
+          "type": "textarea"
+        }
+      ],
+      "newsletterCheckboxLabel": "Also send me the newsletter",
+      "submitLabelIdle": "Request My Growth Gap Review",
+      "submitLabelDone": "Request received — we’ll reply within one business day",
+      "noteIdle": "No obligation. We’ll never share your clinic details.",
+      "noteDone": "We’ll email you two or three times to find a slot that works."
+    }
+  },
+  "aiVoicePage": {
+    "_type": "aiVoicePage",
+    "hero": {
+      "eyebrow": "24/7 AI Inbound Agent",
+      "headline": "Never miss another patient inquiry.",
+      "headlineHighlight": "patient inquiry.",
+      "subhead": "Our AI voice and chat receptionist answers every call and message instantly — day or night — qualifies the lead, books the consult, and drops it straight into your CRM. Here’s a live demo for a GLP-1 / peptide wellness clinic.",
+      "liveBadge": "Try it live — click “Start a call” or “Chat” below"
+    },
+    "demo": {
+      "embedUrl": "https://midwest-exteriors-production.up.railway.app/receptionist/wellness?embed=1",
+      "iframeTitle": "24/7 AI Inbound Voice Agent demo",
+      "caption": "The panel on the right is a live internal CRM view that fills in during the call or chat."
+    },
+    "features": [
+      {
+        "title": "Answers instantly, 24/7",
+        "body": "Every call and chat gets picked up on the first ring — nights, weekends, and while your front desk is with a patient."
+      },
+      {
+        "title": "Qualifies and books",
+        "body": "It asks the intake questions, screens for fit, and books the consultation directly on your calendar."
+      },
+      {
+        "title": "Feeds your CRM",
+        "body": "Every conversation lands in your CRM with contact details, qualification notes, and next steps — no manual entry."
+      }
+    ],
+    "closingCta": {
+      "title": "Want this answering your clinic’s phone?",
+      "body": "We’ll configure it around your programs, intake questions, and calendar — and connect it to your CRM.",
+      "cta": {
+        "label": "Book a Demo Call",
+        "href": "/contact/"
+      }
+    }
+  },
+  "siteSettings": {
+    "_type": "siteSettings",
+    "brand": {
+      "name": "Compound Growth Studio",
+      "mark": "CG"
+    },
+    "nav": {
+      "items": [
+        {
+          "label": "Services",
+          "href": "/services/"
+        },
+        {
+          "label": "GLP-1 + Peptide",
+          "href": "/glp-1-peptide-marketing/"
+        },
+        {
+          "label": "Growth System",
+          "href": "/system/"
+        },
+        {
+          "label": "Get Started",
+          "href": "/pricing/"
+        },
+        {
+          "label": "Leadership",
+          "href": "/leadership/"
+        },
+        {
+          "label": "FAQ",
+          "href": "/faq/"
+        }
+      ],
+      "cta": {
+        "label": "Find Your Growth Gaps",
+        "href": "/contact/"
+      }
+    },
+    "footer": {
+      "blurb": "A boutique growth strategy and digital marketing studio for modern health clinics offering high-value GLP-1, peptide therapy, medical weight loss, hormone health, longevity, metabolic, functional health, and wellness programs.",
+      "leadMagnet": {
+        "title": "Free guide: Top 10 reasons your clinic's ads are struggling on Meta",
+        "emailPlaceholder": "you@yourclinic.com",
+        "submitLabelIdle": "Get the Guide",
+        "submitLabelDone": "Sent ✓"
+      },
+      "explore": {
+        "heading": "Explore",
+        "links": [
+          {
+            "label": "Services",
+            "href": "/services/"
+          },
+          {
+            "label": "GLP-1 + Peptide Marketing",
+            "href": "/glp-1-peptide-marketing/"
+          },
+          {
+            "label": "Growth System",
+            "href": "/system/"
+          },
+          {
+            "label": "AI Voice Agent",
+            "href": "/ai-voice-agent/"
+          },
+          {
+            "label": "Leadership",
+            "href": "/leadership/"
+          },
+          {
+            "label": "FAQ",
+            "href": "/faq/"
+          }
+        ]
+      },
+      "getStarted": {
+        "heading": "Get started",
+        "links": [
+          {
+            "label": "Pricing & Community",
+            "href": "/pricing/"
+          },
+          {
+            "label": "Join the newsletter",
+            "href": "/pricing/#newsletter"
+          },
+          {
+            "label": "Book a growth call",
+            "href": "/contact/"
+          }
+        ]
+      },
+      "disclaimer": "Compound Growth Studio provides marketing strategy, content, and digital growth support. Medical claims, treatment details, pricing, eligibility, prescription information, and patient-facing clinical content should be reviewed and approved by the clinic's licensed medical professionals before publishing."
+    },
+    "primaryCtaLabel": "Find the Gaps in Your Growth System",
+    "navCtaLabel": "Find Your Growth Gaps"
+  }
+}

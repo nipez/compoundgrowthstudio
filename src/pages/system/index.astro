@@ -1,9 +1,17 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SystemPage from '../../components/cms/SystemPage.astro';
 import { pages } from '../../lib/site';
-import body from '../../content/partials/system.html?raw';
+import { fetchDocument, pageIds, type SystemDoc } from '../../lib/sanity';
+
+const cms = await fetchDocument<SystemDoc>(pageIds.system);
+const page = {
+  ...pages.system,
+  title: cms?.seo?.title || pages.system.title,
+  description: cms?.seo?.description || pages.system.description,
+};
 ---
 
-<BaseLayout page={pages.system}>
-  <Fragment set:html={body} />
+<BaseLayout page={page}>
+  <SystemPage doc={cms} />
 </BaseLayout>
