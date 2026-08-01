@@ -549,8 +549,20 @@ class Expander:
             html,
         )
 
-        # Strip leftover sc-* attrs — forms get data attributes later
-        html = re.sub(r'\s*sc-camel-[a-z-]+="[^"]*"', "", html)
+        # Convert sc-camel-* to real DOM attrs (DC runtime camelCases these).
+        # e.g. sc-camel-view-box="0 0 560 420" → viewBox="0 0 560 420"
+        def camel_attr(match: re.Match) -> str:
+            kebab = match.group(1)
+            value = match.group(2)
+            if kebab in ("on-submit",):
+                return ""  # wired separately as data-cgs-form
+            if kebab == "default-checked":
+                return " checked"
+            parts = kebab.split("-")
+            camel = parts[0] + "".join(p.title() for p in parts[1:])
+            return f' {camel}="{value}"'
+
+        html = re.sub(r'\s*sc-camel-([a-z0-9-]+)="([^"]*)"', camel_attr, html)
         html = re.sub(r'\s*hint-placeholder-[a-z-]+="[^"]*"', "", html)
 
         return html
