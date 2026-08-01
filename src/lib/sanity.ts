@@ -43,49 +43,262 @@ export async function fetchDocument<T>(id: string): Promise<T | null> {
   }
 }
 
-export type Seo = {title?: string; description?: string};
-export type FaqDoc = {
-  seo?: Seo;
+export type SanityDocumentBase<TType extends string> = {
+  _id?: string;
+  _type?: TType;
+  _createdAt?: string;
+  _updatedAt?: string;
+  _rev?: string;
+};
+
+export type Seo = {
+  title?: string;
+  description?: string;
+};
+
+export type Link = {
+  label?: string;
+  href?: string;
+};
+
+export type Cta = Link;
+
+export type FaqItem = {
+  question?: string;
+  answer?: string;
+};
+
+export type FeatureCard = {
+  title?: string;
+  body?: string;
+};
+
+export type NumberedBlock = {
+  number?: string;
+  title?: string;
+  body?: string;
+};
+
+export type StagePill = {
+  number?: string;
+  title?: string;
+};
+
+export type StatCard = {
+  value?: string;
+  title?: string;
+  label?: string;
+  body?: string;
+};
+
+export type PricingTier = {
+  badge?: string | null;
+  name?: string;
+  price?: string;
+  period?: string;
+  description?: string;
+  features?: string[];
+  ctaLabel?: string;
+  ctaHref?: string;
+  highlighted?: boolean;
+};
+
+export type ServiceItem = {
+  title?: string;
+  body?: string;
+};
+
+export type ServiceGroup = {
+  number?: string;
+  stage?: string;
+  items?: ServiceItem[];
+};
+
+export type SystemStage = {
+  number?: string;
+  title?: string;
+  tag?: string;
+  desc?: string;
+  builds?: string[];
+  handoffLabel?: string;
+  handoff?: string;
+};
+
+export type PersonCard = {
+  name?: string;
+  role?: string;
+  bio?: string;
+  photoUrl?: string;
+  photoAlt?: string;
+  helps?: string[];
+};
+
+export type ClosingCta = {
+  eyebrow?: string;
+  title?: string;
+  body?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+};
+
+export type FormCopy = {
+  emailPlaceholder?: string;
+  namePlaceholder?: string;
+  clinicPlaceholder?: string;
+  messagePlaceholder?: string;
+  newsletterCheckboxLabel?: string;
+  submitLabelIdle?: string;
+  submitLabelDone?: string;
+  noteIdle?: string;
+  noteDone?: string;
+};
+
+export type HeroFields = {
   eyebrow?: string;
   headline?: string;
   subhead?: string;
-  faqs?: {question: string; answer: string}[];
 };
-export type PricingDoc = {
-  seo?: Seo;
-  eyebrow?: string;
-  headline?: string;
-  subhead?: string;
-  intro?: string;
-  tiers?: {
-    eyebrow?: string;
-    name?: string;
-    price?: string;
-    priceNote?: string;
-    description?: string;
-    features?: string[];
-    ctaLabel?: string;
-    ctaHref?: string;
-    featured?: boolean;
-  }[];
-  recoveryTitle?: string;
-  recoveryBody?: string;
-  recoveryCtaLabel?: string;
-};
-export type HomeDoc = {
-  seo?: Seo;
-  eyebrow?: string;
-  headline?: string;
-  subhead?: string;
-  primaryCtaLabel?: string;
-  secondaryCtaLabel?: string;
-  secondaryCtaHref?: string;
-  leadMagnetEyebrow?: string;
-  leadMagnetTitle?: string;
-  leadMagnetBody?: string;
-};
-export type SiteSettings = {
+
+export type HomeDoc = SanityDocumentBase<'homePage'> &
+  HeroFields & {
+    seo?: Seo;
+    primaryCtaLabel?: string;
+    primaryCtaHref?: string;
+    secondaryCtaLabel?: string;
+    secondaryCtaHref?: string;
+    heroStats?: StatCard[];
+    marqueeItems?: string[];
+    whyEyebrow?: string;
+    whyTitle?: string;
+    whyBody?: string;
+    pillars?: FeatureCard[];
+    systemEyebrow?: string;
+    systemTitle?: string;
+    systemStages?: NumberedBlock[];
+    systemCtaLabel?: string;
+    systemCtaHref?: string;
+    leadMagnetEyebrow?: string;
+    leadMagnetTitle?: string;
+    leadMagnetBody?: string;
+    leadMagnetForm?: FormCopy;
+    provenEyebrow?: string;
+    provenTitle?: string;
+    provenStats?: StatCard[];
+  };
+
+export type ServicesDoc = SanityDocumentBase<'servicesPage'> &
+  HeroFields & {
+    seo?: Seo;
+    serviceGroups?: ServiceGroup[];
+    closingCta?: ClosingCta;
+  };
+
+export type SystemDoc = SanityDocumentBase<'systemPage'> &
+  HeroFields & {
+    seo?: Seo;
+    stageLabels?: StagePill[];
+    stages?: SystemStage[];
+  };
+
+export type GlpDoc = SanityDocumentBase<'glpPage'> &
+  HeroFields & {
+    seo?: Seo;
+    primaryCtaLabel?: string;
+    primaryCtaHref?: string;
+    secondaryCtaLabel?: string;
+    secondaryCtaHref?: string;
+    whyEyebrow?: string;
+    whyTitle?: string;
+    whyCards?: FeatureCard[];
+    stackEyebrow?: string;
+    stackTitle?: string;
+    stackItems?: NumberedBlock[];
+    complianceEyebrow?: string;
+    complianceTitle?: string;
+    complianceBody?: string;
+    compliancePoints?: FeatureCard[];
+    closingCta?: ClosingCta;
+  };
+
+export type PricingDoc = SanityDocumentBase<'pricingPage'> &
+  HeroFields & {
+    seo?: Seo;
+    intro?: string;
+    tiers?: PricingTier[];
+    recoveryEyebrow?: string;
+    recoveryTitle?: string;
+    recoveryBody?: string;
+    recoveryPriceLabel?: string;
+    recoveryTimeline?: string;
+    recoveryCtaLabel?: string;
+    recoveryCtaHref?: string;
+    footerNoteBefore?: string;
+    footerNoteLinkLabel?: string;
+    footerNoteLinkHref?: string;
+    newsletter?: FormCopy;
+  };
+
+export type LeadershipDoc = SanityDocumentBase<'leadershipPage'> &
+  HeroFields & {
+    seo?: Seo;
+    founders?: PersonCard[];
+    partnersTitle?: string;
+    partnersSubhead?: string;
+    partners?: PersonCard[];
+    trackRecordTitle?: string;
+    trackRecordItems?: string[];
+  };
+
+export type FaqDoc = SanityDocumentBase<'faqPage'> &
+  HeroFields & {
+    seo?: Seo;
+    faqs?: FaqItem[];
+    closingCta?: ClosingCta;
+  };
+
+export type ContactDoc = SanityDocumentBase<'contactPage'> &
+  HeroFields & {
+    seo?: Seo;
+    bullets?: string[];
+    form?: FormCopy;
+  };
+
+export type AiVoiceDoc = SanityDocumentBase<'aiVoicePage'> &
+  HeroFields & {
+    seo?: Seo;
+    headlineHighlight?: string;
+    liveBadge?: string;
+    embedUrl?: string;
+    iframeTitle?: string;
+    demoCaption?: string;
+    features?: FeatureCard[];
+    closingCta?: ClosingCta;
+  };
+
+export type SiteSettings = SanityDocumentBase<'siteSettings'> & {
+  brandName?: string;
+  brandMark?: string;
+  navItems?: Link[];
   navCtaLabel?: string;
+  navCtaHref?: string;
   primaryCtaLabel?: string;
   footerBlurb?: string;
+  footerLeadMagnetTitle?: string;
+  footerLeadMagnet?: FormCopy;
+  footerExploreHeading?: string;
+  footerExploreLinks?: Link[];
+  footerGetStartedHeading?: string;
+  footerGetStartedLinks?: Link[];
+  footerDisclaimer?: string;
 };
+
+export type PageDocument =
+  | HomeDoc
+  | ServicesDoc
+  | SystemDoc
+  | GlpDoc
+  | PricingDoc
+  | LeadershipDoc
+  | FaqDoc
+  | ContactDoc
+  | AiVoiceDoc;

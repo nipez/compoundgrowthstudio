@@ -180,10 +180,12 @@ function initCounters() {
 
 function initAiDemoHeight() {
   window.addEventListener('message', (event) => {
-    if (event.origin !== 'https://midwest-exteriors-production.up.railway.app') return;
+    const f = document.getElementById('ai-demo') as HTMLIFrameElement | null;
+    const allowedOrigin =
+      f?.dataset.aiDemoOrigin || 'https://midwest-exteriors-production.up.railway.app';
+    if (event.origin !== allowedOrigin) return;
     const d = event.data;
     if (d && d.type === 'ai-demo:height' && typeof d.height === 'number') {
-      const f = document.getElementById('ai-demo');
       if (f) f.style.height = `${d.height}px`;
     }
   });

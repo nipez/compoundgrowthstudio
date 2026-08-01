@@ -1,0 +1,140 @@
+---
+import type {ClosingCta, ServiceGroup, ServicesDoc} from '../../lib/sanity';
+
+interface Props {
+  doc?: ServicesDoc | null;
+}
+
+const {doc = {} as ServicesDoc} = Astro.props;
+
+const defaults = {
+  eyebrow: 'Services',
+  headline: 'Services your clinic can actually use.',
+  subhead:
+    'Every service, organized by the six stages of the growth system — for clinics offering GLP-1, peptide therapy, medical weight loss, hormone, longevity, metabolic, functional health, and wellness programs.',
+  serviceGroups: [
+    {
+      number: 'Stage 1',
+      stage: 'Visibility',
+      items: [
+        {
+          title: 'Local SEO + Service Pages',
+          body: 'Service pages, location pages, blog content, and copy that helps local patients understand and act.',
+        },
+        {
+          title: 'Paid Acquisition + Landing Pages',
+          body: 'Campaign creative, landing page copy, lead forms, and consult flows designed around qualified interest.',
+        },
+      ],
+    },
+    {
+      number: 'Stage 2',
+      stage: 'Education',
+      items: [
+        {
+          title: 'Treatment Education + Messaging',
+          body: 'Credible content for GLP-1, peptide therapy, weight loss, hormone health, and longevity — eligibility, expectations, and provider oversight.',
+        },
+        {
+          title: 'Social Media Management',
+          body: 'Educational content for Instagram, Facebook, TikTok, LinkedIn, YouTube Shorts, and Google Business Profile.',
+        },
+      ],
+    },
+    {
+      number: 'Stage 3',
+      stage: 'Trust',
+      items: [
+        {title: 'Provider Authority', body: 'Content that helps clinic owners and providers become trusted local voices.'},
+        {
+          title: 'Trust + Reputation Systems',
+          body: 'Review workflows, responsible trust signals, provider credibility, and patient-story structure for clinic approval.',
+        },
+      ],
+    },
+    {
+      number: 'Stage 4',
+      stage: 'Conversion',
+      items: [
+        {
+          title: 'Website + Conversion Copy',
+          body: 'Homepage, service page, landing page, and consult-flow copy that makes complex programs easier to understand.',
+        },
+        {
+          title: 'Program Launch Campaigns',
+          body: 'Campaigns for new medically guided programs, new locations, seasonal education, and service rollouts.',
+        },
+      ],
+    },
+    {
+      number: 'Stage 5',
+      stage: 'Follow-Up',
+      items: [
+        {
+          title: 'Email + SMS Follow-Up',
+          body: 'Lead education, consult reminders, reactivation, retention, and patient follow-up sequences.',
+        },
+      ],
+    },
+    {
+      number: 'Stage 6',
+      stage: 'Optimization',
+      items: [
+        {
+          title: 'Reporting + Optimization',
+          body: 'Dashboards, call tracking, attribution, and conversion testing that show which campaigns produce consultations.',
+        },
+      ],
+    },
+  ] satisfies ServiceGroup[],
+  closingCta: {
+    eyebrow: 'Next step',
+    title: 'Build the right marketing mix for your clinic.',
+    body: 'Start with the services your clinic needs now, then expand as demand, capacity, and patient education mature.',
+    ctaLabel: 'Find the Gaps in Your Growth System',
+    ctaHref: '/contact/',
+  } satisfies ClosingCta,
+};
+
+const serviceGroups = doc?.serviceGroups?.length ? doc.serviceGroups : defaults.serviceGroups;
+const closingCta = {...defaults.closingCta, ...(doc?.closingCta ?? {})};
+---
+
+<div>
+  <header style="background: #0A1D38; color: #F4F7FB; position: relative; overflow: hidden;">
+    <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(127,176,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(127,176,255,.07) 1px, transparent 1px); background-size: 56px 56px;"></div>
+    <div style="position: relative; max-width: 1280px; margin: 0 auto; padding: 84px 48px 76px;">
+      <div style="font-size: 12.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #7FB0FF; animation: rise .6s both;">{doc?.eyebrow ?? defaults.eyebrow}</div>
+      <h1 style="margin: 18px 0 0; max-width: 900px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 52px; line-height: 1.06; letter-spacing: -2px; animation: rise .7s .1s both;">{doc?.headline ?? defaults.headline}</h1>
+      <p style="margin: 22px 0 0; max-width: 640px; font-size: 17.5px; line-height: 1.6; color: rgba(244,247,251,.74); animation: rise .7s .2s both;">{doc?.subhead ?? defaults.subhead}</p>
+    </div>
+  </header>
+  <section style="max-width: 1280px; margin: 0 auto; padding: 76px 48px 100px;">
+    <div style="display: grid; gap: 16px;">
+      {serviceGroups.map((group, groupIndex) => (
+        <div style="display: grid; grid-template-columns: 230px 1fr; gap: 1px; background: rgba(10,29,56,.11); border: 1px solid rgba(10,29,56,.11); border-radius: 4px; overflow: hidden;">
+          <div style="display: flex; flex-direction: column; justify-content: center; gap: 7px; padding: 26px 28px; background: #0A1D38; color: #F4F7FB;">
+            <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: #7FB0FF;">{group.number ?? defaults.serviceGroups[groupIndex]?.number}</div>
+            <h2 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 23px; letter-spacing: -.7px;">{group.stage ?? defaults.serviceGroups[groupIndex]?.stage}</h2>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1px; background: rgba(10,29,56,.11);">
+            {(group.items?.length ? group.items : defaults.serviceGroups[groupIndex]?.items ?? []).map((service, itemIndex) => (
+              <div class="cgs-h31" style="padding: 26px 28px; background: #FFFFFF; transition: background .25s;">
+                <h3 style="margin: 0 0 8px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 19px; letter-spacing: -.4px;">{service.title ?? defaults.serviceGroups[groupIndex]?.items?.[itemIndex]?.title}</h3>
+                <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: rgba(10,29,56,.66);">{service.body ?? defaults.serviceGroups[groupIndex]?.items?.[itemIndex]?.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+    <div style="display: flex; align-items: center; justify-content: space-between; gap: 40px; margin-top: 60px; padding: 44px 44px; background: #E7EEFA; border-radius: 4px;">
+      <div>
+        {closingCta.eyebrow && <div style="font-size: 12.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #1A4FD0;">{closingCta.eyebrow}</div>}
+        <h2 style="margin: 12px 0 8px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 32px; letter-spacing: -1.2px;">{closingCta.title}</h2>
+        <p style="margin: 0; max-width: 620px; font-size: 15.5px; line-height: 1.6; color: rgba(10,29,56,.7);">{closingCta.body}</p>
+      </div>
+      <a class="cgs-h32" href={closingCta.ctaHref} style="flex-shrink: 0; display: inline-block; padding: 16px 26px; background: #1A4FD0; color: #FFFFFF; font-weight: 700; font-size: 15px; border-radius: 3px; transition: transform .2s;">{closingCta.ctaLabel}</a>
+    </div>
+  </section>
+</div>

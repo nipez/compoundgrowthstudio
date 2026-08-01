@@ -1,0 +1,65 @@
+---
+import type {ContactDoc} from '../../lib/sanity';
+
+interface Props {
+  doc?: ContactDoc | null;
+}
+
+const {doc = {} as ContactDoc} = Astro.props;
+
+const defaults = {
+  eyebrow: 'Clinic growth call',
+  headline: "Bring us the clinic. We'll map the growth system.",
+  subhead:
+    "In one call we'll identify the clearest acquisition opportunities, conversion gaps, and follow-up improvements for your clinic.",
+  bullets: [
+    '30 minutes, no pitch deck',
+    'A written summary of the gaps we find',
+    'Clear next step whether or not you hire us',
+  ],
+  form: {
+    namePlaceholder: 'Your name',
+    clinicPlaceholder: 'Clinic name',
+    emailPlaceholder: 'Work email',
+    messagePlaceholder: 'Which program are you trying to grow?',
+    newsletterCheckboxLabel: 'Also send me the newsletter',
+    submitLabelIdle: 'Request My Growth Gap Review',
+    submitLabelDone: 'Request received — we’ll reply within one business day',
+    noteIdle: 'No obligation. We’ll never share your clinic details.',
+    noteDone: 'We’ll email you two or three times to find a slot that works.',
+  },
+};
+
+const bullets = doc?.bullets?.length ? doc.bullets : defaults.bullets;
+const form = {...defaults.form, ...(doc?.form ?? {})};
+---
+
+<div style="background: #0A1D38; color: #F4F7FB; position: relative; overflow: hidden;">
+  <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(127,176,255,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(127,176,255,.06) 1px, transparent 1px); background-size: 56px 56px;"></div>
+  <div style="position: absolute; right: -80px; bottom: -120px; width: 560px; height: 560px; border-radius: 50%; background: radial-gradient(circle, rgba(26,79,208,.32), transparent 64%);"></div>
+  <div style="position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; max-width: 1180px; margin: 0 auto; padding: 92px 48px 110px;">
+    <div>
+      <div style="font-size: 12.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #7FB0FF; animation: rise .6s both;">{doc?.eyebrow ?? defaults.eyebrow}</div>
+      <h1 style="margin: 18px 0 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 50px; line-height: 1.05; letter-spacing: -2px; text-wrap: pretty; animation: rise .7s .1s both;">{doc?.headline ?? defaults.headline}</h1>
+      <p style="margin: 22px 0 0; max-width: 480px; font-size: 17px; line-height: 1.62; color: rgba(244,247,251,.74); animation: rise .7s .2s both;">{doc?.subhead ?? defaults.subhead}</p>
+      <div style="display: grid; gap: 14px; margin-top: 36px; animation: rise .7s .3s both;">
+        {bullets.map((bullet) => (
+          <div style="display: flex; gap: 12px; font-size: 15px; color: rgba(244,247,251,.82);"><span style="color: #7FB0FF; font-weight: 700;">✓</span>{bullet}</div>
+        ))}
+      </div>
+    </div>
+    <form data-cgs-form="contact" style="display: grid; gap: 14px; padding: 40px; background: rgba(244,247,251,.06); border: 1px solid rgba(244,247,251,.16); border-radius: 4px; backdrop-filter: blur(8px); animation: rise .8s .2s both;">
+      <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" />
+      <input name="name" class="cgs-f2" placeholder={form.namePlaceholder} required style="padding: 15px 16px; font-family: 'Archivo', sans-serif; font-size: 15px; color: #F4F7FB; background: rgba(10,29,56,.5); border: 1px solid rgba(244,247,251,.2); border-radius: 3px; outline: none;" />
+      <input name="clinic" class="cgs-f3" placeholder={form.clinicPlaceholder} style="padding: 15px 16px; font-family: 'Archivo', sans-serif; font-size: 15px; color: #F4F7FB; background: rgba(10,29,56,.5); border: 1px solid rgba(244,247,251,.2); border-radius: 3px; outline: none;" />
+      <input name="email" class="cgs-f4" type="email" placeholder={form.emailPlaceholder} required style="padding: 15px 16px; font-family: 'Archivo', sans-serif; font-size: 15px; color: #F4F7FB; background: rgba(10,29,56,.5); border: 1px solid rgba(244,247,251,.2); border-radius: 3px; outline: none;" />
+      <textarea name="message" class="cgs-f5" rows="4" placeholder={form.messagePlaceholder} style="padding: 15px 16px; font-family: 'Archivo', sans-serif; font-size: 15px; color: #F4F7FB; background: rgba(10,29,56,.5); border: 1px solid rgba(244,247,251,.2); border-radius: 3px; outline: none; resize: vertical;"></textarea>
+      <label style="display: flex; align-items: center; gap: 10px; font-size: 14px; color: rgba(244,247,251,.78); cursor: pointer;">
+        <input name="newsletter" type="checkbox" checked style="width: 16px; height: 16px; accent-color: #1A4FD0;" />
+        {form.newsletterCheckboxLabel}
+      </label>
+      <button class="cgs-h49" type="submit" style="margin-top: 6px; padding: 16px 0; font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 15.5px; color: #FFFFFF; background: #1A4FD0; border: none; border-radius: 3px; cursor: pointer; transition: transform .2s, background .2s;" data-cgs-label-idle={form.submitLabelIdle} data-cgs-label-done={form.submitLabelDone}>{form.submitLabelIdle}</button>
+      <div style="font-size: 12.5px; line-height: 1.5; color: rgba(244,247,251,.55);"><span data-cgs-note data-cgs-note-idle={form.noteIdle} data-cgs-note-done={form.noteDone}>{form.noteIdle}</span></div>
+    </form>
+  </div>
+</div>

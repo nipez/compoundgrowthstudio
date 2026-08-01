@@ -1,0 +1,138 @@
+---
+import type {StagePill, SystemDoc, SystemStage} from '../../lib/sanity';
+
+interface Props {
+  doc?: SystemDoc | null;
+}
+
+const {doc = {} as SystemDoc} = Astro.props;
+
+const defaults = {
+  eyebrow: 'One connected growth system',
+  headline: 'Six stages that hand qualified patients to the next.',
+  subhead:
+    'Most clinics buy these as six separate projects from six vendors — and the seams cost them patients. We run them as one system, so every stage feeds the next instead of dropping the lead.',
+  stageLabels: [
+    {number: '1', title: 'Visibility'},
+    {number: '2', title: 'Education'},
+    {number: '3', title: 'Trust'},
+    {number: '4', title: 'Conversion'},
+    {number: '5', title: 'Follow-Up'},
+    {number: '6', title: 'Optimization'},
+  ] satisfies StagePill[],
+  stages: [
+    {
+      number: '1',
+      title: 'Visibility',
+      tag: 'Get found by patients who can actually pay.',
+      desc: 'Cash-pay GLP-1 and peptide patients are searching right now. We make sure your clinic shows up — through ads that clear Meta’s health-category review instead of getting rejected.',
+      builds: ['Compliant paid acquisition', 'Local SEO', 'Google Business Profile'],
+      handoffLabel: 'Passes on',
+      handoff: 'A visitor who found you but isn’t ready to book.',
+    },
+    {
+      number: '2',
+      title: 'Education',
+      tag: 'Answer the questions that stall a $600/mo decision.',
+      desc: 'Peptide and hormone patients don’t convert on impulse. We build the content that resolves their doubts — dosing, safety, “is this legit” — before they ever fill out a form.',
+      builds: ['Treatment explainers', 'Provider-led content', 'FAQ resources'],
+      handoffLabel: 'Passes on',
+      handoff: 'A patient who understands the treatment but not yet you.',
+    },
+    {
+      number: '3',
+      title: 'Trust',
+      tag: 'Make your clinic the safe choice in a skeptical category.',
+      desc: 'Weight-loss and TRT buyers have been burned by shady telehealth. We establish the provider authority and proof that separates you from the compounding-pharmacy noise.',
+      builds: ['Provider authority', 'Reviews', 'Responsible, compliant messaging'],
+      handoffLabel: 'Passes on',
+      handoff: 'A patient who trusts you and is ready to act.',
+    },
+    {
+      number: '4',
+      title: 'Conversion',
+      tag: 'Turn interest into booked consultations.',
+      desc: 'A ready patient still leaves if the path is clunky. We build the landing pages, intake, and CTAs that move them from “interested” to on your calendar — with conversion tracking that survives Meta’s data restrictions.',
+      builds: ['Landing pages', 'Intake forms', 'Conversion tracking (CAPI)'],
+      handoffLabel: 'Passes on',
+      handoff: 'A booked lead worth keeping warm.',
+    },
+    {
+      number: '5',
+      title: 'Follow-Up',
+      tag: 'Stop losing patients between click and consult.',
+      desc: 'No-shows and cold leads quietly bleed revenue. We keep qualified prospects engaged with automated nurture so the consultation actually happens.',
+      builds: ['Email nurture', 'SMS reminders', 'Lead routing'],
+      handoffLabel: 'Passes on',
+      handoff: 'The data on who booked and who didn’t.',
+    },
+    {
+      number: '6',
+      title: 'Optimization',
+      tag: 'Double down on what produces qualified consults.',
+      desc: 'Most clinics can’t tell which ad produced which patient. We track it end to end, then reinvest in what works — so the whole system compounds instead of plateaus.',
+      builds: ['Attribution', 'Campaign reporting', 'Conversion testing'],
+      handoffLabel: 'Loops back',
+      handoff: 'Sharper targeting to Visibility — and the loop tightens.',
+    },
+  ] satisfies SystemStage[],
+};
+
+const stageLabels = doc?.stageLabels?.length ? doc.stageLabels : defaults.stageLabels;
+const stages = doc?.stages?.length ? doc.stages : defaults.stages;
+---
+
+<div>
+  <header style="background: #0A1D38; color: #F4F7FB; position: relative; overflow: hidden;">
+    <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(127,176,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(127,176,255,.07) 1px, transparent 1px); background-size: 56px 56px;"></div>
+    <div style="position: absolute; top: -160px; right: -120px; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(26,79,208,.32), transparent 62%);"></div>
+    <div style="position: relative; max-width: 1280px; margin: 0 auto; padding: 84px 48px 88px;">
+      <div style="font-size: 12.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #7FB0FF; animation: rise .6s both;">{doc?.eyebrow ?? defaults.eyebrow}</div>
+      <h1 style="margin: 18px 0 0; max-width: 880px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 52px; line-height: 1.06; letter-spacing: -2px; animation: rise .7s .1s both;">{doc?.headline ?? defaults.headline}</h1>
+      <p style="margin: 22px 0 0; max-width: 620px; font-size: 17.5px; line-height: 1.6; color: rgba(244,247,251,.74); animation: rise .7s .2s both;">{doc?.subhead ?? defaults.subhead}</p>
+      <div style="position: relative; margin-top: 64px; animation: fadeIn .8s .3s both;">
+        <svg viewBox="0 0 1184 8" preserveAspectRatio="none" style="position: absolute; top: 32px; left: 0; width: 100%; height: 8px;">
+          <line x1="0" y1="4" x2="1184" y2="4" stroke="rgba(127,176,255,.55)" stroke-width="2" stroke-dasharray="8 6" style="animation: flow 1.2s linear infinite;"></line>
+        </svg>
+        <div style="position: relative; display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px;">
+          {stageLabels.map((stage, index) => (
+            <div style="text-align: center;">
+              <div style="display: grid; place-items: center; width: 64px; height: 64px; margin: 0 auto; background: #0A1D38; border: 2px solid #7FB0FF; color: #7FB0FF; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 20px; border-radius: 50%;">{stage.number ?? defaults.stageLabels[index]?.number}</div>
+              <h3 style="margin: 16px 0 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 16px; letter-spacing: -.2px;">{stage.title ?? defaults.stageLabels[index]?.title}</h3>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </header>
+  <section style="max-width: 1120px; margin: 0 auto; padding: 88px 48px 100px;">
+    <div style="position: relative; padding-left: 88px;">
+      <div style="position: absolute; left: 31px; top: 24px; bottom: 64px; width: 2px; background: linear-gradient(#1A4FD0, #7FB0FF);"></div>
+      <div style="display: grid; gap: 14px;">
+        {stages.map((stage, index) => {
+          const fallback = defaults.stages[index];
+          const builds = stage.builds?.length ? stage.builds : fallback?.builds ?? [];
+          return (
+            <div class="cgs-h33" style="position: relative; display: grid; grid-template-columns: 1fr 290px; gap: 40px; padding: 30px 34px; background: #FFFFFF; border-radius: 14px; box-shadow: 0 1px 3px rgba(10,29,56,.06), 0 8px 24px rgba(10,29,56,.04); transition: transform .15s ease, box-shadow .15s ease; animation: rise .8s both; animation-timeline: view(); animation-range: entry 0% entry 50%;">
+              <div style="position: absolute; left: -72px; top: 30px; display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; background: #1A4FD0; color: #FFFFFF; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 20px; box-shadow: 0 4px 14px rgba(26,79,208,.35); z-index: 2;">{stage.number ?? fallback?.number}</div>
+              <div>
+                <h2 style="margin: 0 0 4px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 24px; letter-spacing: -.5px;">{stage.title ?? fallback?.title}</h2>
+                <div style="margin: 0 0 12px; font-size: 15px; font-weight: 600; color: #1A4FD0;">{stage.tag ?? fallback?.tag}</div>
+                <p style="margin: 0 0 18px; max-width: 460px; font-size: 15px; line-height: 1.6; color: rgba(10,29,56,.68);">{stage.desc ?? fallback?.desc}</p>
+                <div style="display: flex; flex-wrap: wrap; gap: 8px 18px;">
+                  {builds.map((item) => (
+                    <div style="display: flex; align-items: center; gap: 9px; font-size: 13.5px; color: rgba(10,29,56,.62);"><span style="flex-shrink: 0; width: 5px; height: 5px; border-radius: 50%; background: #7FB0FF;"></span>{item}</div>
+                  ))}
+                </div>
+              </div>
+              <div style="align-self: center; border-left: 2px solid rgba(10,29,56,.12); padding-left: 22px;">
+                <div style="margin-bottom: 8px; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(10,29,56,.45);">{stage.handoffLabel ?? fallback?.handoffLabel}</div>
+                <div style="font-size: 14.5px; font-style: italic; line-height: 1.45; color: #1A4FD0;">{stage.handoff ?? fallback?.handoff}</div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+</div>

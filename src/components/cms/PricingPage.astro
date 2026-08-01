@@ -1,0 +1,153 @@
+---
+import type {PricingDoc, PricingTier} from '../../lib/sanity';
+
+interface Props {
+  doc?: PricingDoc | null;
+}
+
+const {doc = {} as PricingDoc} = Astro.props;
+
+const defaults = {
+  eyebrow: 'Get started',
+  headline: 'Start small. Scale when it works.',
+  subhead:
+    'Four ways in — a compliant foundation, ongoing strategy, a full growth system, or a one-time fix when your ads are stuck.',
+  intro: 'One path, four entry points — most clinics start in the middle and grow up.',
+  tiers: [
+    {
+      name: 'Clinic Growth Community',
+      price: '$100',
+      period: '/month',
+      description: 'Strategy, ideas, and frameworks before execution — for clinics that want direction without a full engagement.',
+      features: [
+        'Practical clinic marketing guidance',
+        'Patient education ideas and templates',
+        'Frameworks you can apply immediately',
+        'Strategy support before you commit',
+      ],
+      ctaLabel: 'Join the Community',
+      ctaHref: '/contact/',
+      highlighted: false,
+    },
+    {
+      badge: 'Where most clinics start',
+      name: 'Conversion Foundation',
+      price: '$1,000',
+      period: '/month',
+      description:
+        'A managed acquisition foundation for one program: compliant landing page, intake flow, and continuous optimization. No setup fee, cancel anytime.',
+      features: [
+        'Compliant landing page + full intake flow',
+        'Written to pass prescription-ad review',
+        'Ongoing updates and A/B testing monthly',
+        'Conversion tracking + monthly reporting',
+        'Grows with you — add paid, SEO, or nurture',
+      ],
+      ctaLabel: 'Start With the Foundation',
+      ctaHref: '/contact/',
+      highlighted: true,
+    },
+    {
+      name: 'Full Growth System',
+      price: 'Custom',
+      period: ' / retainer',
+      description:
+        'The complete six-stage system run as one engine — visibility, education, trust, conversion, follow-up, and optimization working together.',
+      features: [
+        'All six stages managed as one system',
+        'Paid acquisition, local SEO, and content',
+        'Provider authority + reputation systems',
+        'Email/SMS nurture for the undecided',
+        'Fractional growth leadership for your clinic',
+      ],
+      ctaLabel: 'Book a Growth Call',
+      ctaHref: '/contact/',
+      highlighted: false,
+    },
+  ] satisfies PricingTier[],
+  recoveryEyebrow: 'One-time fix · Fixed timeline',
+  recoveryTitle: 'Ad Account Recovery',
+  recoveryBody:
+    'Ads rejected, account flagged, or campaigns stuck in review? We audit your setup, rebuild the copy and landing page for compliance, and get you clear to run — in a fixed two-week window, no retainer required.',
+  recoveryPriceLabel: 'Fixed price',
+  recoveryTimeline: 'Delivered in 2 weeks',
+  recoveryCtaLabel: "See What's Included",
+  recoveryCtaHref: '/contact/',
+  footerNoteBefore: 'Not sure where to start?',
+  footerNoteLinkLabel: 'Find the gaps in your growth system →',
+  footerNoteLinkHref: '/contact/',
+  newsletter: {
+    emailPlaceholder: 'you@yourclinic.com',
+    submitLabelIdle: 'Send Me the Newsletter',
+    submitLabelDone: "You're in — check your inbox",
+    noteIdle: 'Twice a month. Unsubscribe anytime.',
+    noteDone: 'Thanks. First issue lands within two weeks.',
+  },
+};
+
+const tiers = doc?.tiers?.length ? doc.tiers : defaults.tiers;
+const newsletter = {...defaults.newsletter, ...(doc?.newsletter ?? {})};
+---
+
+<div>
+  <header style="background: #0A1D38; color: #F4F7FB; position: relative; overflow: hidden;">
+    <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(127,176,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(127,176,255,.07) 1px, transparent 1px); background-size: 56px 56px;"></div>
+    <div style="position: relative; max-width: 1280px; margin: 0 auto; padding: 84px 48px 76px; text-align: center;">
+      <div style="font-size: 12.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #7FB0FF; animation: rise .6s both;">{doc?.eyebrow ?? defaults.eyebrow}</div>
+      <h1 style="margin: 18px auto 0; max-width: 780px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 52px; line-height: 1.06; letter-spacing: -2px; animation: rise .7s .1s both;">{doc?.headline ?? defaults.headline}</h1>
+      <p style="margin: 22px auto 0; max-width: 620px; font-size: 17.5px; line-height: 1.6; color: rgba(244,247,251,.74); animation: rise .7s .2s both;">{doc?.subhead ?? defaults.subhead}</p>
+    </div>
+  </header>
+  <section style="max-width: 1180px; margin: 0 auto; padding: 56px 48px 0;">
+    <p style="text-align: center; margin: 0 0 44px; font-size: 13.5px; letter-spacing: .04em; color: rgba(10,29,56,.56);">{doc?.intro ?? defaults.intro}</p>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch;">
+      {tiers.map((tier, index) => {
+        const fallback = defaults.tiers[index];
+        const highlighted = Boolean(tier.highlighted);
+        const features = tier.features?.length ? tier.features : fallback?.features ?? [];
+        const cardStyle = highlighted
+          ? 'display: flex; flex-direction: column; padding: 34px 30px; background: #0A1D38; color: #F4F7FB; border-radius: 4px; transform: translateY(-14px); box-shadow: 0 24px 50px rgba(10,29,56,.22); animation: rise .8s .1s both;'
+          : `display: flex; flex-direction: column; padding: 34px 30px; background: #FFFFFF; border: 1px solid rgba(10,29,56,.13); border-radius: 4px; animation: rise .8s ${index ? `.${index}s` : ''} both;`;
+        return (
+          <div style={cardStyle}>
+            {tier.badge && <div style="align-self: flex-start; padding: 5px 10px; margin-bottom: 14px; background: #7FB0FF; color: #0A1D38; font-size: 10.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;">{tier.badge}</div>}
+            <div style={`font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: ${highlighted ? '#7FB0FF' : '#1A4FD0'};`}>{tier.name ?? fallback?.name}</div>
+            <div style={`margin: 18px 0 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: ${(tier.price ?? fallback?.price) === 'Custom' ? '32px' : '40px'}; letter-spacing: -1.6px; line-height: 1.3;`}>
+              {tier.price ?? fallback?.price}<span style={`font-size: 16px; font-weight: 500; letter-spacing: 0; color: ${highlighted ? 'rgba(244,247,251,.55)' : 'rgba(10,29,56,.55)'};`}>{tier.period ?? fallback?.period}</span>
+            </div>
+            <p style={`margin: 16px 0 22px; font-size: 14px; line-height: 1.55; color: ${highlighted ? 'rgba(244,247,251,.72)' : 'rgba(10,29,56,.68)'};`}>{tier.description ?? fallback?.description}</p>
+            <div style="display: grid; gap: 11px; font-size: 14px; flex: 1; align-content: start;">
+              {features.map((feature) => (
+                <div style="display: flex; gap: 10px;"><span style={`color: ${highlighted ? '#7FB0FF' : '#1A4FD0'}; font-weight: 700;`}>✓</span>{feature}</div>
+              ))}
+            </div>
+            <a class={highlighted ? 'cgs-h45' : index === 0 ? 'cgs-h44' : 'cgs-h46'} href={tier.ctaHref ?? fallback?.ctaHref} style={highlighted ? 'display: block; margin-top: 26px; padding: 14px 0; text-align: center; background: #1A4FD0; color: #FFFFFF; font-weight: 700; font-size: 14.5px; border-radius: 3px; transition: transform .2s, background .2s;' : 'display: block; margin-top: 26px; padding: 14px 0; text-align: center; border: 1.5px solid #0A1D38; color: #0A1D38; font-weight: 600; font-size: 14.5px; border-radius: 3px; transition: background .2s, color .2s;'}>{tier.ctaLabel ?? fallback?.ctaLabel}</a>
+          </div>
+        );
+      })}
+    </div>
+    <div style="display: flex; align-items: center; justify-content: space-between; gap: 30px; margin-top: 26px; padding: 32px 36px; background: #0A1D38; color: #F4F7FB; border-radius: 4px; position: relative; overflow: hidden; animation: rise .8s both; animation-timeline: view(); animation-range: entry 0% entry 60%;">
+      <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(127,176,255,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(127,176,255,.06) 1px, transparent 1px); background-size: 56px 56px;"></div>
+      <div style="position: relative; max-width: 640px;">
+        <div style="font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: #7FB0FF;">{doc?.recoveryEyebrow ?? defaults.recoveryEyebrow}</div>
+        <h3 style="margin: 10px 0 8px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 23px; letter-spacing: -.6px;">{doc?.recoveryTitle ?? defaults.recoveryTitle}</h3>
+        <p style="margin: 0; font-size: 14px; line-height: 1.55; color: rgba(244,247,251,.72);">{doc?.recoveryBody ?? defaults.recoveryBody}</p>
+      </div>
+      <div style="position: relative; text-align: right; white-space: nowrap; flex-shrink: 0;">
+        <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 28px;">{doc?.recoveryPriceLabel ?? defaults.recoveryPriceLabel}</div>
+        <div style="margin-top: 2px; font-size: 12.5px; color: rgba(244,247,251,.6);">{doc?.recoveryTimeline ?? defaults.recoveryTimeline}</div>
+        <a class="cgs-h47" href={doc?.recoveryCtaHref ?? defaults.recoveryCtaHref} style="display: inline-block; margin-top: 14px; padding: 12px 22px; border: 1.5px solid rgba(244,247,251,.35); color: #F4F7FB; font-weight: 600; font-size: 14px; border-radius: 3px; transition: border-color .2s;">{doc?.recoveryCtaLabel ?? defaults.recoveryCtaLabel}</a>
+      </div>
+    </div>
+    <p style="text-align: center; margin: 44px 0 96px; font-size: 14.5px; color: rgba(10,29,56,.62);">{doc?.footerNoteBefore ?? defaults.footerNoteBefore} <a href={doc?.footerNoteLinkHref ?? defaults.footerNoteLinkHref} style="font-weight: 600;">{doc?.footerNoteLinkLabel ?? defaults.footerNoteLinkLabel}</a></p>
+  </section>
+
+  <section id="newsletter" style="max-width: 640px; margin: 0 auto; padding: 0 48px 96px;">
+    <form data-cgs-form="newsletter" style="display: grid; gap: 12px; padding: 36px 32px; background: #FFFFFF; border: 1px solid rgba(10,29,56,.1); border-radius: 4px;">
+      <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" />
+      <input type="email" name="email" required placeholder={newsletter.emailPlaceholder} style="padding: 15px 16px; font-family: 'Archivo', sans-serif; font-size: 15px; color: #0A1D38; background: #F4F7FB; border: 1px solid rgba(10,29,56,.2); border-radius: 3px; outline: none;" class="cgs-focus-blue" />
+      <button type="submit" data-cgs-label-idle={newsletter.submitLabelIdle} data-cgs-label-done={newsletter.submitLabelDone} style="padding: 15px 0; font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 15px; color: #FFFFFF; background: #1A4FD0; border: none; border-radius: 3px; cursor: pointer; transition: background .2s;" class="cgs-h-navy">{newsletter.submitLabelIdle}</button>
+      <div data-cgs-note data-cgs-note-idle={newsletter.noteIdle} data-cgs-note-done={newsletter.noteDone} style="font-size: 12.5px; color: rgba(10,29,56,.55);">{newsletter.noteIdle}</div>
+    </form>
+  </section>
+</div>

@@ -1,0 +1,97 @@
+---
+import type {ClosingCta, FaqDoc, FaqItem} from '../../lib/sanity';
+
+interface Props {
+  doc?: FaqDoc | null;
+}
+
+const {doc = {} as FaqDoc} = Astro.props;
+
+const defaults = {
+  eyebrow: 'FAQ',
+  headline: 'Questions clinics ask before they start.',
+  faqs: [
+    {
+      question: 'Do you only work with GLP-1 and weight loss clinics?',
+      answer:
+        'Those are the most common, but the system applies to any medically guided program with a high-value consultation: peptide therapy, hormone health, longevity, metabolic and functional health, and wellness programs.',
+    },
+    {
+      question: 'Can you keep our ads from getting rejected?',
+      answer:
+        'We structure pages, creative, and copy around prescription-advertising policy from the start — that is the single biggest reason clinic campaigns stall. We cannot guarantee a platform decision, but compliance is designed in rather than patched later.',
+    },
+    {
+      question: 'Who approves medical claims?',
+      answer:
+        'You do. Every treatment detail, eligibility statement, and patient-facing clinical claim goes to your licensed providers for review before it publishes. We write for review, not around it.',
+    },
+    {
+      question: 'How long until we see results?',
+      answer:
+        'Conversion work (landing pages, intake flows, follow-up) tends to show movement in the first 30–60 days. Visibility and education compound over 3–6 months. We report on both timelines so you can tell which is which.',
+    },
+    {
+      question: 'Do we have to buy the whole system?',
+      answer:
+        'No. Most clinics start with one stage — usually Conversion — and add Visibility, Follow-Up, or Optimization as capacity and demand grow. The stages are built to connect later.',
+    },
+    {
+      question: 'Will you work with our existing website or agency?',
+      answer:
+        'Yes. We often build alongside an existing site and hand off documentation. If you already have an agency running paid media, we can own conversion and follow-up and feed them better inputs.',
+    },
+    {
+      question: 'What do you need from us to start?',
+      answer:
+        'Access to your site, ad accounts, and analytics; one clinical reviewer for content approval; and roughly an hour a month from someone who can answer program questions. We handle the rest.',
+    },
+    {
+      question: 'What happens on the growth gap call?',
+      answer:
+        'Thirty minutes. We look at your visibility, your consult path, and your follow-up, then send a written summary of the gaps we found and what we would fix first — whether or not you hire us.',
+    },
+  ] satisfies FaqItem[],
+  closingCta: {
+    title: 'Still deciding?',
+    body: "One call, no pitch — we'll show you where the gaps are.",
+    ctaLabel: 'Find the Gaps in Your Growth System',
+    ctaHref: '/contact/',
+  } satisfies ClosingCta,
+};
+
+const faqs = doc?.faqs?.length ? doc.faqs : defaults.faqs;
+const closingCta = {...defaults.closingCta, ...(doc?.closingCta ?? {})};
+---
+
+<div>
+  <header style="background: #0A1D38; color: #F4F7FB; position: relative; overflow: hidden;">
+    <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(127,176,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(127,176,255,.07) 1px, transparent 1px); background-size: 56px 56px;"></div>
+    <div style="position: relative; max-width: 1280px; margin: 0 auto; padding: 84px 48px 76px;">
+      <div style="font-size: 12.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #7FB0FF; animation: rise .6s both;">{doc?.eyebrow ?? defaults.eyebrow}</div>
+      <h1 style="margin: 18px 0 0; max-width: 820px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 52px; line-height: 1.06; letter-spacing: -2px; animation: rise .7s .1s both;">{doc?.headline ?? defaults.headline}</h1>
+      {doc?.subhead && <p style="margin: 22px 0 0; max-width: 640px; font-size: 17.5px; line-height: 1.6; color: rgba(244,247,251,.74); animation: rise .7s .2s both;">{doc.subhead}</p>}
+    </div>
+  </header>
+  <section style="max-width: 940px; margin: 0 auto; padding: 76px 48px 100px;">
+    <div style="display: grid; gap: 12px;">
+      {faqs.map((faq, index) => (
+        <details style="background: #FFFFFF; border: 1px solid rgba(10,29,56,.1); border-radius: 4px; animation: rise .7s both; animation-timeline: view(); animation-range: entry 0% entry 50%;">
+          <summary style="display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 24px 28px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: -.4px; color: #0A1D38;">
+            {faq.question ?? defaults.faqs[index]?.question}
+            <span style="flex-shrink: 0; color: #1A4FD0; font-size: 22px; font-weight: 500;">+</span>
+          </summary>
+          <p style="margin: 0; padding: 0 28px 26px; max-width: 760px; font-size: 15.5px; line-height: 1.68; color: rgba(10,29,56,.72);">{faq.answer ?? defaults.faqs[index]?.answer}</p>
+        </details>
+      ))}
+    </div>
+    <div style="display: flex; align-items: center; justify-content: space-between; gap: 40px; margin-top: 56px; padding: 40px 44px; background: #E7EEFA; border-radius: 4px;">
+      <div>
+        {closingCta.eyebrow && <div style="font-size: 12.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #1A4FD0;">{closingCta.eyebrow}</div>}
+        <h2 style="margin: 0 0 8px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 28px; letter-spacing: -1.1px;">{closingCta.title}</h2>
+        <p style="margin: 0; font-size: 15.5px; line-height: 1.6; color: rgba(10,29,56,.7);">{closingCta.body}</p>
+      </div>
+      <a class="cgs-h48" href={closingCta.ctaHref} style="flex-shrink: 0; display: inline-block; padding: 16px 26px; background: #1A4FD0; color: #FFFFFF; font-weight: 700; font-size: 15px; border-radius: 3px; transition: transform .2s;">{closingCta.ctaLabel}</a>
+    </div>
+  </section>
+</div>
