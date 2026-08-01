@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PricingPage from '../../components/cms/PricingPage.astro';
+import { pages } from '../../lib/site';
+import { fetchDocument, pageIds, type PricingDoc } from '../../lib/sanity';
+
+const cms = await fetchDocument<PricingDoc>(pageIds.pricing);
+const page = {
+  ...pages.pricing,
+  title: cms?.seo?.title || pages.pricing.title,
+  description: cms?.seo?.description || pages.pricing.description,
+};
+---
+
+<BaseLayout page={page}>
+  <PricingPage doc={cms} />
+</BaseLayout>

@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FaqPage from '../../components/cms/FaqPage.astro';
+import { pages } from '../../lib/site';
+import { fetchDocument, pageIds, type FaqDoc } from '../../lib/sanity';
+
+const cms = await fetchDocument<FaqDoc>(pageIds.faq);
+const page = {
+  ...pages.faq,
+  title: cms?.seo?.title || pages.faq.title,
+  description: cms?.seo?.description || pages.faq.description,
+};
+---
+
+<BaseLayout page={page}>
+  <FaqPage doc={cms} />
+</BaseLayout>

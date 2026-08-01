@@ -1,0 +1,78 @@
+---
+import {fetchDocument, pageIds, type Link, type SiteSettings} from '../lib/sanity';
+
+const defaults = {
+  brandName: 'Compound Growth Studio',
+  brandMark: 'CG',
+  footerBlurb:
+    'A boutique growth strategy and digital marketing studio for modern health clinics offering high-value GLP-1, peptide therapy, medical weight loss, hormone health, longevity, metabolic, functional health, and wellness programs.',
+  footerLeadMagnetTitle: "Free guide: Top 10 reasons your clinic's ads are struggling on Meta",
+  footerLeadMagnet: {
+    emailPlaceholder: 'you@yourclinic.com',
+    submitLabelIdle: 'Get the Guide',
+    submitLabelDone: 'Sent ✓',
+  },
+  footerExploreHeading: 'Explore',
+  footerExploreLinks: [
+    {label: 'Services', href: '/services/'},
+    {label: 'GLP-1 + Peptide Marketing', href: '/glp-1-peptide-marketing/'},
+    {label: 'Growth System', href: '/system/'},
+    {label: 'AI Voice Agent', href: '/ai-voice-agent/'},
+    {label: 'Free Meta Ads Guide', href: '/guides/meta-ads/'},
+    {label: 'Leadership', href: '/leadership/'},
+    {label: 'FAQ', href: '/faq/'},
+  ] satisfies Link[],
+  footerGetStartedHeading: 'Get started',
+  footerGetStartedLinks: [
+    {label: 'Pricing & Community', href: '/pricing/'},
+    {label: 'Join the newsletter', href: '/pricing/#newsletter'},
+    {label: 'Book a growth call', href: '/contact/'},
+  ] satisfies Link[],
+  footerDisclaimer:
+    "Compound Growth Studio provides marketing strategy, content, and digital growth support. Medical claims, treatment details, pricing, eligibility, prescription information, and patient-facing clinical content should be reviewed and approved by the clinic's licensed medical professionals before publishing.",
+};
+
+const settings = await fetchDocument<SiteSettings>(pageIds.settings);
+const footerLeadMagnet = {...defaults.footerLeadMagnet, ...(settings?.footerLeadMagnet ?? {})};
+const exploreLinks = settings?.footerExploreLinks?.length ? settings.footerExploreLinks : defaults.footerExploreLinks;
+const getStartedLinks = settings?.footerGetStartedLinks?.length
+  ? settings.footerGetStartedLinks
+  : defaults.footerGetStartedLinks;
+---
+
+<footer style="background: #071426; color: rgba(244,247,251,.6);">
+  <div style="max-width: 1280px; margin: 0 auto; padding: 60px 48px 44px;">
+    <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 64px; padding-bottom: 40px; border-bottom: 1px solid rgba(244,247,251,.1);">
+      <div>
+        <div style="display: flex; align-items: center; gap: 12px; color: #F4F7FB;">
+          <span style="display: grid; place-items: center; width: 32px; height: 32px; background: #1A4FD0; color: #FFFFFF; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 13px;">{settings?.brandMark ?? defaults.brandMark}</span>
+          <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 16px;">{settings?.brandName ?? defaults.brandName}</span>
+        </div>
+        <p style="margin: 18px 0 0; max-width: 480px; font-size: 13.5px; line-height: 1.7;">{settings?.footerBlurb ?? defaults.footerBlurb}</p>
+        <div style="margin-top: 26px; max-width: 480px;">
+          <div style="font-size: 13px; font-weight: 600; color: rgba(244,247,251,.8);">{settings?.footerLeadMagnetTitle ?? defaults.footerLeadMagnetTitle}</div>
+          <form data-cgs-form="lead_magnet" style="display: flex; gap: 10px; margin-top: 12px;">
+            <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" />
+            <input name="email" class="cgs-f0" type="email" required placeholder={footerLeadMagnet.emailPlaceholder} style="flex: 1; min-width: 0; padding: 12px 14px; font-family: 'Archivo', sans-serif; font-size: 14px; color: #F4F7FB; background: rgba(244,247,251,.07); border: 1px solid rgba(244,247,251,.2); border-radius: 3px; outline: none;" />
+            <button class="cgs-h7" type="submit" style="flex-shrink: 0; padding: 12px 18px; font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 14px; color: #FFFFFF; background: #1A4FD0; border: none; border-radius: 3px; cursor: pointer; transition: background .2s;" data-cgs-label-idle={footerLeadMagnet.submitLabelIdle} data-cgs-label-done={footerLeadMagnet.submitLabelDone}>{footerLeadMagnet.submitLabelIdle}</button>
+          </form>
+        </div>
+      </div>
+      <div style="display: flex; gap: 56px; justify-content: end;">
+        <div style="display: grid; gap: 11px; align-content: start; font-size: 14px;">
+          <div style="font-size: 11.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(244,247,251,.4);">{settings?.footerExploreHeading ?? defaults.footerExploreHeading}</div>
+          {exploreLinks.map((item, index) => (
+            <a class={`cgs-h${8 + index}`} href={item.href} style="color: rgba(244,247,251,.75);">{item.label}</a>
+          ))}
+        </div>
+        <div style="display: grid; gap: 11px; align-content: start; font-size: 14px;">
+          <div style="font-size: 11.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(244,247,251,.4);">{settings?.footerGetStartedHeading ?? defaults.footerGetStartedHeading}</div>
+          {getStartedLinks.map((item, index) => (
+            <a class={`cgs-h${14 + index}`} href={item.href} style="color: rgba(244,247,251,.75);">{item.label}</a>
+          ))}
+        </div>
+      </div>
+    </div>
+    <p style="margin: 28px 0 0; max-width: 900px; font-size: 12px; line-height: 1.7; color: rgba(244,247,251,.42);">{settings?.footerDisclaimer ?? defaults.footerDisclaimer}</p>
+  </div>
+</footer>

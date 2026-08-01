@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HomePage from '../components/cms/HomePage.astro';
+import { pages } from '../lib/site';
+import { fetchDocument, pageIds, type HomeDoc } from '../lib/sanity';
+
+const cms = await fetchDocument<HomeDoc>(pageIds.home);
+const page = {
+  ...pages.home,
+  title: cms?.seo?.title || pages.home.title,
+  description: cms?.seo?.description || pages.home.description,
+};
+---
+
+<BaseLayout page={page}>
+  <HomePage doc={cms} />
+</BaseLayout>

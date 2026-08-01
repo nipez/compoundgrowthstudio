@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SystemPage from '../../components/cms/SystemPage.astro';
+import { pages } from '../../lib/site';
+import { fetchDocument, pageIds, type SystemDoc } from '../../lib/sanity';
+
+const cms = await fetchDocument<SystemDoc>(pageIds.system);
+const page = {
+  ...pages.system,
+  title: cms?.seo?.title || pages.system.title,
+  description: cms?.seo?.description || pages.system.description,
+};
+---
+
+<BaseLayout page={page}>
+  <SystemPage doc={cms} />
+</BaseLayout>

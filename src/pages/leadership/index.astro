@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LeadershipPage from '../../components/cms/LeadershipPage.astro';
+import { pages } from '../../lib/site';
+import { fetchDocument, pageIds, type LeadershipDoc } from '../../lib/sanity';
+
+const cms = await fetchDocument<LeadershipDoc>(pageIds.leadership);
+const page = {
+  ...pages.leadership,
+  title: cms?.seo?.title || pages.leadership.title,
+  description: cms?.seo?.description || pages.leadership.description,
+};
+---
+
+<BaseLayout page={page}>
+  <LeadershipPage doc={cms} />
+</BaseLayout>

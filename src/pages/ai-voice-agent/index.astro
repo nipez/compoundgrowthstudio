@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AiVoicePage from '../../components/cms/AiVoicePage.astro';
+import { pages } from '../../lib/site';
+import { fetchDocument, pageIds, type AiVoiceDoc } from '../../lib/sanity';
+
+const cms = await fetchDocument<AiVoiceDoc>(pageIds.aiVoice);
+const page = {
+  ...pages['ai-voice-agent'],
+  title: cms?.seo?.title || pages['ai-voice-agent'].title,
+  description: cms?.seo?.description || pages['ai-voice-agent'].description,
+};
+---
+
+<BaseLayout page={page}>
+  <AiVoicePage doc={cms} />
+</BaseLayout>
