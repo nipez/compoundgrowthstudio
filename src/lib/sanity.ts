@@ -167,6 +167,7 @@ export type HomeDoc = SanityDocumentBase<'homePage'> &
     secondaryCtaLabel?: string;
     secondaryCtaHref?: string;
     heroStats?: StatCard[];
+    heroSupport?: string;
     marqueeItems?: string[];
     whyEyebrow?: string;
     whyTitle?: string;
@@ -197,6 +198,7 @@ export type SystemDoc = SanityDocumentBase<'systemPage'> &
   HeroFields & {
     seo?: Seo;
     stageLabels?: StagePill[];
+    timelineHeader?: string;
     stages?: SystemStage[];
   };
 

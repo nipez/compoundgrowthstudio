@@ -135,6 +135,7 @@ const docs = [
     secondaryCtaLabel: h.hero.secondaryCta.label,
     secondaryCtaHref: h.hero.secondaryCta.href,
     heroStats: withKeys(h.heroStats, 'hs'),
+    heroSupport: h.heroSupport,
     marqueeItems: h.marqueeItems,
     whyEyebrow: h.whyUs.eyebrow,
     whyTitle: h.whyUs.title,
@@ -185,6 +186,7 @@ const docs = [
     headline: sys.hero.headline,
     subhead: sys.hero.subhead,
     stageLabels: withKeys(sys.hero.stageLabels, 'sl'),
+    timelineHeader: sys.timelineHeader,
     stages: withKeys(sys.stages, 'st'),
   },
   {

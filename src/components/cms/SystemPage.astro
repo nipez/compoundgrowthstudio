@@ -20,6 +20,7 @@ const defaults = {
     {number: '5', title: 'Follow-Up'},
     {number: '6', title: 'Optimization'},
   ] satisfies StagePill[],
+  timelineHeader: "Lead-gen agencies stop at the form fill. Our system doesn't.",
   stages: [
     {
       number: '1',
@@ -60,11 +61,17 @@ const defaults = {
     {
       number: '5',
       title: 'Follow-Up',
-      tag: 'Stop losing patients between click and consult.',
-      desc: 'No-shows and cold leads quietly bleed revenue. We keep qualified prospects engaged with automated nurture so the consultation actually happens.',
-      builds: ['Email nurture', 'SMS reminders', 'Lead routing'],
+      tag: 'Turn one consult into a recurring patient.',
+      desc: 'No-shows and cold leads quietly bleed revenue — and so does every patient who books once and never returns. We keep prospects engaged so the consultation actually happens, then keep patients coming back with rebooking, refill reminders, and reactivation for the ones who lapse.',
+      builds: [
+        'Email nurture',
+        'SMS reminders',
+        'Lead routing',
+        'Rebooking & refill flows',
+        'Win-back campaigns',
+      ],
       handoffLabel: 'Passes on',
-      handoff: 'The data on who booked and who didn’t.',
+      handoff: 'The data on who booked, who returned, and who lapsed.',
     },
     {
       number: '6',
@@ -106,6 +113,9 @@ const stages = doc?.stages?.length ? doc.stages : defaults.stages;
     </div>
   </header>
   <section style="max-width: 1120px; margin: 0 auto; padding: 88px 48px 100px;">
+    <h2 style="margin: 0 0 40px; max-width: 760px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 34px; line-height: 1.15; letter-spacing: -1.2px; color: #0A1D38; animation: rise .7s both;">
+      {doc?.timelineHeader ?? defaults.timelineHeader}
+    </h2>
     <div style="position: relative; padding-left: 88px;">
       <div style="position: absolute; left: 31px; top: 24px; bottom: 64px; width: 2px; background: linear-gradient(#1A4FD0, #7FB0FF);"></div>
       <div style="display: grid; gap: 14px;">

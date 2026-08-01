@@ -40,6 +40,14 @@ export const homePage = defineType({
       of: [defineArrayMember({type: 'statCard'})],
     }),
     defineField({
+      name: 'heroSupport',
+      title: 'Line under hero',
+      type: 'text',
+      rows: 2,
+      group: 'hero',
+      description: 'Shown directly under the hero section',
+    }),
+    defineField({
       name: 'marqueeItems',
       title: 'Marquee phrases',
       type: 'array',
@@ -128,6 +136,13 @@ export const systemPage = defineType({
       type: 'array',
       group: 'hero',
       of: [defineArrayMember({type: 'stagePill'})],
+    }),
+    defineField({
+      name: 'timelineHeader',
+      title: 'Header above timeline',
+      type: 'text',
+      rows: 2,
+      group: 'content',
     }),
     defineField({
       name: 'stages',

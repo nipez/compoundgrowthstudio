@@ -4,13 +4,13 @@
     "hero": {
       "eyebrow": "Marketing for modern health clinics",
       "headline": "The clinics that win aren't running better ads. They're running compliant ones.",
-      "subhead": "Visibility, education, trust, conversion, follow-up, and optimization — combined into one connected growth system for medically guided programs.",
+      "subhead": "Visibility, education, trust, conversion, follow-up, and optimization \u2014 combined into one connected growth system for medically guided programs.",
       "primaryCta": {
         "label": "Find the Gaps in Your Growth System",
         "href": "/contact/"
       },
       "secondaryCta": {
-        "label": "See the growth system →",
+        "label": "See the growth system \u2192",
         "href": "/system/"
       }
     },
@@ -30,12 +30,12 @@
       "Local visibility patients trust",
       "Patient education that builds authority",
       "Follow-up that turns interest into bookings",
-      "One connected system — not five silos"
+      "One connected system \u2014 not five silos"
     ],
     "whyUs": {
       "eyebrow": "Why clinics choose us",
       "title": "Specialized strategy for high-value health programs.",
-      "body": "We help modern clinics educate patients, build trust, improve visibility, strengthen provider authority, and create better follow-up systems — so growth compounds instead of stalling.",
+      "body": "We help modern clinics educate patients, build trust, improve visibility, strengthen provider authority, and create better follow-up systems \u2014 so growth compounds instead of stalling.",
       "cards": [
         {
           "title": "We understand the patient journey",
@@ -46,12 +46,12 @@
           "body": "Responsible messaging, provider credibility, and claims clinics can review before publishing."
         },
         {
-          "title": "We build connected systems",
-          "body": "Content, visibility, landing pages, follow-up, and reporting work together — not in silos."
+          "title": "We don't just hand you leads",
+          "body": "Lead-gen agencies dump raw contacts and disappear. We connect visibility, conversion, and follow-up into one system measured on booked consults \u2014 not lead volume."
         },
         {
           "title": "We focus on consult-ready demand",
-          "body": "Not just impressions — clearer education, stronger trust, and more qualified consultations."
+          "body": "Not just impressions \u2014 clearer education, stronger trust, and more qualified consultations."
         }
       ]
     },
@@ -91,20 +91,20 @@
         }
       ],
       "cta": {
-        "label": "See what we build at each stage →",
+        "label": "See what we build at each stage \u2192",
         "href": "/system/"
       }
     },
     "leadMagnet": {
       "eyebrow": "Free guide",
       "title": "Top 10 reasons your clinic's ads are struggling on Meta.",
-      "body": "The rejection triggers, targeting mistakes, and landing-page gaps we see most — and what to fix first. Straight to your inbox.",
+      "body": "The rejection triggers, targeting mistakes, and landing-page gaps we see most \u2014 and what to fix first. Straight to your inbox.",
       "form": {
         "emailPlaceholder": "you@yourclinic.com",
         "submitLabelIdle": "Send Me the Free Guide",
-        "submitLabelDone": "Sent — check your inbox",
+        "submitLabelDone": "Sent \u2014 check your inbox",
         "noteIdle": "Free guide + the twice-monthly newsletter. Unsubscribe anytime.",
-        "noteDone": "On its way. You’re also on the newsletter — unsubscribe anytime."
+        "noteDone": "On its way. You\u2019re also on the newsletter \u2014 unsubscribe anytime."
       }
     },
     "provenExperience": {
@@ -132,14 +132,15 @@
           "body": "Marketing direction for a PE-backed healthcare organization with 100+ locations in multiple states."
         }
       ]
-    }
+    },
+    "heroSupport": "Most agencies sell you leads and walk away. We own the full path \u2014 from first click to booked, repeat patient."
   },
   "servicesPage": {
     "_type": "servicesPage",
     "hero": {
       "eyebrow": "Services",
       "headline": "Services your clinic can actually use.",
-      "subhead": "Every service, organized by the six stages of the growth system — for clinics offering GLP-1, peptide therapy, medical weight loss, hormone, longevity, metabolic, functional health, and wellness programs."
+      "subhead": "Every service, organized by the six stages of the growth system \u2014 for clinics offering GLP-1, peptide therapy, medical weight loss, hormone, longevity, metabolic, functional health, and wellness programs."
     },
     "serviceGroups": [
       {
@@ -162,7 +163,7 @@
         "items": [
           {
             "title": "Treatment Education + Messaging",
-            "body": "Credible content for GLP-1, peptide therapy, weight loss, hormone health, and longevity — eligibility, expectations, and provider oversight."
+            "body": "Credible content for GLP-1, peptide therapy, weight loss, hormone health, and longevity \u2014 eligibility, expectations, and provider oversight."
           },
           {
             "title": "Social Media Management",
@@ -234,7 +235,7 @@
     "hero": {
       "eyebrow": "One connected growth system",
       "headline": "Six stages that hand qualified patients to the next.",
-      "subhead": "Most clinics buy these as six separate projects from six vendors — and the seams cost them patients. We run them as one system, so every stage feeds the next instead of dropping the lead.",
+      "subhead": "Most clinics buy these as six separate projects from six vendors \u2014 and the seams cost them patients. We run them as one system, so every stage feeds the next instead of dropping the lead.",
       "stageLabels": [
         {
           "number": "1",
@@ -267,20 +268,20 @@
         "number": "1",
         "title": "Visibility",
         "tag": "Get found by patients who can actually pay.",
-        "desc": "Cash-pay GLP-1 and peptide patients are searching right now. We make sure your clinic shows up — through ads that clear Meta’s health-category review instead of getting rejected.",
+        "desc": "Cash-pay GLP-1 and peptide patients are searching right now. We make sure your clinic shows up \u2014 through ads that clear Meta\u2019s health-category review instead of getting rejected.",
         "builds": [
           "Compliant paid acquisition",
           "Local SEO",
           "Google Business Profile"
         ],
         "handoffLabel": "Passes on",
-        "handoff": "A visitor who found you but isn’t ready to book."
+        "handoff": "A visitor who found you but isn\u2019t ready to book."
       },
       {
         "number": "2",
         "title": "Education",
         "tag": "Answer the questions that stall a $600/mo decision.",
-        "desc": "Peptide and hormone patients don’t convert on impulse. We build the content that resolves their doubts — dosing, safety, “is this legit” — before they ever fill out a form.",
+        "desc": "Peptide and hormone patients don\u2019t convert on impulse. We build the content that resolves their doubts \u2014 dosing, safety, \u201cis this legit\u201d \u2014 before they ever fill out a form.",
         "builds": [
           "Treatment explainers",
           "Provider-led content",
@@ -306,7 +307,7 @@
         "number": "4",
         "title": "Conversion",
         "tag": "Turn interest into booked consultations.",
-        "desc": "A ready patient still leaves if the path is clunky. We build the landing pages, intake, and CTAs that move them from “interested” to on your calendar — with conversion tracking that survives Meta’s data restrictions.",
+        "desc": "A ready patient still leaves if the path is clunky. We build the landing pages, intake, and CTAs that move them from \u201cinterested\u201d to on your calendar \u2014 with conversion tracking that survives Meta\u2019s data restrictions.",
         "builds": [
           "Landing pages",
           "Intake forms",
@@ -318,30 +319,33 @@
       {
         "number": "5",
         "title": "Follow-Up",
-        "tag": "Stop losing patients between click and consult.",
-        "desc": "No-shows and cold leads quietly bleed revenue. We keep qualified prospects engaged with automated nurture so the consultation actually happens.",
+        "tag": "Turn one consult into a recurring patient.",
+        "desc": "No-shows and cold leads quietly bleed revenue \u2014 and so does every patient who books once and never returns. We keep prospects engaged so the consultation actually happens, then keep patients coming back with rebooking, refill reminders, and reactivation for the ones who lapse.",
         "builds": [
           "Email nurture",
           "SMS reminders",
-          "Lead routing"
+          "Lead routing",
+          "Rebooking & refill flows",
+          "Win-back campaigns"
         ],
         "handoffLabel": "Passes on",
-        "handoff": "The data on who booked and who didn’t."
+        "handoff": "The data on who booked, who returned, and who lapsed."
       },
       {
         "number": "6",
         "title": "Optimization",
         "tag": "Double down on what produces qualified consults.",
-        "desc": "Most clinics can’t tell which ad produced which patient. We track it end to end, then reinvest in what works — so the whole system compounds instead of plateaus.",
+        "desc": "Most clinics can\u2019t tell which ad produced which patient. We track it end to end, then reinvest in what works \u2014 so the whole system compounds instead of plateaus.",
         "builds": [
           "Attribution",
           "Campaign reporting",
           "Conversion testing"
         ],
         "handoffLabel": "Loops back",
-        "handoff": "Sharper targeting to Visibility — and the loop tightens."
+        "handoff": "Sharper targeting to Visibility \u2014 and the loop tightens."
       }
-    ]
+    ],
+    "timelineHeader": "Lead-gen agencies stop at the form fill. Our system doesn't."
   },
   "glpPage": {
     "_type": "glpPage",
@@ -354,7 +358,7 @@
         "href": "/contact/"
       },
       "secondaryCta": {
-        "label": "See the six-stage system →",
+        "label": "See the six-stage system \u2192",
         "href": "/system/"
       }
     },
@@ -383,7 +387,7 @@
         {
           "number": "01",
           "title": "Program positioning",
-          "body": "What your program includes, who it is for, and why it is worth more than the cheapest option in town — stated plainly."
+          "body": "What your program includes, who it is for, and why it is worth more than the cheapest option in town \u2014 stated plainly."
         },
         {
           "number": "02",
@@ -393,7 +397,7 @@
         {
           "number": "03",
           "title": "Eligibility-first landing pages",
-          "body": "Pages that qualify patients as they read — eligibility, expectations, provider oversight, cost transparency — then route them into intake."
+          "body": "Pages that qualify patients as they read \u2014 eligibility, expectations, provider oversight, cost transparency \u2014 then route them into intake."
         },
         {
           "number": "04",
@@ -408,14 +412,14 @@
         {
           "number": "06",
           "title": "Nurture for the undecided",
-          "body": "Email and SMS sequences for the majority who are interested but not ready — the largest missed opportunity in these programs."
+          "body": "Email and SMS sequences for the majority who are interested but not ready \u2014 the largest missed opportunity in these programs."
         }
       ]
     },
     "compliance": {
       "eyebrow": "Compliance posture",
       "title": "Written for review, not around it.",
-      "body": "Most clinic campaigns fail twice — once at platform review, and again when a patient decides whether to book. We design for both from the first draft, and your providers approve every clinical claim before it publishes.",
+      "body": "Most clinic campaigns fail twice \u2014 once at platform review, and again when a patient decides whether to book. We design for both from the first draft, and your providers approve every clinical claim before it publishes.",
       "points": [
         {
           "title": "Your providers approve clinical content",
@@ -438,7 +442,7 @@
     "closingCta": {
       "eyebrow": "Next step",
       "title": "Find out why your program isn't converting.",
-      "body": "Thirty minutes on your visibility, consult path, and follow-up — with a written summary of the gaps we find.",
+      "body": "Thirty minutes on your visibility, consult path, and follow-up \u2014 with a written summary of the gaps we find.",
       "cta": {
         "label": "Find the Gaps in Your Growth System",
         "href": "/contact/"
@@ -450,15 +454,15 @@
     "hero": {
       "eyebrow": "Get started",
       "headline": "Start small. Scale when it works.",
-      "subhead": "Four ways in — a compliant foundation, ongoing strategy, a full growth system, or a one-time fix when your ads are stuck."
+      "subhead": "Four ways in \u2014 a compliant foundation, ongoing strategy, a full growth system, or a one-time fix when your ads are stuck."
     },
-    "intro": "One path, four entry points — most clinics start in the middle and grow up.",
+    "intro": "One path, four entry points \u2014 most clinics start in the middle and grow up.",
     "tiers": [
       {
         "name": "Clinic Growth Community",
         "price": "$100",
         "period": "/month",
-        "description": "Strategy, ideas, and frameworks before execution — for clinics that want direction without a full engagement.",
+        "description": "Strategy, ideas, and frameworks before execution \u2014 for clinics that want direction without a full engagement.",
         "features": [
           "Practical clinic marketing guidance",
           "Patient education ideas and templates",
@@ -482,7 +486,7 @@
           "Written to pass prescription-ad review",
           "Ongoing updates and A/B testing monthly",
           "Conversion tracking + monthly reporting",
-          "Grows with you — add paid, SEO, or nurture"
+          "Grows with you \u2014 add paid, SEO, or nurture"
         ],
         "cta": {
           "label": "Start With the Foundation",
@@ -495,7 +499,7 @@
         "name": "Full Growth System",
         "price": "Custom",
         "period": " / retainer",
-        "description": "The complete six-stage system run as one engine — visibility, education, trust, conversion, follow-up, and optimization working together.",
+        "description": "The complete six-stage system run as one engine \u2014 visibility, education, trust, conversion, follow-up, and optimization working together.",
         "features": [
           "All six stages managed as one system",
           "Paid acquisition, local SEO, and content",
@@ -512,9 +516,9 @@
       }
     ],
     "recovery": {
-      "eyebrow": "One-time fix · Fixed timeline",
+      "eyebrow": "One-time fix \u00b7 Fixed timeline",
       "title": "Ad Account Recovery",
-      "body": "Ads rejected, account flagged, or campaigns stuck in review? We audit your setup, rebuild the copy and landing page for compliance, and get you clear to run — in a fixed two-week window, no retainer required.",
+      "body": "Ads rejected, account flagged, or campaigns stuck in review? We audit your setup, rebuild the copy and landing page for compliance, and get you clear to run \u2014 in a fixed two-week window, no retainer required.",
       "priceLabel": "Fixed price",
       "timeline": "Delivered in 2 weeks",
       "cta": {
@@ -524,13 +528,13 @@
     },
     "footerNote": {
       "textBeforeLink": "Not sure where to start?",
-      "linkLabel": "Find the gaps in your growth system →",
+      "linkLabel": "Find the gaps in your growth system \u2192",
       "linkHref": "/contact/"
     },
     "newsletter": {
       "emailPlaceholder": "you@yourclinic.com",
       "submitLabelIdle": "Send Me the Newsletter",
-      "submitLabelDone": "You're in — check your inbox",
+      "submitLabelDone": "You're in \u2014 check your inbox",
       "noteIdle": "Twice a month. Unsubscribe anytime.",
       "noteDone": "Thanks. First issue lands within two weeks."
     }
@@ -540,19 +544,19 @@
     "hero": {
       "eyebrow": "Leadership",
       "headline": "Operators, not account managers.",
-      "subhead": "Experience across healthcare, SaaS, fintech, B2B, consumer, media, and multi-location growth environments — applied to modern health clinics."
+      "subhead": "Experience across healthcare, SaaS, fintech, B2B, consumer, media, and multi-location growth environments \u2014 applied to modern health clinics."
     },
     "founders": [
       {
         "name": "Conor",
-        "role": "Co-Founder · Brand & Demand",
+        "role": "Co-Founder \u00b7 Brand & Demand",
         "bio": "Supported B2B revenue growth from $20M to $150M through integrated strategy and demand generation, and built a global media brand to 300,000+ followers and 4B+ impressions.",
         "photoSrc": "/images/conor.jpg",
         "photoAlt": "Conor"
       },
       {
         "name": "Nick",
-        "role": "Co-Founder · Growth & Healthcare",
+        "role": "Co-Founder \u00b7 Growth & Healthcare",
         "bio": "Scaled Bitwage's U.S. ARR from zero to ~$25M as VP of Growth, and directed marketing for a PE-backed healthcare organization with 100+ locations across multiple states.",
         "photoSrc": "/images/nick.jpg",
         "photoAlt": "Nick"
@@ -565,7 +569,7 @@
         {
           "name": "Tony Pardilla",
           "role": "Creative Partner, Design & Web",
-          "bio": "Tony supports creative and web execution behind the studio’s clinic growth work — turning strategy into polished landing pages, campaign creative, visual systems, and conversion-focused digital experiences.",
+          "bio": "Tony supports creative and web execution behind the studio\u2019s clinic growth work \u2014 turning strategy into polished landing pages, campaign creative, visual systems, and conversion-focused digital experiences.",
           "helps": [
             "Website design direction",
             "Landing pages",
@@ -578,7 +582,7 @@
         {
           "name": "Chris Cyril",
           "role": "Systems & Technology Partner",
-          "bio": "Chris supports the systems and technology layer behind the growth engine — connecting forms, tracking, CRM workflows, automation, integrations, analytics, and reporting.",
+          "bio": "Chris supports the systems and technology layer behind the growth engine \u2014 connecting forms, tracking, CRM workflows, automation, integrations, analytics, and reporting.",
           "helps": [
             "Lead form setup",
             "CRM workflow support",
@@ -591,7 +595,7 @@
         {
           "name": "Jessica Rodrigues",
           "role": "Client Experience Coordinator",
-          "bio": "Jessica supports onboarding, communication, scheduling, follow-ups, asset collection, and project coordination — so clinic teams always know what is happening and what comes next.",
+          "bio": "Jessica supports onboarding, communication, scheduling, follow-ups, asset collection, and project coordination \u2014 so clinic teams always know what is happening and what comes next.",
           "helps": [
             "Onboarding",
             "Scheduling",
@@ -629,7 +633,7 @@
       },
       {
         "question": "Can you keep our ads from getting rejected?",
-        "answer": "We structure pages, creative, and copy around prescription-advertising policy from the start — that is the single biggest reason clinic campaigns stall. We cannot guarantee a platform decision, but compliance is designed in rather than patched later."
+        "answer": "We structure pages, creative, and copy around prescription-advertising policy from the start \u2014 that is the single biggest reason clinic campaigns stall. We cannot guarantee a platform decision, but compliance is designed in rather than patched later."
       },
       {
         "question": "Who approves medical claims?",
@@ -637,11 +641,11 @@
       },
       {
         "question": "How long until we see results?",
-        "answer": "Conversion work (landing pages, intake flows, follow-up) tends to show movement in the first 30–60 days. Visibility and education compound over 3–6 months. We report on both timelines so you can tell which is which."
+        "answer": "Conversion work (landing pages, intake flows, follow-up) tends to show movement in the first 30\u201360 days. Visibility and education compound over 3\u20136 months. We report on both timelines so you can tell which is which."
       },
       {
         "question": "Do we have to buy the whole system?",
-        "answer": "No. Most clinics start with one stage — usually Conversion — and add Visibility, Follow-Up, or Optimization as capacity and demand grow. The stages are built to connect later."
+        "answer": "No. Most clinics start with one stage \u2014 usually Conversion \u2014 and add Visibility, Follow-Up, or Optimization as capacity and demand grow. The stages are built to connect later."
       },
       {
         "question": "Will you work with our existing website or agency?",
@@ -653,12 +657,12 @@
       },
       {
         "question": "What happens on the growth gap call?",
-        "answer": "Thirty minutes. We look at your visibility, your consult path, and your follow-up, then send a written summary of the gaps we found and what we would fix first — whether or not you hire us."
+        "answer": "Thirty minutes. We look at your visibility, your consult path, and your follow-up, then send a written summary of the gaps we found and what we would fix first \u2014 whether or not you hire us."
       }
     ],
     "closingCta": {
       "title": "Still deciding?",
-      "body": "One call, no pitch — we'll show you where the gaps are.",
+      "body": "One call, no pitch \u2014 we'll show you where the gaps are.",
       "cta": {
         "label": "Find the Gaps in Your Growth System",
         "href": "/contact/"
@@ -704,9 +708,9 @@
       ],
       "newsletterCheckboxLabel": "Also send me the newsletter",
       "submitLabelIdle": "Request My Growth Gap Review",
-      "submitLabelDone": "Request received — we’ll reply within one business day",
-      "noteIdle": "No obligation. We’ll never share your clinic details.",
-      "noteDone": "We’ll email you two or three times to find a slot that works."
+      "submitLabelDone": "Request received \u2014 we\u2019ll reply within one business day",
+      "noteIdle": "No obligation. We\u2019ll never share your clinic details.",
+      "noteDone": "We\u2019ll email you two or three times to find a slot that works."
     }
   },
   "aiVoicePage": {
@@ -715,8 +719,8 @@
       "eyebrow": "24/7 AI Inbound Agent",
       "headline": "Never miss another patient inquiry.",
       "headlineHighlight": "patient inquiry.",
-      "subhead": "Our AI voice and chat receptionist answers every call and message instantly — day or night — qualifies the lead, books the consult, and drops it straight into your CRM. Here’s a live demo for a GLP-1 / peptide wellness clinic.",
-      "liveBadge": "Try it live — click “Start a call” or “Chat” below"
+      "subhead": "Our AI voice and chat receptionist answers every call and message instantly \u2014 day or night \u2014 qualifies the lead, books the consult, and drops it straight into your CRM. Here\u2019s a live demo for a GLP-1 / peptide wellness clinic.",
+      "liveBadge": "Try it live \u2014 click \u201cStart a call\u201d or \u201cChat\u201d below"
     },
     "demo": {
       "embedUrl": "https://midwest-exteriors-production.up.railway.app/receptionist/wellness?embed=1",
@@ -726,7 +730,7 @@
     "features": [
       {
         "title": "Answers instantly, 24/7",
-        "body": "Every call and chat gets picked up on the first ring — nights, weekends, and while your front desk is with a patient."
+        "body": "Every call and chat gets picked up on the first ring \u2014 nights, weekends, and while your front desk is with a patient."
       },
       {
         "title": "Qualifies and books",
@@ -734,12 +738,12 @@
       },
       {
         "title": "Feeds your CRM",
-        "body": "Every conversation lands in your CRM with contact details, qualification notes, and next steps — no manual entry."
+        "body": "Every conversation lands in your CRM with contact details, qualification notes, and next steps \u2014 no manual entry."
       }
     ],
     "closingCta": {
-      "title": "Want this answering your clinic’s phone?",
-      "body": "We’ll configure it around your programs, intake questions, and calendar — and connect it to your CRM.",
+      "title": "Want this answering your clinic\u2019s phone?",
+      "body": "We\u2019ll configure it around your programs, intake questions, and calendar \u2014 and connect it to your CRM.",
       "cta": {
         "label": "Book a Demo Call",
         "href": "/contact/"
@@ -790,7 +794,7 @@
         "title": "Free guide: Top 10 reasons your clinic's ads are struggling on Meta",
         "emailPlaceholder": "you@yourclinic.com",
         "submitLabelIdle": "Get the Guide",
-        "submitLabelDone": "Sent ✓"
+        "submitLabelDone": "Sent \u2713"
       },
       "explore": {
         "heading": "Explore",

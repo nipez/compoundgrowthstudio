@@ -20,6 +20,8 @@ const defaults = {
     {value: '$150M', label: 'revenue scaled for one brand'},
     {value: '100+', label: 'clinic locations grown'},
   ] satisfies StatCard[],
+  heroSupport:
+    'Most agencies sell you leads and walk away. We own the full path — from first click to booked, repeat patient.',
   marqueeItems: [
     'More qualified consultations',
     'Ads written to pass compliance review',
@@ -42,8 +44,8 @@ const defaults = {
       body: 'Responsible messaging, provider credibility, and claims clinics can review before publishing.',
     },
     {
-      title: 'We build connected systems',
-      body: 'Content, visibility, landing pages, follow-up, and reporting work together — not in silos.',
+      title: "We don't just hand you leads",
+      body: 'Lead-gen agencies dump raw contacts and disappear. We connect visibility, conversion, and follow-up into one system measured on booked consults — not lead volume.',
     },
     {
       title: 'We focus on consult-ready demand',
@@ -161,6 +163,12 @@ const pillarIcons = [
       </div>
     </div>
   </header>
+
+  <div style="background: #0A1D38; color: #F4F7FB; border-top: 1px solid rgba(127,176,255,.18);">
+    <p style="max-width: 920px; margin: 0 auto; padding: 28px 48px; text-align: center; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 18px; line-height: 1.45; letter-spacing: -.2px; color: rgba(244,247,251,.9);">
+      {doc?.heroSupport ?? defaults.heroSupport}
+    </p>
+  </div>
 
   <div style="background: #E7EEFA; color: #0A1D38; overflow: hidden; padding: 14px 0; border-bottom: 1px solid rgba(10,29,56,.1);">
     <div style="display: flex; width: max-content; animation: marquee 38s linear infinite;">
