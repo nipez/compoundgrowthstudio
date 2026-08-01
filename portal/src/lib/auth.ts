@@ -52,17 +52,9 @@ export function homeForRole(role: PortalRole) {
   return role === 'cgs_staff' ? '/cgs/' : '/client/';
 }
 
-export function requireUser(
-  user: SessionUser | null,
-  expected?: PortalRole,
-): asserts user is SessionUser {
-  if (!user) {
-    throw new Response(null, { status: 302, headers: { Location: '/login/' } });
-  }
-  if (expected && user.role !== expected) {
-    throw new Response(null, {
-      status: 302,
-      headers: { Location: homeForRole(user.role) },
-    });
-  }
+/** Returns a redirect path when the session is missing or the wrong role. */
+export function gateUser(user: SessionUser | null, expected?: PortalRole): string | null {
+  if (!user) return '/login/';
+  if (expected && user.role !== expected) return homeForRole(user.role);
+  return null;
 }

@@ -1,4 +1,4 @@
-import { createServerClient, parseCookieHeader, serializeCookieHeader } from '@supabase/ssr';
+import { createServerClient, parseCookieHeader } from '@supabase/ssr';
 import type { AstroCookies } from 'astro';
 import type { SessionUser } from './types';
 import { readDemoSession } from './auth';
@@ -15,7 +15,10 @@ export function createSupabaseServerClient(request: Request, cookies: AstroCooki
   return createServerClient(url, key, {
     cookies: {
       getAll() {
-        return parseCookieHeader(request.headers.get('Cookie') ?? '');
+        return parseCookieHeader(request.headers.get('Cookie') ?? '').map((c) => ({
+          name: c.name,
+          value: c.value ?? '',
+        }));
       },
       setAll(cookiesToSet) {
         cookiesToSet.forEach(({ name, value, options }) => {
@@ -53,8 +56,4 @@ export async function getSessionUser(
     role: profile?.portal_role === 'cgs_staff' ? 'cgs_staff' : 'client',
     isDemo: false,
   };
-}
-
-export function cookieHeaderFromResponse(_cookies: AstroCookies) {
-  return serializeCookieHeader;
 }

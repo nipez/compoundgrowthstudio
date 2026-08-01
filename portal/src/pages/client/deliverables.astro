@@ -1,12 +1,14 @@
 ---
 import PortalLayout from '../../layouts/PortalLayout.astro';
-import { requireUser } from '../../lib/auth';
+import { gateUser } from '../../lib/auth';
 import { demoDeliverables } from '../../lib/demo-data';
 import { CLIENT_NAV } from '../../lib/modules';
 import { getSessionUser } from '../../lib/supabase';
 
 const user = await getSessionUser(Astro.request, Astro.cookies);
-requireUser(user, 'client');
+const gate = gateUser(user, 'client');
+if (gate) return Astro.redirect(gate);
+if (!user) return Astro.redirect('/login/');
 ---
 
 <PortalLayout title="Deliverables" user={user} nav={CLIENT_NAV} portalLabel="Client portal">

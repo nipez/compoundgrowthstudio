@@ -15,4 +15,11 @@ export default defineConfig({
   server: {
     port: 4322,
   },
+  security: {
+    checkOrigin: true,
+    allowedDomains: [
+      { hostname: 'localhost' },
+      { hostname: 'app.compoundgrowthstudio.com', protocol: 'https' },
+    ],
+  },
 });
