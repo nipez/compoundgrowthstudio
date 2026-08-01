@@ -188,6 +188,13 @@ const docs = [
     stageLabels: withKeys(sys.hero.stageLabels, 'sl'),
     timelineHeader: sys.timelineHeader,
     stages: withKeys(sys.stages, 'st'),
+    closingCta: {
+      eyebrow: sys.closingCta.eyebrow,
+      title: sys.closingCta.title,
+      body: sys.closingCta.body,
+      ctaLabel: sys.closingCta.cta.label,
+      ctaHref: sys.closingCta.cta.href,
+    },
   },
   {
     _id: 'glpPage',

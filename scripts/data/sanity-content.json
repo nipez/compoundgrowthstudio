@@ -345,7 +345,16 @@
         "handoff": "Sharper targeting to Visibility \u2014 and the loop tightens."
       }
     ],
-    "timelineHeader": "Lead-gen agencies stop at the form fill. Our system doesn't."
+    "timelineHeader": "Lead-gen agencies stop at the form fill. Our system doesn't.",
+    "closingCta": {
+      "eyebrow": "Ready to connect the stages?",
+      "title": "Find the gaps in your growth system.",
+      "body": "Thirty minutes. We'll map where patients drop off across visibility, conversion, and follow-up — then tell you what to fix first.",
+      "cta": {
+        "label": "Book a Growth Gap Call",
+        "href": "/contact/"
+      }
+    }
   },
   "glpPage": {
     "_type": "glpPage",

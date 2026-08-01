@@ -200,6 +200,7 @@ export type SystemDoc = SanityDocumentBase<'systemPage'> &
     stageLabels?: StagePill[];
     timelineHeader?: string;
     stages?: SystemStage[];
+    closingCta?: ClosingCta;
   };
 
 export type GlpDoc = SanityDocumentBase<'glpPage'> &
