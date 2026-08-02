@@ -58,6 +58,27 @@ npm run dev
 
 Demo mode (no Supabase required): open `/login/` and use **Continue as demo client** or **Continue as CGS**.
 
+## Deploy on Railway (demo preview)
+
+Keep the existing marketing Railway service on the repo root `Dockerfile`. Add a **second service** for the portal:
+
+1. Railway → project → **New Service** → Deploy from GitHub (same repo).
+2. Settings → **Root Directory** = `portal`
+3. It picks up [`railway.toml`](./railway.toml) + [`Dockerfile`](./Dockerfile).
+4. Variables (demo can ship with none; add when ready):
+
+| Variable | Required for demo | Notes |
+| --- | --- | --- |
+| `PUBLIC_PORTAL_URL` | Recommended | Set to the Railway public URL after first deploy, e.g. `https://cgs-portal-production.up.railway.app` |
+| `PUBLIC_SUPABASE_URL` / `PUBLIC_SUPABASE_ANON_KEY` | No | Enables real magic-link auth |
+| `SUPABASE_SERVICE_ROLE_KEY` | No | Server-side webhook sync later |
+| `STRIPE_*` | No | Billing live later |
+
+5. Generate domain → open `/login/` → demo client / CGS ops.
+6. Later: attach custom domain `app.compoundgrowthstudio.com` and set `PUBLIC_PORTAL_URL` to match.
+
+Healthcheck path: `/login/`.
+
 ## Database
 
 Run from repo root in Supabase SQL editor (after `001_leads_and_contact.sql`):

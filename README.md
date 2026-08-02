@@ -26,6 +26,17 @@ npm run dev   # http://localhost:4322
 
 Demo mode works without Supabase: open `/login/` → Continue as demo client / CGS ops.
 
+### Portal on Railway
+
+Add a **second Railway service** (do not reuse the marketing nginx Dockerfile):
+
+1. New service from the same GitHub repo  
+2. Root Directory = `portal`  
+3. Uses `portal/Dockerfile` + `portal/railway.toml`  
+4. Optional: set `PUBLIC_PORTAL_URL` to the service URL  
+
+Full notes: [`portal/README.md`](./portal/README.md#deploy-on-railway-demo-preview).
+
 ## Pages
 
 | Route | Page |
