@@ -1,9 +1,15 @@
+/** Keep compound words like "high-value" from wrapping mid-hyphen. */
+function protectHyphens(text: string): string {
+  return text.replace(/(\w)-(\w)/g, '$1\u2011$2');
+}
+
 /** Keep the last N words together so short endings don't orphan on their own line. */
 export function preventWidow(text: string, keep = 2): string {
   const value = text?.trim();
   if (!value) return text ?? '';
 
-  const parts = value.split(/\s+/);
+  const protectedText = protectHyphens(value);
+  const parts = protectedText.split(/\s+/);
   if (parts.length <= keep) return parts.join('\u00A0');
 
   return `${parts.slice(0, -keep).join(' ')}\u00A0${parts.slice(-keep).join('\u00A0')}`;
