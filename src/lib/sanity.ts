@@ -129,6 +129,8 @@ export type PersonCard = {
   role?: string;
   bio?: string;
   photoUrl?: string;
+  /** Legacy Sanity field from early seed data */
+  photoSrc?: string;
   photoAlt?: string;
   helps?: string[];
 };
