@@ -1,5 +1,6 @@
 import {
   closingCta,
+  compareRow,
   cta,
   faqItem,
   featureCard,
@@ -42,6 +43,7 @@ export const schemaTypes = [
   serviceGroup,
   systemStage,
   personCard,
+  compareRow,
   closingCta,
   formCopy,
   siteSettings,

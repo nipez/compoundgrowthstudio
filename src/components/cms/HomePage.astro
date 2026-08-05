@@ -1,12 +1,29 @@
 ---
 import {preventWidow} from '../../lib/copy';
-import type {FeatureCard, HomeDoc, NumberedBlock, StatCard} from '../../lib/sanity';
+import type {
+  CompareRow,
+  FeatureCard,
+  HomeDoc,
+  NumberedBlock,
+  PersonCard,
+  StatCard,
+} from '../../lib/sanity';
 
 interface Props {
   doc?: HomeDoc | null;
 }
 
 const {doc = {} as HomeDoc} = Astro.props;
+
+function initials(name = ''): string {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((part) => part[0] ?? '')
+    .join('')
+    .slice(0, 2)
+    .toUpperCase();
+}
 
 const defaults = {
   eyebrow: 'Marketing for modern health clinics',
@@ -53,6 +70,42 @@ const defaults = {
       body: 'Not just impressions — clearer education, stronger trust, and more qualified consultations.',
     },
   ] satisfies FeatureCard[],
+  compareEyebrow: 'The difference',
+  compareTitle: 'Lead-gen agencies stop at the form fill. Our system doesn’t.',
+  compareWithoutLabel: 'Without Compound Growth Studio',
+  compareWithLabel: 'With Compound Growth Studio',
+  compareRows: [
+    {
+      label: 'Ad strategy',
+      without: 'Guesswork, rejected health ads, and spend that never turns into consults',
+      withUs: 'Compliant Meta acquisition written to clear review and reach cash-pay patients',
+    },
+    {
+      label: 'Patient journey',
+      without: 'A form fill with no education, trust, or path to the calendar',
+      withUs: 'Visibility → education → trust → conversion, handed off stage to stage',
+    },
+    {
+      label: 'Follow-up',
+      without: 'Leads go cold. No-shows pile up. One-time patients never return',
+      withUs: 'Nurture, routing, rebooking, refill reminders, and win-back — owned end to end',
+    },
+    {
+      label: 'Measurement',
+      without: 'You can’t tell which ad produced which booked patient',
+      withUs: 'Attribution from click to consult, then reinvestment in what works',
+    },
+    {
+      label: 'Delivery',
+      without: 'Junior account managers cycling on and off your clinic',
+      withUs: 'Operators plus specialists in creative, systems, and client experience',
+    },
+    {
+      label: 'Vendors',
+      without: 'Six separate projects from six vendors — and seams that drop patients',
+      withUs: 'One connected growth system run as one engine',
+    },
+  ] satisfies CompareRow[],
   systemEyebrow: 'One connected growth system',
   systemTitle: 'Six stages. One system. Not six silos.',
   systemStages: [
@@ -65,6 +118,45 @@ const defaults = {
   ] satisfies NumberedBlock[],
   systemCtaLabel: 'See what we build at each stage →',
   systemCtaHref: '/system/',
+  teamEyebrow: 'Your growth bench',
+  teamTitle: 'Operators and specialists — not a revolving account manager.',
+  teamSubhead:
+    'Co-founders lead strategy. Partners stay on the work across creative, systems, and client experience — so clinics get a bench, not a handoff.',
+  teamMembers: [
+    {
+      name: 'Conor',
+      role: 'Co-Founder · Brand & Demand',
+      bio: 'Helped scale B2B revenue from $20M to $150M and built a media brand to 300,000+ followers.',
+      photoUrl: '/images/conor.jpg',
+      photoAlt: 'Conor',
+    },
+    {
+      name: 'Nick',
+      role: 'Co-Founder · Growth & Healthcare',
+      bio: 'Scaled Bitwage U.S. ARR to ~$25M and directed marketing for 100+ healthcare locations.',
+      photoUrl: '/images/nick.jpg',
+      photoAlt: 'Nick',
+    },
+    {
+      name: 'Tony Pardilla',
+      role: 'Creative Partner',
+      bio: 'Turns strategy into landing pages, campaign creative, and conversion-focused digital experiences.',
+    },
+    {
+      name: 'Chris Cyril',
+      role: 'Systems Partner',
+      bio: 'Connects forms, tracking, CRM workflows, automation, and reporting behind the growth engine.',
+    },
+    {
+      name: 'Jessica Rodrigues',
+      role: 'Client Experience',
+      bio: 'Keeps onboarding, scheduling, follow-ups, and asset collection from falling through the cracks.',
+    },
+  ] satisfies PersonCard[],
+  teamCtaLabel: 'Find Your Growth Gaps',
+  teamCtaHref: '/contact/',
+  teamSecondaryLabel: 'Meet the full team →',
+  teamSecondaryHref: '/leadership/',
   leadMagnetEyebrow: 'Free guide',
   leadMagnetTitle: "Top 10 reasons your clinic's ads are struggling on Meta.",
   leadMagnetBody:
@@ -105,7 +197,9 @@ const defaults = {
 const heroStats = doc?.heroStats?.length ? doc.heroStats : defaults.heroStats;
 const marqueeItems = doc?.marqueeItems?.length ? doc.marqueeItems : defaults.marqueeItems;
 const pillars = doc?.pillars?.length ? doc.pillars : defaults.pillars;
+const compareRows = doc?.compareRows?.length ? doc.compareRows : defaults.compareRows;
 const systemStages = doc?.systemStages?.length ? doc.systemStages : defaults.systemStages;
+const teamMembers = doc?.teamMembers?.length ? doc.teamMembers : defaults.teamMembers;
 const provenStats = doc?.provenStats?.length ? doc.provenStats : defaults.provenStats;
 const leadMagnetForm = {...defaults.leadMagnetForm, ...(doc?.leadMagnetForm ?? {})};
 
@@ -200,6 +294,42 @@ const pillarIcons = [
     </div>
   </section>
 
+  <section class="cgs-compare" style="background: #F4F7FB; border-top: 1px solid rgba(10,29,56,.08); border-bottom: 1px solid rgba(10,29,56,.08);">
+    <div style="max-width: 1120px; margin: 0 auto; padding: 96px 48px;">
+      <div style="max-width: 720px; margin: 0 auto 40px; text-align: center; animation: rise .8s both; animation-timeline: view(); animation-range: entry 0% entry 60%;">
+        <div style="font-size: 12.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #1A4FD0;">{doc?.compareEyebrow ?? defaults.compareEyebrow}</div>
+        <h2 style="margin: 16px 0 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 38px; line-height: 1.12; letter-spacing: -1.4px; color: #0A1D38;">{preventWidow(doc?.compareTitle ?? defaults.compareTitle)}</h2>
+      </div>
+      <div class="cgs-compare__grid" style="display: grid; grid-template-columns: 1fr 1.08fr; gap: 18px; align-items: stretch; animation: rise .8s both; animation-timeline: view(); animation-range: entry 0% entry 50%;">
+        <div style="padding: 28px 26px 30px; background: #FFFFFF; border: 1px solid rgba(10,29,56,.1); border-radius: 4px;">
+          <div style="margin-bottom: 22px; font-size: 13px; font-weight: 700; letter-spacing: .04em; color: rgba(10,29,56,.55);">{doc?.compareWithoutLabel ?? defaults.compareWithoutLabel}</div>
+          <div style="display: grid; gap: 0;">
+            {compareRows.map((row, index) => (
+              <div style={`padding: ${index === 0 ? '0' : '18px'} 0 ${index === compareRows.length - 1 ? '0' : '18px'}; border-top: ${index === 0 ? 'none' : '1px solid rgba(10,29,56,.08)'};`}>
+                <div style="font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: rgba(10,29,56,.42);">{row.label ?? defaults.compareRows[index]?.label}</div>
+                <p style="margin: 8px 0 0; font-size: 15px; line-height: 1.5; color: rgba(10,29,56,.68);">{row.without ?? defaults.compareRows[index]?.without}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div style="padding: 28px 26px 30px; background: #0A1D38; color: #F4F7FB; border-radius: 4px; box-shadow: 0 18px 40px rgba(10,29,56,.18);">
+          <div style="margin-bottom: 22px; font-size: 13px; font-weight: 700; letter-spacing: .04em; color: #7FB0FF;">{doc?.compareWithLabel ?? defaults.compareWithLabel}</div>
+          <div style="display: grid; gap: 0;">
+            {compareRows.map((row, index) => (
+              <div style={`padding: ${index === 0 ? '0' : '18px'} 0 ${index === compareRows.length - 1 ? '0' : '18px'}; border-top: ${index === 0 ? 'none' : '1px solid rgba(244,247,251,.12)'};`}>
+                <div style="font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: rgba(127,176,255,.75);">{row.label ?? defaults.compareRows[index]?.label}</div>
+                <div style="display: flex; gap: 12px; margin-top: 8px; align-items: flex-start;">
+                  <span style="flex-shrink: 0; display: grid; place-items: center; width: 20px; height: 20px; margin-top: 1px; border-radius: 50%; background: #1A4FD0; color: #FFFFFF; font-size: 11px; font-weight: 700;" aria-hidden="true">✓</span>
+                  <p style="margin: 0; font-size: 15px; line-height: 1.5; color: rgba(244,247,251,.9);">{row.withUs ?? defaults.compareRows[index]?.withUs}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section style="background: #0A1D38; color: #F4F7FB; position: relative; overflow: hidden;">
     <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(127,176,255,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(127,176,255,.06) 1px, transparent 1px); background-size: 56px 56px;"></div>
     <div style="position: relative; max-width: 1280px; margin: 0 auto; padding: 100px 48px;">
@@ -224,6 +354,38 @@ const pillarIcons = [
       <div style="text-align: center; margin-top: 56px;">
         <a class="cgs-h29" href={doc?.systemCtaHref ?? defaults.systemCtaHref} style="display: inline-block; padding: 15px 26px; border: 1.5px solid rgba(127,176,255,.6); color: #7FB0FF; font-weight: 600; font-size: 15px; border-radius: 3px; transition: background .2s, color .2s;">{doc?.systemCtaLabel ?? defaults.systemCtaLabel}</a>
       </div>
+    </div>
+  </section>
+
+  <section class="cgs-team" style="max-width: 1280px; margin: 0 auto; padding: 100px 48px 20px;">
+    <div style="max-width: 760px; margin: 0 auto 48px; text-align: center; animation: rise .8s both; animation-timeline: view(); animation-range: entry 0% entry 60%;">
+      <div style="font-size: 12.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #1A4FD0;">{doc?.teamEyebrow ?? defaults.teamEyebrow}</div>
+      <h2 style="margin: 16px 0 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 38px; line-height: 1.12; letter-spacing: -1.4px; color: #0A1D38;">{preventWidow(doc?.teamTitle ?? defaults.teamTitle)}</h2>
+      <p style="margin: 18px 0 0; font-size: 16.5px; line-height: 1.6; color: rgba(10,29,56,.68);">{doc?.teamSubhead ?? defaults.teamSubhead}</p>
+    </div>
+    <div class="cgs-team__grid" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px;">
+      {teamMembers.map((member, index) => {
+        const fallback = defaults.teamMembers[index];
+        const name = member.name ?? fallback?.name ?? '';
+        const photoUrl = member.photoUrl ?? fallback?.photoUrl;
+        const photoAlt = member.photoAlt ?? name;
+        return (
+          <div style="text-align: center; padding: 8px 6px 4px; animation: rise .8s both; animation-timeline: view(); animation-range: entry 0% entry 50%;">
+            {photoUrl ? (
+              <img src={photoUrl} alt={photoAlt} style="display: block; width: 112px; height: 112px; margin: 0 auto; border-radius: 50%; object-fit: cover; border: 3px solid #E7EEFA;" />
+            ) : (
+              <div style="display: grid; place-items: center; width: 112px; height: 112px; margin: 0 auto; border-radius: 50%; background: #0A1D38; color: #7FB0FF; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 28px; letter-spacing: -.5px; border: 3px solid #E7EEFA;" aria-hidden="true">{initials(name)}</div>
+            )}
+            <h3 style="margin: 18px 0 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 18px; letter-spacing: -.4px; color: #0A1D38;">{name}</h3>
+            <div style="margin: 6px 0 10px; font-size: 11.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #1A4FD0;">{member.role ?? fallback?.role}</div>
+            <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: rgba(10,29,56,.66);">{member.bio ?? fallback?.bio}</p>
+          </div>
+        );
+      })}
+    </div>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 18px 24px; margin-top: 44px;">
+      <a class="cgs-h27" href={doc?.teamCtaHref ?? defaults.teamCtaHref} style="display: inline-block; padding: 15px 26px; background: #1A4FD0; color: #FFFFFF; font-weight: 700; font-size: 15px; border-radius: 3px; transition: transform .2s, background .2s;">{doc?.teamCtaLabel ?? defaults.teamCtaLabel}</a>
+      <a class="cgs-h28" href={doc?.teamSecondaryHref ?? defaults.teamSecondaryHref} style="color: #0A1D38; font-weight: 600; font-size: 15px; border-bottom: 1px solid rgba(10,29,56,.28); padding-bottom: 3px;">{doc?.teamSecondaryLabel ?? defaults.teamSecondaryLabel}</a>
     </div>
   </section>
 
@@ -259,3 +421,19 @@ const pillarIcons = [
     </div>
   </section>
 </div>
+
+<style>
+  @media (max-width: 980px) {
+    .cgs-compare__grid {
+      grid-template-columns: 1fr !important;
+    }
+    .cgs-team__grid {
+      grid-template-columns: repeat(3, 1fr) !important;
+    }
+  }
+  @media (max-width: 720px) {
+    .cgs-team__grid {
+      grid-template-columns: 1fr 1fr !important;
+    }
+  }
+</style>
