@@ -186,7 +186,7 @@ const defaults = {
     {
       value: '$25M ARR',
       title: 'Scaled From the Ground Up',
-      body: "Nick helped scale Bitwage's U.S. ARR from essentially zero to ~$25M as VP of Growth.",
+      body: "Nick helped scale a U.S.-based startup's ARR from essentially zero to ~$25M as VP of Growth.",
     },
     {
       value: '100+',
@@ -202,7 +202,17 @@ const pillars = doc?.pillars?.length ? doc.pillars : defaults.pillars;
 const compareRows = doc?.compareRows?.length ? doc.compareRows : defaults.compareRows;
 const systemStages = doc?.systemStages?.length ? doc.systemStages : defaults.systemStages;
 const teamMembers = doc?.teamMembers?.length ? doc.teamMembers : defaults.teamMembers;
-const provenStats = doc?.provenStats?.length ? doc.provenStats : defaults.provenStats;
+const provenStats = (doc?.provenStats?.length ? doc.provenStats : defaults.provenStats).map((stat, index) => {
+  const fallback = defaults.provenStats[index] ?? {};
+  const body = (stat.body ?? '').includes('Bitwage')
+    ? (fallback.body ?? stat.body)
+    : (stat.body ?? fallback.body);
+  return {
+    ...fallback,
+    ...stat,
+    body,
+  };
+});
 const leadMagnetForm = {...defaults.leadMagnetForm, ...(doc?.leadMagnetForm ?? {})};
 
 const pillarIcons = [
