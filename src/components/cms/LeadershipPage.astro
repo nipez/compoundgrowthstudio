@@ -37,6 +37,8 @@ const defaults = {
       name: 'Tony Pardilla',
       role: 'Creative Partner, Design & Web',
       bio: 'Tony supports creative and web execution behind the studio’s clinic growth work — turning strategy into polished landing pages, campaign creative, visual systems, and conversion-focused digital experiences.',
+      photoUrl: '/images/tony.jpg',
+      photoAlt: 'Tony Pardilla',
       helps: [
         'Website design direction',
         'Landing pages',
@@ -50,6 +52,8 @@ const defaults = {
       name: 'Chris Cyril',
       role: 'Systems & Technology Partner',
       bio: 'Chris supports the systems and technology layer behind the growth engine — connecting forms, tracking, CRM workflows, automation, integrations, analytics, and reporting.',
+      photoUrl: '/images/chris.jpg',
+      photoAlt: 'Chris Cyril',
       helps: [
         'Lead form setup',
         'CRM workflow support',
@@ -93,7 +97,19 @@ const founders = defaults.founders.map((fallback, index) => {
     role: person.role ?? fallback.role,
   };
 });
-const partners = doc?.partners?.length ? doc.partners : defaults.partners;
+const partners = defaults.partners.map((fallback, index) => {
+  const person = doc?.partners?.[index] ?? {};
+  return {
+    ...fallback,
+    ...person,
+    photoUrl: person.photoUrl ?? person.photoSrc ?? fallback.photoUrl,
+    photoAlt: person.photoAlt ?? fallback.photoAlt,
+    name: person.name ?? fallback.name,
+    role: person.role ?? fallback.role,
+    bio: person.bio ?? fallback.bio,
+    helps: person.helps?.length ? person.helps : fallback.helps,
+  };
+});
 const trackRecordItems = doc?.trackRecordItems?.length ? doc.trackRecordItems : defaults.trackRecordItems;
 
 function initials(name = ''): string {
