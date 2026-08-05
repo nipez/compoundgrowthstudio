@@ -79,7 +79,20 @@ const defaults = {
   ],
 };
 
-const founders = doc?.founders?.length ? doc.founders : defaults.founders;
+const founders = defaults.founders.map((fallback, index) => {
+  const person = doc?.founders?.[index] ?? {};
+  const isNick = (person.name ?? fallback.name ?? '').toLowerCase().startsWith('nick');
+  return {
+    ...fallback,
+    ...person,
+    photoUrl: (isNick ? fallback.photoUrl : undefined) ?? person.photoUrl ?? person.photoSrc ?? fallback.photoUrl,
+    photoAlt: person.photoAlt ?? fallback.photoAlt,
+    // Prefer shipped Nick copy/photo until Sanity leadership founders are re-seeded.
+    bio: isNick ? (fallback.bio ?? person.bio) : (person.bio ?? fallback.bio),
+    name: person.name ?? fallback.name,
+    role: person.role ?? fallback.role,
+  };
+});
 const partners = doc?.partners?.length ? doc.partners : defaults.partners;
 const trackRecordItems = doc?.trackRecordItems?.length ? doc.trackRecordItems : defaults.trackRecordItems;
 
