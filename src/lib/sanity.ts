@@ -133,6 +133,12 @@ export type PersonCard = {
   helps?: string[];
 };
 
+export type CompareRow = {
+  label?: string;
+  without?: string;
+  withUs?: string;
+};
+
 export type ClosingCta = {
   eyebrow?: string;
   title?: string;
@@ -178,6 +184,19 @@ export type HomeDoc = SanityDocumentBase<'homePage'> &
     systemStages?: NumberedBlock[];
     systemCtaLabel?: string;
     systemCtaHref?: string;
+    compareEyebrow?: string;
+    compareTitle?: string;
+    compareWithoutLabel?: string;
+    compareWithLabel?: string;
+    compareRows?: CompareRow[];
+    teamEyebrow?: string;
+    teamTitle?: string;
+    teamSubhead?: string;
+    teamMembers?: PersonCard[];
+    teamCtaLabel?: string;
+    teamCtaHref?: string;
+    teamSecondaryLabel?: string;
+    teamSecondaryHref?: string;
     leadMagnetEyebrow?: string;
     leadMagnetTitle?: string;
     leadMagnetBody?: string;

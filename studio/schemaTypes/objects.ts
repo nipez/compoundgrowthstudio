@@ -188,6 +188,18 @@ export const personCard = defineType({
   preview: {select: {title: 'name', subtitle: 'role'}},
 })
 
+export const compareRow = defineType({
+  name: 'compareRow',
+  title: 'Compare row',
+  type: 'object',
+  fields: [
+    defineField({name: 'label', type: 'string', description: 'e.g. Ad strategy'}),
+    defineField({name: 'without', title: 'Without CGS', type: 'string'}),
+    defineField({name: 'withUs', title: 'With CGS', type: 'string'}),
+  ],
+  preview: {select: {title: 'label', subtitle: 'withUs'}},
+})
+
 export const closingCta = defineType({
   name: 'closingCta',
   title: 'Closing CTA',
