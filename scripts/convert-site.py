@@ -327,7 +327,7 @@ def site_data() -> dict:
                 "end": 25,
                 "suffix": "M ARR",
                 "title": "Scaled From the Ground Up",
-                "body": "Nick helped scale Bitwage's U.S. ARR from essentially zero to ~$25M as VP of Growth.",
+                "body": "Nick helped scale a U.S.-based startup's ARR from essentially zero to ~$25M as VP of Growth.",
             },
             {
                 "id": "cnt4",
