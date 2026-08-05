@@ -63,6 +63,8 @@ const defaults = {
       name: 'Jessica Rodrigues',
       role: 'Client Experience Coordinator',
       bio: 'Jessica supports onboarding, communication, scheduling, follow-ups, asset collection, and project coordination — so clinic teams always know what is happening and what comes next.',
+      photoUrl: '/images/jessica.jpg',
+      photoAlt: 'Jessica Rodrigues',
       helps: ['Onboarding', 'Scheduling', 'Client communication', 'Follow-ups', 'Asset collection', 'Project coordination'],
     },
   ] satisfies PersonCard[],
@@ -80,6 +82,16 @@ const defaults = {
 const founders = doc?.founders?.length ? doc.founders : defaults.founders;
 const partners = doc?.partners?.length ? doc.partners : defaults.partners;
 const trackRecordItems = doc?.trackRecordItems?.length ? doc.trackRecordItems : defaults.trackRecordItems;
+
+function initials(name = ''): string {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((part) => part[0] ?? '')
+    .join('')
+    .slice(0, 2)
+    .toUpperCase();
+}
 ---
 
 <div>
@@ -114,9 +126,17 @@ const trackRecordItems = doc?.trackRecordItems?.length ? doc.trackRecordItems : 
       {partners.map((partner, index) => {
         const fallback = defaults.partners[index];
         const helps = partner.helps?.length ? partner.helps : fallback?.helps ?? [];
+        const name = partner.name ?? fallback?.name ?? '';
+        const photoUrl = partner.photoUrl ?? fallback?.photoUrl;
+        const photoAlt = partner.photoAlt ?? name;
         return (
           <div style="padding: 32px 30px; background: #FFFFFF; border: 1px solid rgba(10,29,56,.09); border-radius: 4px; animation: rise .8s both; animation-timeline: view(); animation-range: entry 0% entry 50%;">
-            <h3 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: -.5px;">{partner.name ?? fallback?.name}</h3>
+            {photoUrl ? (
+              <img src={photoUrl} alt={photoAlt} style="display: block; width: 88px; height: 88px; margin: 0 0 18px; border-radius: 50%; object-fit: cover; object-position: center top;" />
+            ) : (
+              <div style="display: grid; place-items: center; width: 88px; height: 88px; margin: 0 0 18px; border-radius: 50%; background: #0A1D38; color: #7FB0FF; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 22px;" aria-hidden="true">{initials(name)}</div>
+            )}
+            <h3 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: -.5px;">{name}</h3>
             <div style="margin: 6px 0 14px; font-size: 12.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #1A4FD0;">{partner.role ?? fallback?.role}</div>
             <p style="margin: 0 0 16px; font-size: 14.5px; line-height: 1.65; color: rgba(10,29,56,.7);">{partner.bio ?? fallback?.bio}</p>
             <div style="display: flex; flex-wrap: wrap; gap: 8px 16px;">
