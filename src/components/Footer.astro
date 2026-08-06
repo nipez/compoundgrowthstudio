@@ -15,17 +15,18 @@ const defaults = {
   footerExploreHeading: 'Explore',
   footerExploreLinks: [
     {label: 'Services', href: '/services/'},
+    {label: 'Patient Leak Calculator', href: '/calculator/'},
     {label: 'Who We Serve', href: '/glp-1-peptide-marketing/'},
+    {label: 'Local SEO for GLP-1', href: '/local-seo-for-glp1-clinics/'},
+    {label: 'GLP-1 Marketing Compliance', href: '/glp1-marketing-compliance/'},
     {label: 'Growth System', href: '/system/'},
-    {label: 'AI Voice Agent', href: '/ai-voice-agent/'},
-    {label: 'Free Meta Ads Guide', href: '/guides/meta-ads/'},
     {label: 'Leadership', href: '/leadership/'},
     {label: 'FAQ', href: '/faq/'},
   ] satisfies Link[],
   footerGetStartedHeading: 'Get started',
   footerGetStartedLinks: [
     {label: 'Pricing & Community', href: '/pricing/'},
-    {label: 'Join the newsletter', href: '/pricing/#newsletter'},
+    {label: 'Ad Account Recovery', href: '/ad-account-recovery/'},
     {label: 'Book a growth call', href: '/contact/'},
   ] satisfies Link[],
   footerDisclaimer:
@@ -43,13 +44,8 @@ const settings = await fetchDocument<SiteSettings>(pageIds.settings);
 const footerLeadMagnet = {...defaults.footerLeadMagnet, ...(settings?.footerLeadMagnet ?? {})};
 // Prefer shipped blurb until Sanity footer copy is re-seeded without "wellness".
 const footerBlurb = defaults.footerBlurb;
-const exploreLinks = (settings?.footerExploreLinks?.length
-  ? settings.footerExploreLinks
-  : defaults.footerExploreLinks
-).map(remapServeLabel);
-const getStartedLinks = settings?.footerGetStartedLinks?.length
-  ? settings.footerGetStartedLinks
-  : defaults.footerGetStartedLinks;
+const exploreLinks = defaults.footerExploreLinks.map(remapServeLabel);
+const getStartedLinks = defaults.footerGetStartedLinks;
 ---
 
 <footer style="background: #071426; color: rgba(244,247,251,.6);">

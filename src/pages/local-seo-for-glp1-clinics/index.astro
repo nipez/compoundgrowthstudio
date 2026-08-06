@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LocalSeoPage from '../../components/cms/LocalSeoPage.astro';
+import { pages } from '../../lib/site';
+
+const page = pages['local-seo-for-glp1-clinics'];
+---
+
+<BaseLayout page={page}>
+  <LocalSeoPage />
+</BaseLayout>

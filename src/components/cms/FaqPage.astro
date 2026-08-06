@@ -21,9 +21,24 @@ const defaults = {
   headline: 'Questions clinics ask before they start.',
   faqs: [
     {
+      question: 'Why do our patients stop after a few months?',
+      answer:
+        'On branded GLP-1 programs, 12-month retention is often around 32%. Patients stall at titration, plateaus, side effects, and price — usually around month three and four — and clinics keep buying replacements at $300–600 each. We build month-3/4 continuation, plateau messaging, and win-back so the book you acquired doesn’t quietly empty. Run the numbers on /calculator/.',
+    },
+    {
+      question: 'What changed with compounded GLP-1s and does it affect our marketing?',
+      answer:
+        'Post–May 2025, most compounded semaglutide and tirzepatide marketing is off the table. Ads and landing pages need branded product from licensed distributors, documented prescriber oversight, and claims that don’t imply equivalence. Plain-English breakdown and a free Compliance Teardown: /glp1-marketing-compliance/.',
+    },
+    {
+      question: 'How do we compete with Hims and Ro?',
+      answer:
+        'Not by outspending them nationally. Patients search drug names and then look for a local, supervised clinic. Local SEO and Google Business Profile are where telehealth brands are structurally weak — that’s the lane. Details: /local-seo-for-glp1-clinics/.',
+    },
+    {
       question: 'Can you keep our ads from getting rejected?',
       answer:
-        'We structure pages, creative, and copy around prescription-advertising policy from the start — that is the single biggest reason clinic campaigns stall. We cannot guarantee a platform decision, but compliance is designed in rather than patched later.',
+        'We structure pages, creative, and copy around prescription-advertising policy from the start — that is the single biggest reason clinic campaigns stall. We cannot guarantee a platform decision, but compliance is designed in rather than patched later. See also /glp1-marketing-compliance/ and /ad-account-recovery/.',
     },
     {
       question: 'Who approves medical claims?',
@@ -64,11 +79,16 @@ const defaults = {
   } satisfies ClosingCta,
 };
 
-const glpOnlyPattern = /only work with GLP-1/i;
-const faqs = (doc?.faqs?.length ? doc.faqs : defaults.faqs).filter(
-  (faq) => !glpOnlyPattern.test(faq.question ?? ''),
-);
+// Prefer shipped FAQs so retention / compliance / local SEO questions aren't dropped by stale CMS.
+const faqs = defaults.faqs;
 const closingCta = {...defaults.closingCta, ...(doc?.closingCta ?? {})};
+
+function linkify(text: string): string {
+  return text.replace(
+    /(\/(?:[a-z0-9-]+\/)+)/g,
+    '<a href="$1" style="color:#1A4FD0;font-weight:600;">$1</a>',
+  );
+}
 ---
 
 <div>
@@ -94,7 +114,7 @@ const closingCta = {...defaults.closingCta, ...(doc?.closingCta ?? {})};
             {faq.question ?? defaults.faqs[index]?.question}
             <span style="flex-shrink: 0; color: #1A4FD0; font-size: 22px; font-weight: 500;">+</span>
           </summary>
-          <p style="margin: 0; padding: 0 28px 26px; max-width: 760px; font-size: 15.5px; line-height: 1.68; color: rgba(10,29,56,.72);">{faq.answer ?? defaults.faqs[index]?.answer}</p>
+          <p style="margin: 0; padding: 0 28px 26px; max-width: 760px; font-size: 15.5px; line-height: 1.68; color: rgba(10,29,56,.72);" set:html={linkify(faq.answer ?? '')} />
         </details>
       ))}
     </div>

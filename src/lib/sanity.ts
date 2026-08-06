@@ -106,9 +106,12 @@ export type PricingTier = {
 export type ServiceItem = {
   title?: string;
   body?: string;
+  href?: string;
+  linkLabel?: string;
 };
 
 export type ServiceGroup = {
+  badge?: string;
   number?: string;
   stage?: string;
   items?: ServiceItem[];

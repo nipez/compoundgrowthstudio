@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CompliancePage from '../../components/cms/CompliancePage.astro';
+import { pages } from '../../lib/site';
+
+const page = pages['glp1-marketing-compliance'];
+---
+
+<BaseLayout page={page}>
+  <CompliancePage />
+</BaseLayout>

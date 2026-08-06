@@ -17,7 +17,7 @@ const defaults = {
   tiers: [
     {
       name: 'Clinic Growth Community',
-      price: '$100',
+      price: '$50',
       period: '/month',
       description: 'Strategy, ideas, and frameworks before execution — for clinics that want direction without a full engagement.',
       features: [
@@ -43,6 +43,7 @@ const defaults = {
         'Ongoing updates and A/B testing monthly',
         'Conversion tracking + monthly reporting',
         'Add hormone, TRT, or longevity lines as you launch them',
+        'Month-3/4 retention sequences for patients you already acquired',
         'Grows with you — add paid, SEO, or nurture',
       ],
       ctaLabel: 'Start With the Foundation',
@@ -71,10 +72,10 @@ const defaults = {
   recoveryTitle: 'Ad Account Recovery',
   recoveryBody:
     'Ads rejected, account flagged, or campaigns stuck in review? We audit your setup, rebuild the copy and landing page for compliance, and get you clear to run — in a fixed two-week window, no retainer required.',
-  recoveryPriceLabel: 'Fixed price',
-  recoveryTimeline: 'Delivered in 2 weeks',
+  recoveryPriceLabel: '$2,500',
+  recoveryTimeline: 'Fixed price · delivered in 2 weeks',
   recoveryCtaLabel: "See What's Included",
-  recoveryCtaHref: '/contact/',
+  recoveryCtaHref: '/ad-account-recovery/',
   footerNoteBefore: 'Not sure where to start?',
   footerNoteLinkLabel: 'Find the gaps in your growth system →',
   footerNoteLinkHref: '/contact/',
@@ -87,15 +88,16 @@ const defaults = {
   },
 };
 
-const tiers = (doc?.tiers?.length ? doc.tiers : defaults.tiers).map((tier, index) => {
-  const fallback = defaults.tiers[index];
-  if (!fallback) return tier;
-  const isFoundation = (tier.name ?? fallback.name) === 'Conversion Foundation';
-  // Prefer shipped foundation copy until Sanity pricing tiers are re-seeded.
-  if (isFoundation) {
+const tiers = defaults.tiers.map((fallback, index) => {
+  const tier = doc?.tiers?.[index] ?? {};
+  const isFoundation = fallback.name === 'Conversion Foundation';
+  const isCommunity = fallback.name === 'Clinic Growth Community';
+  // Prefer shipped Community ($50) + Foundation (retention bullet) until Sanity is re-seeded.
+  if (isFoundation || isCommunity) {
     return {
       ...fallback,
       ...tier,
+      price: fallback.price,
       description: fallback.description,
       features: fallback.features,
     };
@@ -107,6 +109,9 @@ const tiers = (doc?.tiers?.length ? doc.tiers : defaults.tiers).map((tier, index
   };
 });
 const newsletter = {...defaults.newsletter, ...(doc?.newsletter ?? {})};
+const recoveryPriceLabel = defaults.recoveryPriceLabel;
+const recoveryTimeline = defaults.recoveryTimeline;
+const recoveryCtaHref = defaults.recoveryCtaHref;
 ---
 
 <div>
@@ -154,9 +159,9 @@ const newsletter = {...defaults.newsletter, ...(doc?.newsletter ?? {})};
         <p style="margin: 0; font-size: 14px; line-height: 1.55; color: rgba(244,247,251,.72);">{doc?.recoveryBody ?? defaults.recoveryBody}</p>
       </div>
       <div style="position: relative; text-align: right; white-space: nowrap; flex-shrink: 0;">
-        <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 28px;">{doc?.recoveryPriceLabel ?? defaults.recoveryPriceLabel}</div>
-        <div style="margin-top: 2px; font-size: 12.5px; color: rgba(244,247,251,.6);">{doc?.recoveryTimeline ?? defaults.recoveryTimeline}</div>
-        <a class="cgs-h47" href={doc?.recoveryCtaHref ?? defaults.recoveryCtaHref} style="display: inline-block; margin-top: 14px; padding: 12px 22px; border: 1.5px solid rgba(244,247,251,.35); color: #F4F7FB; font-weight: 600; font-size: 14px; border-radius: 3px; transition: border-color .2s;">{doc?.recoveryCtaLabel ?? defaults.recoveryCtaLabel}</a>
+        <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 28px;">{recoveryPriceLabel}</div>
+        <div style="margin-top: 2px; font-size: 12.5px; color: rgba(244,247,251,.6);">{recoveryTimeline}</div>
+        <a class="cgs-h47" href={recoveryCtaHref} style="display: inline-block; margin-top: 14px; padding: 12px 22px; border: 1.5px solid rgba(244,247,251,.35); color: #F4F7FB; font-weight: 600; font-size: 14px; border-radius: 3px; transition: border-color .2s;">{doc?.recoveryCtaLabel ?? defaults.recoveryCtaLabel}</a>
       </div>
     </div>
     <p style="text-align: center; margin: 44px 0 96px; font-size: 14.5px; color: rgba(10,29,56,.62);">{doc?.footerNoteBefore ?? defaults.footerNoteBefore} <a href={doc?.footerNoteLinkHref ?? defaults.footerNoteLinkHref} style="font-weight: 600;">{doc?.footerNoteLinkLabel ?? defaults.footerNoteLinkLabel}</a></p>

@@ -6,10 +6,10 @@ const defaults = {
   brandMark: 'CG',
   navItems: [
     {label: 'Services', href: '/services/'},
+    {label: 'Calculator', href: '/calculator/'},
     {label: 'Who We Serve', href: '/glp-1-peptide-marketing/'},
-    {label: 'Growth System', href: '/system/'},
     {label: 'Get Started', href: '/pricing/'},
-    {label: 'Leadership', href: '/leadership/'},
+    {label: 'Ad Recovery', href: '/ad-account-recovery/'},
     {label: 'FAQ', href: '/faq/'},
   ] satisfies Link[],
   navCtaLabel: 'Find Your Growth Gaps',
@@ -24,7 +24,8 @@ function remapServeLabel(item: Link): Link {
 }
 
 const settings = await fetchDocument<SiteSettings>(pageIds.settings);
-const navItems = (settings?.navItems?.length ? settings.navItems : defaults.navItems).map(remapServeLabel);
+// Prefer shipped nav so Calculator + Ad Recovery ship without a Sanity reseed.
+const navItems = defaults.navItems.map(remapServeLabel);
 ---
 
 <nav style="position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 16px 48px; background: rgba(244,247,251,.88); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(10,29,56,.09);">

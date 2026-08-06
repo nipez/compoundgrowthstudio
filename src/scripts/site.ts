@@ -39,7 +39,10 @@ function sourcePage(): string {
   return `${location.pathname}${location.hash || ''}` || '/';
 }
 
-async function submitLead(form: HTMLFormElement, tag: 'lead_magnet' | 'newsletter') {
+async function submitLead(
+  form: HTMLFormElement,
+  tag: 'lead_magnet' | 'newsletter' | 'calculator',
+) {
   const honeypot = (form.elements.namedItem('website') as HTMLInputElement | null)?.value;
   if (honeypot) {
     markSuccess(form);
@@ -52,6 +55,17 @@ async function submitLead(form: HTMLFormElement, tag: 'lead_magnet' | 'newslette
     form.reportValidity();
     return;
   }
+  const clinic = String((form.elements.namedItem('clinic') as HTMLInputElement | null)?.value || '').trim();
+  const city = String((form.elements.namedItem('city') as HTMLInputElement | null)?.value || '').trim();
+  const calcSummary = String(
+    (form.elements.namedItem('calc_summary') as HTMLInputElement | null)?.value || '',
+  ).trim();
+
+  if (tag === 'calculator' && (!clinic || !city)) {
+    form.reportValidity();
+    return;
+  }
+
   const client = supabase();
   if (!client) {
     markSuccess(form);
@@ -66,17 +80,33 @@ async function submitLead(form: HTMLFormElement, tag: 'lead_magnet' | 'newslette
     email,
     source_page: sourcePage(),
     tag,
+    // Extra context when columns exist; ignored/null-safe if schema is email-only.
+    clinic: clinic || null,
+    city: city || null,
+    notes: calcSummary || null,
   });
   if (error) {
-    console.error('[cgs] lead insert failed', error.message);
-    alert('Something went wrong. Please try again.');
-    return;
+    // Fallback without optional columns if the leads table is still minimal.
+    const { error: retryError } = await client.from('leads').insert({
+      email,
+      source_page: sourcePage(),
+      tag,
+    });
+    if (retryError) {
+      console.error('[cgs] lead insert failed', error.message, retryError.message);
+      alert('Something went wrong. Please try again.');
+      return;
+    }
   }
   markSuccess(form);
   if (tag === 'lead_magnet') {
     window.setTimeout(() => {
       window.location.assign('/guides/meta-ads/?thanks=1');
     }, 350);
+  } else if (tag === 'calculator') {
+    window.setTimeout(() => {
+      window.location.assign('/contact/?from=calculator');
+    }, 900);
   }
 }
 
@@ -139,6 +169,80 @@ async function submitContact(form: HTMLFormElement) {
     });
 }
 
+function money(n: number): string {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    maximumFractionDigits: 0,
+  }).format(n);
+}
+
+function num(n: number): string {
+  return new Intl.NumberFormat('en-US', {maximumFractionDigits: 0}).format(n);
+}
+
+function readCalcInputs(root: HTMLElement) {
+  const form = root.querySelector<HTMLFormElement>('[data-cgs-calc-inputs]');
+  if (!form) return null;
+  const get = (name: string) =>
+    Number((form.elements.namedItem(name) as HTMLInputElement | null)?.value || 0);
+  return {
+    activePatients: get('activePatients'),
+    monthlyPrice: get('monthlyPrice'),
+    newPatientsPerMonth: get('newPatientsPerMonth'),
+    retentionAt12: Math.min(1, Math.max(0, get('retentionAt12Pct') / 100)),
+    patientAcquisitionCost: get('patientAcquisitionCost'),
+    avgMonthsRetained: get('avgMonthsRetained'),
+  };
+}
+
+function paintCalc(root: HTMLElement) {
+  const inputs = readCalcInputs(root);
+  if (!inputs) return;
+  const patientsLostPerYear = Math.round(inputs.activePatients * (1 - inputs.retentionAt12));
+  const annualRevenueNeverEarned = Math.round(
+    patientsLostPerYear * inputs.monthlyPrice * inputs.avgMonthsRetained,
+  );
+  const annualReplacementCost = Math.round(patientsLostPerYear * inputs.patientAcquisitionCost);
+  const liftPatientsKept = Math.round(inputs.activePatients * 0.1);
+  const tenPointLiftWorth = Math.round(liftPatientsKept * inputs.monthlyPrice * inputs.avgMonthsRetained);
+
+  const set = (sel: string, value: string) => {
+    const el = root.querySelector<HTMLElement>(sel);
+    if (el) el.textContent = value;
+  };
+  set('[data-cgs-calc-headline]', money(tenPointLiftWorth));
+  set('[data-cgs-calc-lift-patients]', num(liftPatientsKept));
+  set('[data-cgs-calc-lost]', num(patientsLostPerYear));
+  set('[data-cgs-calc-revenue]', money(annualRevenueNeverEarned));
+  set('[data-cgs-calc-replace]', money(annualReplacementCost));
+
+  const summary = root.querySelector<HTMLInputElement>('[data-cgs-calc-summary]');
+  if (summary) {
+    summary.value = JSON.stringify({
+      ...inputs,
+      patientsLostPerYear,
+      annualRevenueNeverEarned,
+      annualReplacementCost,
+      liftPatientsKept,
+      tenPointLiftWorth,
+    });
+  }
+}
+
+function initCalculator() {
+  document.querySelectorAll<HTMLElement>('[data-cgs-calculator]').forEach((root) => {
+    const form = root.querySelector<HTMLFormElement>('[data-cgs-calc-inputs]');
+    if (!form) return;
+    const update = () => paintCalc(root);
+    form.querySelectorAll('input').forEach((input) => {
+      input.addEventListener('input', update);
+      input.addEventListener('change', update);
+    });
+    update();
+  });
+}
+
 function initForms() {
   document.querySelectorAll<HTMLFormElement>('form[data-cgs-form]').forEach((form) => {
     form.addEventListener('submit', (event) => {
@@ -146,6 +250,7 @@ function initForms() {
       const kind = form.dataset.cgsForm;
       if (kind === 'lead_magnet') void submitLead(form, 'lead_magnet');
       else if (kind === 'newsletter') void submitLead(form, 'newsletter');
+      else if (kind === 'calculator') void submitLead(form, 'calculator');
       else if (kind === 'contact') void submitContact(form);
     });
   });
@@ -231,6 +336,7 @@ function initSystemStages() {
 }
 
 initForms();
+initCalculator();
 initCounters();
 initAiDemoHeight();
 initSystemStages();

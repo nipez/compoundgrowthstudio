@@ -11,15 +11,39 @@ export type PageMeta = {
 export const pages: Record<string, PageMeta> = {
   home: {
     path: '/',
-    title: 'Compound Growth Studio | Clinic Growth Strategy & Digital Marketing',
+    title: 'Compound Growth Studio | GLP-1 Retention & Clinic Growth',
     description:
-      'Visibility, education, trust, conversion, follow-up, and optimization — combined into one connected growth system for medically guided programs.',
+      'Stop the month-four patient leak. Retention systems, compliant acquisition, and local visibility for GLP-1, weight loss, and med spa clinics.',
+  },
+  calculator: {
+    path: '/calculator/',
+    title: 'Patient Leak Calculator | Compound Growth Studio',
+    description:
+      'See patients lost per year, replacement cost, and what a 10-point retention lift is worth for your GLP-1 or weight loss clinic.',
+  },
+  'local-seo-for-glp1-clinics': {
+    path: '/local-seo-for-glp1-clinics/',
+    title: 'Local SEO for GLP-1 Clinics | Compound Growth Studio',
+    description:
+      'Patients search drug names, not “weight loss clinic.” Local SEO and Google Business Profile where Hims and Ro are structurally weak.',
+  },
+  'glp1-marketing-compliance': {
+    path: '/glp1-marketing-compliance/',
+    title: 'GLP-1 Marketing Compliance After May 2025 | Compound Growth Studio',
+    description:
+      'What changed for compounded semaglutide and tirzepatide marketing — and what it means for your ads and landing pages. Free compliance teardown.',
+  },
+  'ad-account-recovery': {
+    path: '/ad-account-recovery/',
+    title: 'Ad Account Recovery for Clinics | Compound Growth Studio',
+    description:
+      'Rejected or flagged clinic ads? Fixed-price ad account recovery in two weeks — compliant rebuild of creative and landing pages.',
   },
   services: {
     path: '/services/',
     title: 'Marketing Services for Modern Health Clinics | Compound Growth Studio',
     description:
-      'Local SEO, paid acquisition, treatment education, provider authority, conversion copy, follow-up, and reporting for modern health clinics.',
+      'Local SEO, paid acquisition, treatment education, provider authority, conversion copy, retention follow-up, and reporting for modern health clinics.',
   },
   system: {
     path: '/system/',

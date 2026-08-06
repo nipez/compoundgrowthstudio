@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CalculatorPage from '../../components/cms/CalculatorPage.astro';
+import { pages } from '../../lib/site';
+
+const page = pages.calculator;
+---
+
+<BaseLayout page={page}>
+  <CalculatorPage />
+</BaseLayout>
