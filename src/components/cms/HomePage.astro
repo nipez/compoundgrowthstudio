@@ -248,7 +248,6 @@ const subhead = defaults.subhead;
 const heroExpandNote = defaults.heroExpandNote;
 const primaryCtaHref = defaults.primaryCtaHref;
 const primaryCtaLabel = defaults.primaryCtaLabel;
-const heroStats = defaults.heroStats;
 const retentionStats = defaults.retentionStats;
 const marqueeItems = doc?.marqueeItems?.length ? doc.marqueeItems : defaults.marqueeItems;
 const pillars = doc?.pillars?.length ? doc.pillars : defaults.pillars;
@@ -317,33 +316,13 @@ const pillarIcons = [
         </div>
       </div>
       <div style="position: relative; animation: fadeIn 1s .4s both;">
-        <svg viewBox="0 0 560 420" style="display: block; width: 100%;">
-          <defs>
-            <linearGradient id="v2area" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#4C8DFF" stop-opacity=".38"></stop>
-              <stop offset="1" stop-color="#4C8DFF" stop-opacity="0"></stop>
-            </linearGradient>
-          </defs>
-          <g stroke="rgba(244,247,251,.12)" stroke-width="1">
-            <line x1="20" y1="90" x2="540" y2="90"></line>
-            <line x1="20" y1="180" x2="540" y2="180"></line>
-            <line x1="20" y1="270" x2="540" y2="270"></line>
-            <line x1="20" y1="360" x2="540" y2="360"></line>
-          </g>
-          <path d="M20,360 C160,354 260,336 340,290 C420,244 480,140 540,44 L540,360 Z" fill="url(#v2area)" style="animation: fadeIn 1.4s 1.4s both;"></path>
-          <path d="M20,360 C160,354 260,336 340,290 C420,244 480,140 540,44" fill="none" stroke="#7FB0FF" stroke-width="3.5" stroke-linecap="round" style="stroke-dasharray: 780; stroke-dashoffset: 780; animation: draw 2.2s .6s cubic-bezier(.4,0,.2,1) both;"></path>
-          <circle cx="540" cy="44" r="7" fill="#FFFFFF" style="animation: fadeIn .4s 2.6s both;"></circle>
-          <circle cx="540" cy="44" r="15" fill="none" stroke="#7FB0FF" stroke-width="1.5" style="animation: pulse 2.4s 2.8s infinite both;"></circle>
-        </svg>
-        <div style="position: absolute; top: 3%; left: 1%; padding: 13px 17px; background: rgba(10,29,56,.9); border: 1px solid rgba(127,176,255,.45); backdrop-filter: blur(6px); animation: floaty 5s 1.5s ease-in-out infinite;">
-          <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 21px; color: #7FB0FF;">{heroStats[0]?.value}</div>
-          <div style="font-size: 12px; color: rgba(244,247,251,.7);">{heroStats[0]?.label}</div>
-        </div>
-        <div style="position: absolute; bottom: 17%; right: 4%; padding: 13px 17px; background: rgba(10,29,56,.9); border: 1px solid rgba(244,247,251,.22); backdrop-filter: blur(6px); animation: floaty 6s 2s ease-in-out infinite;">
-          <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 21px; color: #FFFFFF;">{heroStats[1]?.value}</div>
-          <div style="font-size: 12px; color: rgba(244,247,251,.7);">{heroStats[1]?.label}</div>
-        </div>
-        <p style="position: absolute; bottom: 2%; left: 4%; right: 4%; margin: 0; font-size: 11.5px; line-height: 1.4; color: rgba(244,247,251,.45); text-align: center;">{defaults.heroStatsSource}</p>
+        <img
+          src="/images/hero-retention-leak.jpg"
+          alt="Month 1 to Month 12 patient retention drop-off: about 68 of 100 patients lost, ~32% retained, ~$300K leak on a 100-patient book"
+          width="900"
+          height="1350"
+          style="display: block; width: 100%; height: auto; border-radius: 4px; border: 1px solid rgba(127,176,255,.18);"
+        />
       </div>
     </div>
   </header>
