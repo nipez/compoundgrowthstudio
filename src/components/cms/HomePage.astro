@@ -72,8 +72,7 @@ const defaults = {
       body: 'Not just impressions — clearer education, stronger trust, and more qualified consultations.',
     },
   ] satisfies FeatureCard[],
-  programsEyebrow: 'Programs we market',
-  programsTitle: 'Specialized where clinics win first — ready when they expand.',
+  programsTitle: 'Programs We Market',
   programsPrimaryHeading: 'What we specialize in',
   programsPrimary: [
     'GLP-1 Programs',
@@ -347,8 +346,7 @@ const pillarIcons = [
   <section class="cgs-programs" style="background: #F4F7FB; border-top: 1px solid rgba(10,29,56,.08);">
     <div style="max-width: 1280px; margin: 0 auto; padding: 88px 48px;">
       <div style="max-width: 720px; margin-bottom: 40px; animation: rise .8s both; animation-timeline: view(); animation-range: entry 0% entry 60%;">
-        <div style="font-size: 12.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #1A4FD0;">{doc?.programsEyebrow ?? defaults.programsEyebrow}</div>
-        <h2 style="margin: 16px 0 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 38px; line-height: 1.12; letter-spacing: -1.4px; color: #0A1D38;">{preventWidow(doc?.programsTitle ?? defaults.programsTitle)}</h2>
+        <h2 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 38px; line-height: 1.12; letter-spacing: -1.4px; color: #0A1D38;">{preventWidow(doc?.programsTitle ?? defaults.programsTitle)}</h2>
       </div>
       <div style="margin-bottom: 28px;">
         <h3 style="margin: 0 0 16px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 15px; letter-spacing: .04em; text-transform: uppercase; color: #0A1D38;">{doc?.programsPrimaryHeading ?? defaults.programsPrimaryHeading}</h3>

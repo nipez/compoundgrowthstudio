@@ -72,7 +72,6 @@ export const homePage = defineType({
       group: 'content',
       of: [defineArrayMember({type: 'featureCard'})],
     }),
-    defineField({name: 'programsEyebrow', type: 'string', group: 'content'}),
     defineField({name: 'programsTitle', type: 'string', group: 'content'}),
     defineField({name: 'programsPrimaryHeading', type: 'string', group: 'content'}),
     defineField({

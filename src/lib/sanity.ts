@@ -182,7 +182,6 @@ export type HomeDoc = SanityDocumentBase<'homePage'> &
     whyTitle?: string;
     whyBody?: string;
     pillars?: FeatureCard[];
-    programsEyebrow?: string;
     programsTitle?: string;
     programsPrimaryHeading?: string;
     programsPrimary?: string[];
