@@ -13,7 +13,7 @@ const defaults = {
   headline: 'Never miss another patient inquiry.',
   headlineHighlight: 'patient inquiry.',
   subhead:
-    'Our AI voice and chat receptionist answers every call and message instantly — day or night — qualifies the lead, books the consult, and drops it straight into your CRM. Here’s a live demo for a GLP-1 / peptide wellness clinic.',
+    'Our AI voice and chat receptionist answers every call and message instantly — day or night — qualifies the lead, books the consult, and drops it straight into your CRM. Here’s a live demo for a GLP-1 / peptide clinic.',
   liveBadge: 'Try it live — click “Start a call” or “Chat” below',
   embedUrl: 'https://midwest-exteriors-production.up.railway.app/receptionist/wellness?embed=1',
   iframeTitle: '24/7 AI Inbound Voice Agent demo',
@@ -43,6 +43,9 @@ const defaults = {
 const headline = doc?.headline ?? defaults.headline;
 const highlight = doc?.headlineHighlight ?? defaults.headlineHighlight;
 const highlightIndex = highlight ? headline.indexOf(highlight) : -1;
+// Prefer shipped subhead when CMS still contains the banned "wellness" wording.
+const rawSubhead = doc?.subhead ?? defaults.subhead;
+const subhead = /\bwellness\b/i.test(rawSubhead) ? defaults.subhead : rawSubhead;
 const features = doc?.features?.length ? doc.features : defaults.features;
 const closingCta = {...defaults.closingCta, ...(doc?.closingCta ?? {})};
 const embedUrl = doc?.embedUrl ?? defaults.embedUrl;
@@ -70,7 +73,7 @@ try {
           headline
         )}
       </h1>
-      <p style="margin: 22px 0 0; max-width: 680px; font-size: 17.5px; line-height: 1.6; color: rgba(244,247,251,.74); animation: rise .7s .2s both;">{doc?.subhead ?? defaults.subhead}</p>
+      <p style="margin: 22px 0 0; max-width: 680px; font-size: 17.5px; line-height: 1.6; color: rgba(244,247,251,.74); animation: rise .7s .2s both;">{subhead}</p>
       <div style="display: inline-flex; align-items: center; gap: 10px; margin-top: 26px; padding: 11px 18px; border: 1px solid rgba(127,176,255,.4); border-radius: 999px; color: #7FB0FF; font-size: 13px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; animation: rise .7s .3s both;"><span style="width: 8px; height: 8px; border-radius: 50%; background: #7FB0FF; box-shadow: 0 0 0 4px rgba(127,176,255,.2);"></span>{doc?.liveBadge ?? defaults.liveBadge}</div>
     </div>
   </header>

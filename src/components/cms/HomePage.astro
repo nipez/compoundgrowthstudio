@@ -26,10 +26,12 @@ function initials(name = ''): string {
 }
 
 const defaults = {
-  eyebrow: 'Marketing for modern health clinics',
+  eyebrow: 'GLP-1 · Weight Loss · Med Spa Marketing',
   headline: "The clinics that win aren't running better ads. They're running compliant ones.",
   subhead:
-    'Visibility, education, trust, conversion, follow-up, and optimization — combined into one connected growth system for medically guided programs.',
+    'Visibility, education, trust, conversion, follow-up, and optimization — combined into one connected growth system for GLP-1, medical weight loss, and peptide programs.',
+  heroExpandNote:
+    'We also market the programs these clinics expand into — hormone/TRT, metabolic, and longevity.',
   primaryCtaLabel: 'Find the Gaps in Your Growth System',
   primaryCtaHref: '/contact/',
   secondaryCtaLabel: 'See the growth system →',
@@ -70,6 +72,19 @@ const defaults = {
       body: 'Not just impressions — clearer education, stronger trust, and more qualified consultations.',
     },
   ] satisfies FeatureCard[],
+  programsEyebrow: 'Programs we market',
+  programsTitle: 'Specialized where clinics win first — ready when they expand.',
+  programsPrimaryHeading: 'What we specialize in',
+  programsPrimary: [
+    'GLP-1 Programs',
+    'Medical Weight Loss',
+    'Peptide Therapy',
+    'Med Spa / Aesthetics',
+  ],
+  programsSecondaryHeading: 'What we also market as clinics expand',
+  programsSecondary: ['Hormone / TRT', 'Metabolic Health', 'Longevity', 'Functional Health'],
+  programsClosing:
+    'Most clinics start with weight loss and add lines from there. We market the whole book as one system, not eight separate campaigns.',
   compareEyebrow: 'The difference',
   compareTitle: 'Lead-gen agencies stop at the form fill. Our system doesn’t.',
   compareWithoutLabel: 'Without Compound Growth Studio',
@@ -133,7 +148,7 @@ const defaults = {
     {
       name: 'Nick',
       role: 'Co-Founder · Growth & Healthcare',
-      bio: 'Healthcare growth executive with 20+ years driving patient acquisition across multi-location healthcare, digital health, and wellness.',
+      bio: 'Healthcare growth executive with 20+ years driving patient acquisition across multi-location healthcare, digital health, and cash-pay clinics.',
       photoUrl: '/images/nick-headshot.jpg',
       photoAlt: 'Nick Perez',
     },
@@ -200,12 +215,30 @@ const defaults = {
   ] satisfies StatCard[],
 };
 
+// Prefer shipped positioning copy until Sanity home fields are re-seeded.
+const eyebrow = defaults.eyebrow;
+const subhead = defaults.subhead;
+const heroExpandNote = defaults.heroExpandNote;
 const heroStats = doc?.heroStats?.length ? doc.heroStats : defaults.heroStats;
 const marqueeItems = doc?.marqueeItems?.length ? doc.marqueeItems : defaults.marqueeItems;
 const pillars = doc?.pillars?.length ? doc.pillars : defaults.pillars;
+const programsPrimary = doc?.programsPrimary?.length ? doc.programsPrimary : defaults.programsPrimary;
+const programsSecondary = doc?.programsSecondary?.length ? doc.programsSecondary : defaults.programsSecondary;
 const compareRows = doc?.compareRows?.length ? doc.compareRows : defaults.compareRows;
 const systemStages = doc?.systemStages?.length ? doc.systemStages : defaults.systemStages;
-const teamMembers = doc?.teamMembers?.length ? doc.teamMembers : defaults.teamMembers;
+const teamMembers = defaults.teamMembers.map((fallback, index) => {
+  const person = doc?.teamMembers?.[index] ?? {};
+  const isNick = (person.name ?? fallback.name ?? '').toLowerCase().startsWith('nick');
+  return {
+    ...fallback,
+    ...person,
+    photoUrl: (isNick ? fallback.photoUrl : undefined) ?? person.photoUrl ?? person.photoSrc ?? fallback.photoUrl,
+    photoAlt: person.photoAlt ?? fallback.photoAlt,
+    bio: isNick ? (fallback.bio ?? person.bio) : (person.bio ?? fallback.bio),
+    name: person.name ?? fallback.name,
+    role: person.role ?? fallback.role,
+  };
+});
 const provenStats = (doc?.provenStats?.length ? doc.provenStats : defaults.provenStats).map((stat, index) => {
   const fallback = defaults.provenStats[index] ?? {};
   const body = (stat.body ?? '').includes('Bitwage')
@@ -235,11 +268,12 @@ const pillarIcons = [
       <div>
         <div style="display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px; border: 1px solid rgba(127,176,255,.4); color: #7FB0FF; font-size: 12.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; animation: rise .7s .05s both;">
           <span style="width: 7px; height: 7px; background: #7FB0FF; border-radius: 50%; animation: pulse 2.4s infinite;"></span>
-          {doc?.eyebrow ?? defaults.eyebrow}
+          {eyebrow}
         </div>
         <h1 style="margin: 26px 0 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 54px; line-height: 1.06; letter-spacing: -2px; animation: rise .7s .15s both;">{preventWidow(doc?.headline ?? defaults.headline)}</h1>
-        <p style="margin: 24px 0 0; max-width: 520px; font-size: 18px; line-height: 1.6; color: rgba(244,247,251,.74); animation: rise .7s .3s both;">{doc?.subhead ?? defaults.subhead}</p>
-        <div style="display: flex; align-items: center; gap: 20px; margin-top: 36px; animation: rise .7s .45s both;">
+        <p style="margin: 24px 0 0; max-width: 520px; font-size: 18px; line-height: 1.6; color: rgba(244,247,251,.74); animation: rise .7s .3s both;">{subhead}</p>
+        <p style="margin: 14px 0 0; max-width: 480px; font-size: 14.5px; line-height: 1.55; color: rgba(244,247,251,.52); animation: rise .7s .38s both;">{heroExpandNote}</p>
+        <div style="display: flex; align-items: center; gap: 20px; margin-top: 32px; animation: rise .7s .45s both;">
           <a class="cgs-h27" href={doc?.primaryCtaHref ?? defaults.primaryCtaHref} style="display: inline-block; padding: 16px 26px; background: #1A4FD0; color: #FFFFFF; font-weight: 700; font-size: 15.5px; border-radius: 3px; transition: transform .2s, background .2s;">{doc?.primaryCtaLabel ?? defaults.primaryCtaLabel}</a>
           <a class="cgs-h28" href={doc?.secondaryCtaHref ?? defaults.secondaryCtaHref} style="color: #F4F7FB; font-weight: 600; font-size: 15px; border-bottom: 1px solid rgba(244,247,251,.4); padding-bottom: 3px;">{doc?.secondaryCtaLabel ?? defaults.secondaryCtaLabel}</a>
         </div>
@@ -307,6 +341,36 @@ const pillarIcons = [
           <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: rgba(10,29,56,.66);">{pillar.body ?? defaults.pillars[index]?.body}</p>
         </div>
       ))}
+    </div>
+  </section>
+
+  <section class="cgs-programs" style="background: #F4F7FB; border-top: 1px solid rgba(10,29,56,.08);">
+    <div style="max-width: 1280px; margin: 0 auto; padding: 88px 48px;">
+      <div style="max-width: 720px; margin-bottom: 40px; animation: rise .8s both; animation-timeline: view(); animation-range: entry 0% entry 60%;">
+        <div style="font-size: 12.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #1A4FD0;">{doc?.programsEyebrow ?? defaults.programsEyebrow}</div>
+        <h2 style="margin: 16px 0 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 38px; line-height: 1.12; letter-spacing: -1.4px; color: #0A1D38;">{preventWidow(doc?.programsTitle ?? defaults.programsTitle)}</h2>
+      </div>
+      <div style="margin-bottom: 28px;">
+        <h3 style="margin: 0 0 16px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 15px; letter-spacing: .04em; text-transform: uppercase; color: #0A1D38;">{doc?.programsPrimaryHeading ?? defaults.programsPrimaryHeading}</h3>
+        <div class="cgs-programs__primary" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;">
+          {programsPrimary.map((label) => (
+            <div style="padding: 28px 22px; background: #0A1D38; color: #F4F7FB; border-radius: 4px; animation: rise .8s both; animation-timeline: view(); animation-range: entry 0% entry 50%;">
+              <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: -.3px; line-height: 1.3;">{label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div>
+        <h3 style="margin: 0 0 14px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 13.5px; letter-spacing: .04em; text-transform: uppercase; color: rgba(10,29,56,.55);">{doc?.programsSecondaryHeading ?? defaults.programsSecondaryHeading}</h3>
+        <div class="cgs-programs__secondary" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+          {programsSecondary.map((label) => (
+            <div style="padding: 16px 18px; background: transparent; color: rgba(10,29,56,.72); border: 1px solid rgba(10,29,56,.16); border-radius: 4px; animation: rise .8s both; animation-timeline: view(); animation-range: entry 0% entry 50%;">
+              <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 14.5px; letter-spacing: -.2px; line-height: 1.3;">{label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <p style="margin: 36px 0 0; max-width: 760px; font-size: 16px; line-height: 1.6; color: rgba(10,29,56,.68); animation: rise .8s both; animation-timeline: view(); animation-range: entry 0% entry 60%;">{doc?.programsClosing ?? defaults.programsClosing}</p>
     </div>
   </section>
 
@@ -445,6 +509,10 @@ const pillarIcons = [
       gap: 20px !important;
       align-items: start !important;
     }
+    .cgs-programs__primary,
+    .cgs-programs__secondary {
+      grid-template-columns: 1fr 1fr !important;
+    }
     .cgs-compare__grid {
       grid-template-columns: 1fr !important;
     }
@@ -453,6 +521,10 @@ const pillarIcons = [
     }
   }
   @media (max-width: 720px) {
+    .cgs-programs__primary,
+    .cgs-programs__secondary {
+      grid-template-columns: 1fr !important;
+    }
     .cgs-team__grid {
       grid-template-columns: 1fr 1fr !important;
     }

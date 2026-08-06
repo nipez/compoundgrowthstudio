@@ -29,7 +29,7 @@ export const metaAdsGuide = {
       title: 'Before-and-after imagery is doing the selling',
       problem:
         'Creative leans on body transformations, scale screenshots, or “results in 30 days” visuals because that is what competitors run.',
-      why: 'Those formats are among the fastest paths to rejection in weight-loss and wellness categories — and they attract tire-kickers even when they clear.',
+      why: 'Those formats are among the fastest paths to rejection in weight-loss and med spa categories — and they attract tire-kickers even when they clear.',
       fix: 'Sell credibility: provider oversight, clear eligibility, transparent process, and education. Authority creative outperforms banned outcome theater over a full funnel.',
     },
     {

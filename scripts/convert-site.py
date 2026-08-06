@@ -390,7 +390,7 @@ def site_data() -> dict:
         "faqs": [
             {
                 "q": "Do you only work with GLP-1 and weight loss clinics?",
-                "a": "Those are the most common, but the system applies to any medically guided program with a high-value consultation: peptide therapy, hormone health, longevity, metabolic and functional health, and wellness programs.",
+                "a": "Those are our specialty — and where most clinics start. We also market the programs clinics expand into next: peptide therapy, hormone/TRT, metabolic health, longevity, and functional health — as one connected system, not separate campaigns.",
             },
             {
                 "q": "Can you keep our ads from getting rejected?",

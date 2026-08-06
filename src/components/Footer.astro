@@ -5,7 +5,7 @@ const defaults = {
   brandName: 'Compound Growth Studio',
   brandMark: 'CG',
   footerBlurb:
-    'A boutique growth strategy and digital marketing studio for modern health clinics offering high-value GLP-1, peptide therapy, medical weight loss, hormone health, longevity, metabolic, functional health, and wellness programs.',
+    'A boutique growth strategy and digital marketing studio for GLP-1, medical weight loss, peptide, and med spa clinics — and the hormone, metabolic, and longevity lines those clinics expand into.',
   footerLeadMagnetTitle: "Free guide: Top 10 reasons your clinic's ads are struggling on Meta",
   footerLeadMagnet: {
     emailPlaceholder: 'you@yourclinic.com',
@@ -15,7 +15,7 @@ const defaults = {
   footerExploreHeading: 'Explore',
   footerExploreLinks: [
     {label: 'Services', href: '/services/'},
-    {label: 'GLP-1 + Peptide Marketing', href: '/glp-1-peptide-marketing/'},
+    {label: 'Who We Serve', href: '/glp-1-peptide-marketing/'},
     {label: 'Growth System', href: '/system/'},
     {label: 'AI Voice Agent', href: '/ai-voice-agent/'},
     {label: 'Free Meta Ads Guide', href: '/guides/meta-ads/'},
@@ -32,9 +32,21 @@ const defaults = {
     "Compound Growth Studio provides marketing strategy, content, and digital growth support. Medical claims, treatment details, pricing, eligibility, prescription information, and patient-facing clinical content should be reviewed and approved by the clinic's licensed medical professionals before publishing.",
 };
 
+function remapServeLabel(item: Link): Link {
+  if ((item.href ?? '').includes('glp-1-peptide-marketing')) {
+    return {...item, label: 'Who We Serve'};
+  }
+  return item;
+}
+
 const settings = await fetchDocument<SiteSettings>(pageIds.settings);
 const footerLeadMagnet = {...defaults.footerLeadMagnet, ...(settings?.footerLeadMagnet ?? {})};
-const exploreLinks = settings?.footerExploreLinks?.length ? settings.footerExploreLinks : defaults.footerExploreLinks;
+// Prefer shipped blurb until Sanity footer copy is re-seeded without "wellness".
+const footerBlurb = defaults.footerBlurb;
+const exploreLinks = (settings?.footerExploreLinks?.length
+  ? settings.footerExploreLinks
+  : defaults.footerExploreLinks
+).map(remapServeLabel);
 const getStartedLinks = settings?.footerGetStartedLinks?.length
   ? settings.footerGetStartedLinks
   : defaults.footerGetStartedLinks;
@@ -48,7 +60,7 @@ const getStartedLinks = settings?.footerGetStartedLinks?.length
           <span style="display: grid; place-items: center; width: 32px; height: 32px; background: #1A4FD0; color: #FFFFFF; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 13px;">{settings?.brandMark ?? defaults.brandMark}</span>
           <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 16px;">{settings?.brandName ?? defaults.brandName}</span>
         </div>
-        <p style="margin: 18px 0 0; max-width: 480px; font-size: 13.5px; line-height: 1.7;">{settings?.footerBlurb ?? defaults.footerBlurb}</p>
+        <p style="margin: 18px 0 0; max-width: 480px; font-size: 13.5px; line-height: 1.7;">{footerBlurb}</p>
         <div style="margin-top: 26px; max-width: 480px;">
           <div style="font-size: 13px; font-weight: 600; color: rgba(244,247,251,.8);">{settings?.footerLeadMagnetTitle ?? defaults.footerLeadMagnetTitle}</div>
           <form data-cgs-form="lead_magnet" style="display: flex; gap: 10px; margin-top: 12px;">

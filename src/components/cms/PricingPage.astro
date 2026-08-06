@@ -36,12 +36,13 @@ const defaults = {
       price: '$1,000',
       period: '/month',
       description:
-        'A managed acquisition foundation for one program: compliant landing page, intake flow, and continuous optimization. No setup fee, cancel anytime.',
+        'A managed acquisition foundation for your primary program: compliant landing page, intake flow, and continuous optimization. No setup fee, cancel anytime.',
       features: [
         'Compliant landing page + full intake flow',
         'Written to pass prescription-ad review',
         'Ongoing updates and A/B testing monthly',
         'Conversion tracking + monthly reporting',
+        'Add hormone, TRT, or longevity lines as you launch them',
         'Grows with you — add paid, SEO, or nurture',
       ],
       ctaLabel: 'Start With the Foundation',
@@ -86,7 +87,25 @@ const defaults = {
   },
 };
 
-const tiers = doc?.tiers?.length ? doc.tiers : defaults.tiers;
+const tiers = (doc?.tiers?.length ? doc.tiers : defaults.tiers).map((tier, index) => {
+  const fallback = defaults.tiers[index];
+  if (!fallback) return tier;
+  const isFoundation = (tier.name ?? fallback.name) === 'Conversion Foundation';
+  // Prefer shipped foundation copy until Sanity pricing tiers are re-seeded.
+  if (isFoundation) {
+    return {
+      ...fallback,
+      ...tier,
+      description: fallback.description,
+      features: fallback.features,
+    };
+  }
+  return {
+    ...fallback,
+    ...tier,
+    features: tier.features?.length ? tier.features : fallback.features,
+  };
+});
 const newsletter = {...defaults.newsletter, ...(doc?.newsletter ?? {})};
 ---
 

@@ -8,15 +8,18 @@ interface Props {
 
 const {doc = {} as FaqDoc} = Astro.props;
 
+const surfacedObjection = {
+  question: 'Do you only work with GLP-1 and weight loss clinics?',
+  sentences: [
+    'Those are our specialty — and where most clinics start.',
+    'We also market the programs clinics expand into next: peptide therapy, hormone/TRT, metabolic health, longevity, and functional health — as one connected system, not separate campaigns.',
+  ],
+};
+
 const defaults = {
   eyebrow: 'FAQ',
   headline: 'Questions clinics ask before they start.',
   faqs: [
-    {
-      question: 'Do you only work with GLP-1 and weight loss clinics?',
-      answer:
-        'Those are the most common, but the system applies to any medically guided program with a high-value consultation: peptide therapy, hormone health, longevity, metabolic and functional health, and wellness programs.',
-    },
     {
       question: 'Can you keep our ads from getting rejected?',
       answer:
@@ -61,7 +64,10 @@ const defaults = {
   } satisfies ClosingCta,
 };
 
-const faqs = doc?.faqs?.length ? doc.faqs : defaults.faqs;
+const glpOnlyPattern = /only work with GLP-1/i;
+const faqs = (doc?.faqs?.length ? doc.faqs : defaults.faqs).filter(
+  (faq) => !glpOnlyPattern.test(faq.question ?? ''),
+);
 const closingCta = {...defaults.closingCta, ...(doc?.closingCta ?? {})};
 ---
 
@@ -75,6 +81,12 @@ const closingCta = {...defaults.closingCta, ...(doc?.closingCta ?? {})};
     </div>
   </header>
   <section style="max-width: 940px; margin: 0 auto; padding: 76px 48px 100px;">
+    <div style="margin-bottom: 36px; padding: 32px 34px; background: #E7EEFA; border-radius: 4px; animation: rise .7s both;">
+      <h2 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 26px; letter-spacing: -1px; color: #0A1D38; line-height: 1.2;">{preventWidow(surfacedObjection.question)}</h2>
+      {surfacedObjection.sentences.map((sentence, index) => (
+        <p style={`margin: ${index === 0 ? '14px' : '10px'} 0 0; max-width: 760px; font-size: 16px; line-height: 1.65; color: rgba(10,29,56,.74);`}>{sentence}</p>
+      ))}
+    </div>
     <div style="display: grid; gap: 12px;">
       {faqs.map((faq, index) => (
         <details style="background: #FFFFFF; border: 1px solid rgba(10,29,56,.1); border-radius: 4px; animation: rise .7s both; animation-timeline: view(); animation-range: entry 0% entry 50%;">

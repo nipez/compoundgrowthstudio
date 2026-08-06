@@ -18,7 +18,7 @@ The original self-contained HTML export lives in [`/site/`](./site/). Editable m
 | `/` | Home |
 | `/services/` | Services |
 | `/system/` | Growth System |
-| `/glp-1-peptide-marketing/` | GLP-1 + Peptide Marketing |
+| `/glp-1-peptide-marketing/` | Who We Serve (GLP-1 / weight loss / med spa) |
 | `/pricing/` | Get Started (+ newsletter) |
 | `/leadership/` | Leadership |
 | `/faq/` | FAQ |
