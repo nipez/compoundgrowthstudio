@@ -1,0 +1,65 @@
+---
+import '../styles/portal.css';
+import type { NavItem, SessionUser } from '../lib/types';
+
+interface Props {
+  title: string;
+  user: SessionUser;
+  nav: NavItem[];
+  portalLabel: string;
+}
+
+const { title, user, nav, portalLabel } = Astro.props;
+const path = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <title>{title} | CGS Portal</title>
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar">
+        <a class="brand" href={user.role === 'cgs_staff' ? '/cgs/' : '/client/'}>
+          <span class="brand-mark">CG</span>
+          <span class="brand-text">
+            <strong>Compound Growth</strong>
+            <span>{portalLabel}</span>
+          </span>
+        </a>
+        <nav class="nav" aria-label="Portal">
+          {
+            nav.map((item) => (
+              <a href={item.href} aria-current={path === item.href ? 'page' : undefined}>
+                {item.label}
+              </a>
+            ))
+          }
+        </nav>
+        <div class="sidebar-foot">
+          <div class="user">
+            <strong>{user.fullName}</strong>
+            {user.email}
+            {user.isDemo ? ' · demo' : ''}
+          </div>
+          <a class="btn btn-ghost" style="color:#fff;border-color:rgba(244,247,251,.2);" href="/logout/"
+            >Sign out</a
+          >
+        </div>
+      </aside>
+      <main class="main">
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>

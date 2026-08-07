@@ -1,0 +1,65 @@
+---
+import AuthLayout from '../layouts/AuthLayout.astro';
+import { homeForRole } from '../lib/auth';
+import { getSessionUser, hasSupabaseConfig } from '../lib/supabase';
+
+const user = await getSessionUser(Astro.request, Astro.cookies);
+if (user) {
+  return Astro.redirect(homeForRole(user.role));
+}
+
+const supabaseReady = hasSupabaseConfig();
+const error = Astro.url.searchParams.get('error');
+---
+
+<AuthLayout title="Sign in">
+  <div class="auth-panel">
+    <div class="brand">
+      <span class="brand-mark">CG</span>
+      <span class="brand-text">
+        <strong>Compound Growth Studio</strong>
+        <span>Client & ops portal</span>
+      </span>
+    </div>
+    <h1>Sign in to your portal</h1>
+    <p class="lede">
+      Clinics manage intake, billing, approvals, and project updates. CGS runs the engagement from the ops side.
+    </p>
+
+    {
+      error && (
+        <div class="notice" style="border-color:rgba(160,40,40,.25);background:rgba(160,40,40,.08);">
+          {error}
+        </div>
+      )
+    }
+
+    {
+      supabaseReady ? (
+        <form class="form" method="POST" action="/api/auth/magic-link/">
+          <div class="field">
+            <label for="email">Work email</label>
+            <input id="email" name="email" type="email" required placeholder="you@yourclinic.com" />
+          </div>
+          <button class="btn btn-primary" type="submit">Email me a magic link</button>
+        </form>
+      ) : (
+        <div class="notice">
+          Supabase Auth is not configured in this environment. Use demo mode below to explore the portal UI.
+        </div>
+      )
+    }
+
+    <div class="divider">or explore</div>
+    <div class="demo-row">
+      <form method="POST" action="/api/auth/demo/">
+        <input type="hidden" name="role" value="client" />
+        <button class="btn btn-ghost" type="submit" style="width:100%;">Continue as demo client</button>
+      </form>
+      <form method="POST" action="/api/auth/demo/">
+        <input type="hidden" name="role" value="cgs_staff" />
+        <button class="btn btn-ghost" type="submit" style="width:100%;">Continue as CGS ops</button>
+      </form>
+    </div>
+  </div>
+</AuthLayout>

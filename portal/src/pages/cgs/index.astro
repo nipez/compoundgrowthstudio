@@ -1,0 +1,111 @@
+---
+import PortalLayout from '../../layouts/PortalLayout.astro';
+import { gateUser } from '../../lib/auth';
+import { demoClients } from '../../lib/demo-data';
+import { CGS_NAV, PORTAL_MODULES } from '../../lib/modules';
+import { getSessionUser } from '../../lib/supabase';
+
+const user = await getSessionUser(Astro.request, Astro.cookies);
+const gate = gateUser(user, 'cgs_staff');
+if (gate) return Astro.redirect(gate);
+if (!user) return Astro.redirect('/login/');
+
+const active = demoClients.filter((c) => c.status === 'active').length;
+const onboarding = demoClients.filter((c) => c.status === 'onboarding').length;
+const v1 = PORTAL_MODULES.filter((m) => m.phase === 'v1');
+const next = PORTAL_MODULES.filter((m) => m.phase === 'next');
+---
+
+<PortalLayout title="Ops home" user={user} nav={CGS_NAV} portalLabel="CGS ops">
+  <header class="page-head">
+    <div>
+      <p class="eyebrow">Compound Growth Studio</p>
+      <h1>Operations home</h1>
+      <p class="lede">
+        Manage clinic engagements end-to-end — intake, delivery, approvals, messaging, and billing in one place.
+      </p>
+    </div>
+    <div class="actions">
+      <a class="btn btn-primary" href="/cgs/clients/">View clients</a>
+      <a class="btn btn-ghost" href="/cgs/intake/">Review intake</a>
+    </div>
+  </header>
+
+  <div class="grid grid-3">
+    <div class="panel stat">
+      <div class="label">Active clients</div>
+      <div class="value">{active}</div>
+    </div>
+    <div class="panel stat">
+      <div class="label">In onboarding</div>
+      <div class="value">{onboarding}</div>
+    </div>
+    <div class="panel stat">
+      <div class="label">Needs attention</div>
+      <div class="value">2</div>
+      <p class="meta">Intake review + pending creative</p>
+    </div>
+  </div>
+
+  <div class="grid grid-2" style="margin-top:16px;">
+    <section class="panel">
+      <h2>Pipeline</h2>
+      <p class="meta">Demo book of business</p>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Clinic</th>
+            <th>Plan</th>
+            <th>Status</th>
+            <th>Next</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            demoClients.map((c) => (
+              <tr>
+                <td>
+                  <strong>{c.name}</strong>
+                </td>
+                <td>{c.plan}</td>
+                <td>
+                  <span class={`pill ${c.status === 'active' ? 'pill-ok' : 'pill-blue'}`}>{c.status}</span>
+                </td>
+                <td>{c.nextAction}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </section>
+
+    <section class="panel">
+      <h2>Product roadmap in this portal</h2>
+      <p class="meta">v1 shells are live; next modules are queued.</p>
+      <ul class="list">
+        {
+          v1.map((m) => (
+            <li>
+              <div>
+                <strong>{m.name}</strong>
+                <p class="meta">{m.summary}</p>
+              </div>
+              <span class="pill pill-ok">v1</span>
+            </li>
+          ))
+        }
+        {
+          next.map((m) => (
+            <li>
+              <div>
+                <strong>{m.name}</strong>
+                <p class="meta">{m.summary}</p>
+              </div>
+              <span class="pill">next</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
+</PortalLayout>

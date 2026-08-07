@@ -1,0 +1,72 @@
+---
+import PortalLayout from '../../layouts/PortalLayout.astro';
+import { gateUser } from '../../lib/auth';
+import { demoOrg, demoTasks } from '../../lib/demo-data';
+import { CGS_NAV } from '../../lib/modules';
+import { getSessionUser } from '../../lib/supabase';
+
+const user = await getSessionUser(Astro.request, Astro.cookies);
+const gate = gateUser(user, 'cgs_staff');
+if (gate) return Astro.redirect(gate);
+if (!user) return Astro.redirect('/login/');
+---
+
+<PortalLayout title="Intake" user={user} nav={CGS_NAV} portalLabel="CGS ops">
+  <header class="page-head">
+    <div>
+      <p class="eyebrow">Onboarding queue</p>
+      <h1>Intake review</h1>
+      <p class="lede">Approve clinic questionnaires, chase missing assets, and unblock kickoff.</p>
+    </div>
+  </header>
+
+  <div class="grid grid-2">
+    <section class="panel">
+      <h2>{demoOrg.name}</h2>
+      <p class="meta">Intake status: in progress · website {demoOrg.website}</p>
+      <ul class="list">
+        <li>
+          <div>
+            <strong>Questionnaire</strong>
+            <p class="meta">Partial draft from clinic contact</p>
+          </div>
+          <span class="pill pill-warn">draft</span>
+        </li>
+        <li>
+          <div>
+            <strong>Brand kit</strong>
+            <p class="meta">Not uploaded</p>
+          </div>
+          <span class="pill">todo</span>
+        </li>
+        <li>
+          <div>
+            <strong>Meta BM access</strong>
+            <p class="meta">Requested</p>
+          </div>
+          <span class="pill pill-blue">waiting</span>
+        </li>
+      </ul>
+      <div class="actions" style="margin-top:16px;">
+        <button class="btn btn-primary" type="button">Mark in review</button>
+        <button class="btn btn-ghost" type="button">Ping client</button>
+      </div>
+    </section>
+    <section class="panel">
+      <h2>Checklist</h2>
+      <ul class="list">
+        {
+          demoTasks.map((t) => (
+            <li>
+              <div>
+                <strong>{t.title}</strong>
+                <p class="meta">{t.ownerSide}</p>
+              </div>
+              <span class="pill">{t.status.replace('_', ' ')}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
+</PortalLayout>

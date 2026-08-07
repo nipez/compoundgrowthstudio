@@ -1,0 +1,9 @@
+# Railway service: set Root Directory to `portal`
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
+
+[deploy]
+healthcheckPath = "/login/"
+healthcheckTimeout = 60
+restartPolicyType = "ON_FAILURE"

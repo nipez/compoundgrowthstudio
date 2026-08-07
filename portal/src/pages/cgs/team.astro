@@ -1,0 +1,59 @@
+---
+import PortalLayout from '../../layouts/PortalLayout.astro';
+import { gateUser } from '../../lib/auth';
+import { CGS_NAV } from '../../lib/modules';
+import { getSessionUser } from '../../lib/supabase';
+
+const user = await getSessionUser(Astro.request, Astro.cookies);
+const gate = gateUser(user, 'cgs_staff');
+if (gate) return Astro.redirect(gate);
+if (!user) return Astro.redirect('/login/');
+
+const team = [
+  { name: 'Conor', role: 'Brand & Demand', portal: 'cgs_staff' },
+  { name: 'Nick', role: 'Growth & Healthcare', portal: 'cgs_staff' },
+  { name: 'Strategist seat', role: 'Ops / delivery', portal: 'cgs_staff' },
+];
+---
+
+<PortalLayout title="Team" user={user} nav={CGS_NAV} portalLabel="CGS ops">
+  <header class="page-head">
+    <div>
+      <p class="eyebrow">Access</p>
+      <h1>CGS team</h1>
+      <p class="lede">
+        Staff accounts use `profiles.portal_role = cgs_staff`. Invite via Supabase Auth, then promote the profile.
+      </p>
+    </div>
+  </header>
+
+  <section class="panel">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Role</th>
+          <th>Portal</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          team.map((member) => (
+            <tr>
+              <td>
+                <strong>{member.name}</strong>
+              </td>
+              <td>{member.role}</td>
+              <td>
+                <span class="pill pill-blue">{member.portal}</span>
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+    <p class="notice">
+      Future: strategist assignment on engagements, granular permissions (admin / ops / strategist), and audit log.
+    </p>
+  </section>
+</PortalLayout>
