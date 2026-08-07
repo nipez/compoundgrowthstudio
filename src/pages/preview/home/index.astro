@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import HomePreviewPage from '../../../components/cms/HomePreviewPage.astro';
+
+const page = {
+  path: '/preview/home/',
+  title: 'Homepage Preview | Compound Growth Studio',
+  description:
+    'Internal design preview of an alternate Compound Growth Studio homepage. Not the live site.',
+  noindex: true,
+};
+---
+
+<BaseLayout page={page} preview>
+  <HomePreviewPage />
+</BaseLayout>

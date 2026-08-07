@@ -1,0 +1,870 @@
+---
+/**
+ * Alternate homepage design preview (WebRunner-inspired layout / type / imagery).
+ * Served only at /preview/home/ — does not replace the live homepage.
+ */
+
+const team = [
+  {
+    name: 'Conor',
+    role: 'Co-Founder · Brand & Demand',
+    photo: '/images/conor.jpg',
+  },
+  {
+    name: 'Nick',
+    role: 'Co-Founder · Growth & Healthcare',
+    photo: '/images/nick-headshot.jpg',
+  },
+  {
+    name: 'Tony Pardilla',
+    role: 'Creative Partner',
+    photo: '/images/tony-headshot.jpg',
+  },
+  {
+    name: 'Chris Cyril',
+    role: 'Systems Partner',
+    photo: '/images/chris-headshot.jpg',
+  },
+  {
+    name: 'Jessica Rodrigues',
+    role: 'Client Experience',
+    photo: '/images/jessica.jpg',
+  },
+];
+
+const programs = ['GLP-1 Programs', 'Medical Weight Loss', 'Peptide Therapy', 'Med Spa / Aesthetics'];
+const stages = [
+  {n: '01', title: 'Visibility', body: 'Get found by patients who can actually pay.'},
+  {n: '02', title: 'Education', body: 'Answer the questions that stall a $600/mo decision.'},
+  {n: '03', title: 'Trust', body: 'Make your clinic the safe choice in a skeptical category.'},
+  {n: '04', title: 'Conversion', body: 'Turn interest into booked consultations.'},
+  {n: '05', title: 'Retention', body: 'Stop the month-four leak before it becomes a $300K hole.'},
+  {n: '06', title: 'Optimization', body: 'Double down on what produces qualified consults.'},
+];
+---
+
+<div class="hpv">
+  <!-- Hero: full-bleed photographic plane -->
+  <header class="hpv-hero">
+    <div class="hpv-hero__photos" aria-hidden="true">
+      <img src="/images/nick-headshot.jpg" alt="" />
+      <img src="/images/conor.jpg" alt="" />
+      <img src="/images/tony-headshot.jpg" alt="" />
+      <img src="/images/jessica.jpg" alt="" />
+      <img src="/images/chris-headshot.jpg" alt="" />
+    </div>
+    <div class="hpv-hero__veil"></div>
+    <div class="hpv-hero__content">
+      <p class="hpv-eyebrow hpv-eyebrow--light">Compound Growth Studio</p>
+      <h1 class="hpv-display hpv-display--hero">
+        Your clinic’s growth partner for <em>retention-era</em> medicine.
+      </h1>
+      <p class="hpv-hero__sub">
+        Compliant acquisition. Patient education. Systems that keep the book after month four.
+      </p>
+      <div class="hpv-hero__actions">
+        <a class="hpv-btn hpv-btn--primary" href="/calculator/">Calculate your patient leak</a>
+        <a class="hpv-btn hpv-btn--ghost" href="/contact/">Find your growth gaps</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Trusted / story split -->
+  <section class="hpv-section hpv-section--split">
+    <div class="hpv-wrap hpv-split">
+      <div class="hpv-split__copy">
+        <p class="hpv-eyebrow">Trusted by operators</p>
+        <h2 class="hpv-display">
+          The clinic growth studio behind
+          <span class="hpv-mark">retention systems</span>
+          lead-gen agencies don’t sell.
+        </h2>
+        <p class="hpv-body">
+          Branded GLP-1 programs retain about 32% of patients at 12 months. Clinics keep buying replacements at
+          $300–600 a seat. We build the continuation, plateau, and win-back layer that closes the hole — then wrap
+          compliant ads and local visibility around it.
+        </p>
+        <a class="hpv-textlink" href="/system/">See the six-stage system →</a>
+      </div>
+      <div class="hpv-split__media">
+        <div class="hpv-media-panel">
+          <picture>
+            <source srcset="/images/hero-leak.webp" type="image/webp" />
+            <img
+              src="/images/hero-leak.png"
+              alt="Month 1 to Month 12 patient retention drop-off visualization"
+              width="958"
+              height="864"
+            />
+          </picture>
+          <p class="hpv-media-panel__caption">The leak most clinics underprice</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Difference -->
+  <section class="hpv-section hpv-section--center">
+    <div class="hpv-wrap hpv-narrow">
+      <p class="hpv-eyebrow">The difference</p>
+      <h2 class="hpv-display">
+        Lead-gen agencies stop at the form fill.
+        <span class="hpv-mark">Our system doesn’t.</span>
+      </h2>
+      <p class="hpv-body hpv-body--center">
+        Visibility, education, trust, conversion, retention, and optimization — run as one engine, measured on booked
+        and retained patients.
+      </p>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="hpv-section hpv-section--soft">
+    <div class="hpv-wrap">
+      <div class="hpv-stats">
+        <article class="hpv-stat">
+          <div class="hpv-stat__value">~32%</div>
+          <h3 class="hpv-stat__title">12-month retention</h3>
+          <p class="hpv-stat__body">Typical on branded GLP-1 — most of last year’s book is already gone.</p>
+        </article>
+        <article class="hpv-stat">
+          <div class="hpv-stat__value">$300–600</div>
+          <h3 class="hpv-stat__title">Cost to replace one patient</h3>
+          <p class="hpv-stat__body">Ads, ops, and staff time to refill a seat that used to be occupied.</p>
+        </article>
+        <article class="hpv-stat">
+          <div class="hpv-stat__value">~$300K</div>
+          <h3 class="hpv-stat__title">Hole on a 100-patient book</h3>
+          <p class="hpv-stat__body">At $500/mo with ~68 lost a year — plus replacement cost.</p>
+        </article>
+      </div>
+      <div class="hpv-stats__cta">
+        <a class="hpv-btn hpv-btn--primary" href="/calculator/">Open the Patient Leak Calculator</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Programs -->
+  <section class="hpv-section">
+    <div class="hpv-wrap">
+      <div class="hpv-section__head">
+        <p class="hpv-eyebrow">Who we serve</p>
+        <h2 class="hpv-display">Programs built for cash-pay clinics.</h2>
+      </div>
+      <div class="hpv-programs">
+        {programs.map((label) => (
+          <div class="hpv-program">{label}</div>
+        ))}
+      </div>
+      <p class="hpv-body hpv-programs__note">
+        Plus hormone / TRT, metabolic health, longevity, and functional lines as clinics expand — marketed as one book,
+        not eight campaigns.
+      </p>
+    </div>
+  </section>
+
+  <!-- System stages -->
+  <section class="hpv-section hpv-section--navy">
+    <div class="hpv-wrap">
+      <div class="hpv-section__head hpv-section__head--light">
+        <p class="hpv-eyebrow hpv-eyebrow--light">One connected system</p>
+        <h2 class="hpv-display hpv-display--light">Six stages. Not six silos.</h2>
+      </div>
+      <div class="hpv-stages">
+        {stages.map((stage) => (
+          <article class="hpv-stage">
+            <div class="hpv-stage__n">{stage.n}</div>
+            <h3 class="hpv-stage__title">{stage.title}</h3>
+            <p class="hpv-stage__body">{stage.body}</p>
+          </article>
+        ))}
+      </div>
+      <div class="hpv-stats__cta">
+        <a class="hpv-btn hpv-btn--ghost" href="/system/">Explore the growth system →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="hpv-section">
+    <div class="hpv-wrap">
+      <div class="hpv-section__head hpv-section__head--center">
+        <p class="hpv-eyebrow">You’re in good hands</p>
+        <h2 class="hpv-display">Meet the Compound Growth Studio team</h2>
+        <p class="hpv-body hpv-body--center">
+          Operators and specialists — not a revolving account manager.
+        </p>
+      </div>
+      <div class="hpv-team">
+        {team.map((person) => (
+          <article class="hpv-person">
+            <img class="hpv-person__photo" src={person.photo} alt={person.name} width="512" height="512" />
+            <h3 class="hpv-person__name">{person.name}</h3>
+            <p class="hpv-person__role">{person.role}</p>
+          </article>
+        ))}
+      </div>
+      <div class="hpv-stats__cta">
+        <a class="hpv-textlink" href="/leadership/">Meet the full team →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Culture / partners feel -->
+  <section class="hpv-section hpv-section--soft">
+    <div class="hpv-wrap hpv-culture">
+      <div class="hpv-culture__collage" aria-hidden="true">
+        <img class="hpv-polaroid hpv-polaroid--a" src="/images/conor.jpg" alt="" />
+        <img class="hpv-polaroid hpv-polaroid--b" src="/images/nick-headshot.jpg" alt="" />
+        <img class="hpv-polaroid hpv-polaroid--c" src="/images/tony-headshot.jpg" alt="" />
+        <img class="hpv-polaroid hpv-polaroid--d" src="/images/jessica.jpg" alt="" />
+      </div>
+      <div class="hpv-culture__copy">
+        <h2 class="hpv-display">
+          More than a media vendor.
+          <span class="hpv-mark">A dedicated growth bench.</span>
+        </h2>
+        <p class="hpv-body">
+          Co-founders lead strategy. Creative, systems, and client experience stay on the work — so clinics get a
+          bench, not a handoff.
+        </p>
+        <div class="hpv-culture__stats">
+          <div>
+            <div class="hpv-culture__num">$150M</div>
+            <div class="hpv-culture__label">B2B revenue scaled</div>
+          </div>
+          <div>
+            <div class="hpv-culture__num">$25M</div>
+            <div class="hpv-culture__label">ARR grown from zero</div>
+          </div>
+          <div>
+            <div class="hpv-culture__num">100+</div>
+            <div class="hpv-culture__label">Clinic locations</div>
+          </div>
+        </div>
+        <p class="hpv-footnote">Figures from prior operator roles — not invented case studies.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Closing CTA -->
+  <section class="hpv-section hpv-section--cta">
+    <div class="hpv-wrap">
+      <div class="hpv-cta">
+        <div class="hpv-cta__photos" aria-hidden="true">
+          <img src="/images/nick-headshot.jpg" alt="" />
+          <img src="/images/conor.jpg" alt="" />
+          <img src="/images/tony-headshot.jpg" alt="" />
+        </div>
+        <div class="hpv-cta__veil"></div>
+        <div class="hpv-cta__content">
+          <h2 class="hpv-display hpv-display--light">Ready to close the month-four leak?</h2>
+          <p class="hpv-body hpv-body--light">
+            Thirty minutes on your retention, consult path, and acquisition — with a written summary of the gaps we
+            find.
+          </p>
+          <a class="hpv-btn hpv-btn--primary" href="/contact/">Find the Gaps in Your Growth System</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<style>
+  .hpv {
+    --hpv-navy: #0a1d38;
+    --hpv-blue: #1a4fd0;
+    --hpv-sky: #7fb0ff;
+    --hpv-mist: #e7eefa;
+    --hpv-paper: #f7f9fc;
+    --hpv-ink: #0a1d38;
+    --hpv-muted: rgba(10, 29, 56, 0.68);
+    --hpv-serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+    --hpv-sans: 'Archivo', system-ui, sans-serif;
+    --hpv-display: 'Instrument Serif', Georgia, serif;
+    background: #fff;
+    color: var(--hpv-ink);
+  }
+
+  .hpv-wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+
+  .hpv-narrow {
+    max-width: 780px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .hpv-section {
+    padding: 104px 0;
+  }
+
+  .hpv-section--soft {
+    background: var(--hpv-paper);
+  }
+
+  .hpv-section--navy {
+    background: var(--hpv-navy);
+    color: #f4f7fb;
+  }
+
+  .hpv-section--center {
+    padding-top: 40px;
+    padding-bottom: 72px;
+  }
+
+  .hpv-section--cta {
+    padding-bottom: 120px;
+  }
+
+  .hpv-section__head {
+    max-width: 720px;
+    margin-bottom: 48px;
+  }
+
+  .hpv-section__head--center {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  .hpv-section__head--light {
+    color: #f4f7fb;
+  }
+
+  .hpv-eyebrow {
+    margin: 0 0 16px;
+    font-family: var(--hpv-sans);
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--hpv-blue);
+  }
+
+  .hpv-eyebrow--light {
+    color: var(--hpv-sky);
+  }
+
+  .hpv-display {
+    margin: 0;
+    font-family: var(--hpv-display);
+    font-weight: 400;
+    font-size: clamp(36px, 4.2vw, 52px);
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    color: var(--hpv-navy);
+    text-wrap: balance;
+  }
+
+  .hpv-display em {
+    font-style: italic;
+  }
+
+  .hpv-display--hero {
+    font-size: clamp(42px, 5.4vw, 68px);
+    color: #fff;
+    max-width: 920px;
+    margin: 0 auto;
+  }
+
+  .hpv-display--light {
+    color: #f4f7fb;
+  }
+
+  .hpv-mark {
+    display: inline;
+    background: linear-gradient(transparent 62%, rgba(127, 176, 255, 0.42) 62%);
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    padding: 0 0.08em;
+  }
+
+  .hpv-section--navy .hpv-mark {
+    background: linear-gradient(transparent 62%, rgba(26, 79, 208, 0.55) 62%);
+  }
+
+  .hpv-body {
+    margin: 22px 0 0;
+    max-width: 540px;
+    font-family: var(--hpv-sans);
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--hpv-muted);
+  }
+
+  .hpv-body--center {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 620px;
+  }
+
+  .hpv-body--light {
+    color: rgba(244, 247, 251, 0.78);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hpv-footnote {
+    margin: 18px 0 0;
+    font-size: 13px;
+    color: rgba(10, 29, 56, 0.48);
+  }
+
+  .hpv-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 24px;
+    border-radius: 4px;
+    font-family: var(--hpv-sans);
+    font-weight: 700;
+    font-size: 14.5px;
+    letter-spacing: 0.02em;
+    transition: transform 0.2s, background 0.2s, color 0.2s, border-color 0.2s;
+  }
+
+  .hpv-btn:hover {
+    transform: translateY(-1px);
+    color: inherit;
+  }
+
+  .hpv-btn--primary {
+    background: var(--hpv-blue);
+    color: #fff;
+  }
+
+  .hpv-btn--primary:hover {
+    background: #163fa8;
+    color: #fff;
+  }
+
+  .hpv-btn--ghost {
+    background: transparent;
+    color: #f4f7fb;
+    border: 1.5px solid rgba(127, 176, 255, 0.55);
+  }
+
+  .hpv-btn--ghost:hover {
+    background: rgba(127, 176, 255, 0.1);
+    color: #fff;
+  }
+
+  .hpv-textlink {
+    display: inline-block;
+    margin-top: 28px;
+    font-family: var(--hpv-sans);
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--hpv-blue);
+    border-bottom: 1px solid rgba(26, 79, 208, 0.35);
+    padding-bottom: 2px;
+  }
+
+  .hpv-textlink:hover {
+    color: var(--hpv-navy);
+  }
+
+  /* Hero */
+  .hpv-hero {
+    position: relative;
+    min-height: min(88vh, 820px);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    color: #fff;
+  }
+
+  .hpv-hero__photos {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .hpv-hero__photos img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(0.15) contrast(1.05);
+  }
+
+  .hpv-hero__veil {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(10, 29, 56, 0.72) 0%, rgba(10, 29, 56, 0.78) 45%, rgba(10, 29, 56, 0.88) 100%),
+      radial-gradient(circle at 70% 20%, rgba(26, 79, 208, 0.35), transparent 55%);
+  }
+
+  .hpv-hero__content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 120px 48px 100px;
+    max-width: 980px;
+  }
+
+  .hpv-hero__sub {
+    margin: 22px auto 0;
+    max-width: 560px;
+    font-family: var(--hpv-sans);
+    font-size: 18px;
+    line-height: 1.55;
+    color: rgba(244, 247, 251, 0.78);
+  }
+
+  .hpv-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+    margin-top: 34px;
+  }
+
+  /* Split */
+  .hpv-section--split {
+    padding-top: 96px;
+  }
+
+  .hpv-split {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  .hpv-media-panel {
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden;
+    background: var(--hpv-navy);
+    box-shadow: 0 24px 60px rgba(10, 29, 56, 0.14);
+  }
+
+  .hpv-media-panel img {
+    display: block;
+    width: 100%;
+    height: auto;
+    mix-blend-mode: lighten;
+  }
+
+  .hpv-media-panel__caption {
+    position: absolute;
+    left: 20px;
+    bottom: 18px;
+    margin: 0;
+    font-family: var(--hpv-serif);
+    font-size: 22px;
+    color: #fff;
+  }
+
+  /* Stats */
+  .hpv-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .hpv-stat {
+    padding: 36px 30px;
+    background: #fff;
+    border-radius: 14px;
+    border: 1px solid rgba(10, 29, 56, 0.08);
+  }
+
+  .hpv-stat__value {
+    font-family: var(--hpv-serif);
+    font-size: 48px;
+    line-height: 1;
+    color: var(--hpv-blue);
+  }
+
+  .hpv-stat__title {
+    margin: 16px 0 8px;
+    font-family: 'Plus Jakarta Sans', var(--hpv-sans);
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .hpv-stat__body {
+    margin: 0;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--hpv-muted);
+  }
+
+  .hpv-stats__cta {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+  }
+
+  /* Programs */
+  .hpv-programs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+
+  .hpv-program {
+    padding: 28px 22px;
+    background: var(--hpv-navy);
+    color: #f4f7fb;
+    border-radius: 12px;
+    font-family: 'Plus Jakarta Sans', var(--hpv-sans);
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: -0.02em;
+  }
+
+  .hpv-programs__note {
+    max-width: 720px;
+  }
+
+  /* Stages */
+  .hpv-stages {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  .hpv-stage {
+    padding: 28px 24px;
+    border: 1px solid rgba(244, 247, 251, 0.14);
+    border-radius: 12px;
+    background: rgba(244, 247, 251, 0.04);
+  }
+
+  .hpv-stage__n {
+    font-family: var(--hpv-sans);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--hpv-sky);
+  }
+
+  .hpv-stage__title {
+    margin: 12px 0 8px;
+    font-family: 'Plus Jakarta Sans', var(--hpv-sans);
+    font-size: 20px;
+    font-weight: 700;
+    color: #f4f7fb;
+  }
+
+  .hpv-stage__body {
+    margin: 0;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: rgba(244, 247, 251, 0.68);
+  }
+
+  /* Team */
+  .hpv-team {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
+  }
+
+  .hpv-person__photo {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 14px;
+  }
+
+  .hpv-person__name {
+    margin: 14px 0 0;
+    font-family: 'Plus Jakarta Sans', var(--hpv-sans);
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .hpv-person__role {
+    margin: 4px 0 0;
+    font-size: 13px;
+    line-height: 1.4;
+    color: rgba(10, 29, 56, 0.58);
+  }
+
+  /* Culture */
+  .hpv-culture {
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    gap: 56px;
+    align-items: center;
+  }
+
+  .hpv-culture__collage {
+    position: relative;
+    min-height: 420px;
+  }
+
+  .hpv-polaroid {
+    position: absolute;
+    width: 46%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 16px;
+    border: 6px solid #fff;
+    box-shadow: 0 18px 40px rgba(10, 29, 56, 0.16);
+  }
+
+  .hpv-polaroid--a {
+    top: 8%;
+    left: 6%;
+    transform: rotate(-7deg);
+    z-index: 2;
+  }
+
+  .hpv-polaroid--b {
+    top: 0;
+    right: 8%;
+    transform: rotate(5deg);
+    z-index: 3;
+  }
+
+  .hpv-polaroid--c {
+    bottom: 4%;
+    left: 18%;
+    transform: rotate(3deg);
+    z-index: 1;
+  }
+
+  .hpv-polaroid--d {
+    bottom: 10%;
+    right: 4%;
+    transform: rotate(-4deg);
+    width: 40%;
+    z-index: 4;
+  }
+
+  .hpv-culture__stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-top: 36px;
+  }
+
+  .hpv-culture__num {
+    font-family: var(--hpv-serif);
+    font-size: 36px;
+    color: var(--hpv-navy);
+  }
+
+  .hpv-culture__label {
+    margin-top: 4px;
+    font-size: 13px;
+    color: rgba(10, 29, 56, 0.58);
+  }
+
+  /* CTA band */
+  .hpv-cta {
+    position: relative;
+    overflow: hidden;
+    border-radius: 22px;
+    min-height: 360px;
+    display: grid;
+    place-items: center;
+    text-align: center;
+  }
+
+  .hpv-cta__photos {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .hpv-cta__photos img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(0.2);
+  }
+
+  .hpv-cta__veil {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10, 29, 56, 0.78), rgba(10, 29, 56, 0.88));
+  }
+
+  .hpv-cta__content {
+    position: relative;
+    z-index: 1;
+    padding: 72px 40px;
+    max-width: 720px;
+  }
+
+  .hpv-cta__content .hpv-body {
+    margin-bottom: 28px;
+  }
+
+  @media (max-width: 980px) {
+    .hpv-wrap {
+      padding: 0 28px;
+    }
+
+    .hpv-split,
+    .hpv-culture {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .hpv-stats,
+    .hpv-programs,
+    .hpv-stages {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .hpv-team {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .hpv-hero__photos {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .hpv-hero__photos img:nth-child(4),
+    .hpv-hero__photos img:nth-child(5) {
+      display: none;
+    }
+
+    .hpv-culture__collage {
+      min-height: 340px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hpv-section {
+      padding: 72px 0;
+    }
+
+    .hpv-stats,
+    .hpv-programs,
+    .hpv-stages,
+    .hpv-team,
+    .hpv-culture__stats {
+      grid-template-columns: 1fr;
+    }
+
+    .hpv-hero__content {
+      padding: 96px 24px 80px;
+    }
+
+    .hpv-hero__actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+</style>

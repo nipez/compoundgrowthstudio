@@ -5,6 +5,8 @@ export type PageMeta = {
   path: string;
   title: string;
   description: string;
+  /** When true, emit noindex and keep the page out of marketing surfaces. */
+  noindex?: boolean;
 };
 
 /** Titles carried from /site/; descriptions derived from each page hero when absent in source. */

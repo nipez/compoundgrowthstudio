@@ -7,11 +7,14 @@ import { SITE_NAME, SITE_URL, type PageMeta } from '../lib/site';
 
 interface Props {
   page: PageMeta;
+  /** Optional preview chrome (banner). Does not change the live homepage. */
+  preview?: boolean;
 }
 
-const { page } = Astro.props;
+const { page, preview = false } = Astro.props;
 const canonical = new URL(page.path, SITE_URL).toString();
 const ogImage = new URL('/og.png', SITE_URL).toString();
+const loadSerif = preview || Boolean(page.noindex);
 ---
 
 <!doctype html>
@@ -21,6 +24,7 @@ const ogImage = new URL('/og.png', SITE_URL).toString();
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{page.title}</title>
     <meta name="description" content={page.description} />
+    {page.noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonical} />
 
     <meta property="og:type" content="website" />
@@ -39,11 +43,24 @@ const ogImage = new URL('/og.png', SITE_URL).toString();
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400;0,62..125,500;0,62..125,600;0,62..125,700;1,62..125,400&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+      href={
+        loadSerif
+          ? 'https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400;0,62..125,500;0,62..125,600;0,62..125,700;1,62..125,400&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap'
+          : 'https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400;0,62..125,500;0,62..125,600;0,62..125,700;1,62..125,400&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap'
+      }
       rel="stylesheet"
     />
   </head>
   <body>
+    {preview && (
+      <div
+        style="position: sticky; top: 0; z-index: 60; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 20px; padding: 10px 20px; background: #0A1D38; color: #F4F7FB; font-family: 'Archivo', sans-serif; font-size: 13.5px; border-bottom: 1px solid rgba(127,176,255,.28);"
+      >
+        <span style="font-weight: 600;">Preview homepage — not live</span>
+        <span style="opacity: .55;">Inspired by WebRunner-style layout / type / imagery</span>
+        <a href="/" style="color: #7FB0FF; font-weight: 600; border-bottom: 1px solid rgba(127,176,255,.45); padding-bottom: 1px;">← Back to live home</a>
+      </div>
+    )}
     <Header />
     <main>
       <slot />
