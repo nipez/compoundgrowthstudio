@@ -222,7 +222,7 @@
         "items": [
           {
             "title": "Email + SMS Follow-Up",
-            "body": "Lead education, consult reminders, reactivation, retention, and patient follow-up sequences."
+            "body": "Lead education, consult reminders, reactivation, retention, and cross-program nurture that moves patients from one service line into the next."
           }
         ]
       },
@@ -378,7 +378,7 @@
     "hero": {
       "eyebrow": "GLP-1 + Peptide Marketing",
       "headline": "Marketing for GLP-1 and peptide programs, built to survive ad review.",
-      "subhead": "These are the hardest programs in health marketing: platform policy is strict, patients arrive skeptical and price-sensitive, and every competitor is running the same three ads. We build the education, trust, and conversion layer that makes a clinic the credible option.",
+      "subhead": "These are the hardest programs in health marketing: platform policy is strict, patients arrive skeptical and price-sensitive, and every competitor is running the same three ads. We build the education, trust, and conversion layer that makes a weight loss clinic, hormone clinic, med spa, or aesthetic practice the credible option.",
       "primaryCta": {
         "label": "Find the Gaps in Your Growth System",
         "href": "/contact/"
@@ -439,6 +439,11 @@
           "number": "06",
           "title": "Nurture for the undecided",
           "body": "Email and SMS sequences for the majority who are interested but not ready — the largest missed opportunity in these programs."
+        },
+        {
+          "number": "07",
+          "title": "Aesthetic attach sequences",
+          "body": "The GLP-1 patient is new to most practices and stays in treatment for 9–15 months. We build the education and nurture that carries them from weight loss into injectables, body contouring, and skin treatments — instead of letting the program end at the last refill."
         }
       ]
     },

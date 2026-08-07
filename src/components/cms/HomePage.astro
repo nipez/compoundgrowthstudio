@@ -99,6 +99,7 @@ const defaults = {
   ] satisfies FeatureCard[],
   programsTitle: 'Programs We Market',
   programsPrimaryHeading: 'What we specialize in',
+  // Tier 1 — keep this order; shipped defaults win over stale CMS.
   programsPrimary: [
     'GLP-1 Programs',
     'Medical Weight Loss',
@@ -251,8 +252,8 @@ const primaryCtaLabel = defaults.primaryCtaLabel;
 const retentionStats = defaults.retentionStats;
 const marqueeItems = doc?.marqueeItems?.length ? doc.marqueeItems : defaults.marqueeItems;
 const pillars = doc?.pillars?.length ? doc.pillars : defaults.pillars;
-const programsPrimary = doc?.programsPrimary?.length ? doc.programsPrimary : defaults.programsPrimary;
-const programsSecondary = doc?.programsSecondary?.length ? doc.programsSecondary : defaults.programsSecondary;
+const programsPrimary = defaults.programsPrimary;
+const programsSecondary = defaults.programsSecondary;
 const compareRows = doc?.compareRows?.length ? doc.compareRows : defaults.compareRows;
 const systemStages = doc?.systemStages?.length ? doc.systemStages : defaults.systemStages;
 const teamMembers = defaults.teamMembers.map((fallback, index) => {
@@ -315,12 +316,12 @@ const pillarIcons = [
           <a class="cgs-h28" href={doc?.secondaryCtaHref ?? defaults.secondaryCtaHref} style="color: #F4F7FB; font-weight: 600; font-size: 15px; border-bottom: 1px solid rgba(244,247,251,.4); padding-bottom: 3px;">{doc?.secondaryCtaLabel ?? defaults.secondaryCtaLabel}</a>
         </div>
       </div>
-      <div style="position: relative; animation: fadeIn 1s .4s both;">
+      <div class="cgs-hero-visual" style="position: relative; animation: fadeIn 1s .4s both; justify-self: end; width: min(100%, 420px);">
         <img
-          src="/images/hero-retention-leak.jpg"
+          src="/images/hero.jpg"
           alt="Month 1 to Month 12 patient retention drop-off: about 68 of 100 patients lost, ~32% retained, ~$300K leak on a 100-patient book"
-          width="900"
-          height="1350"
+          width="840"
+          height="1313"
           style="display: block; width: 100%; height: auto; border-radius: 4px; border: 1px solid rgba(127,176,255,.18);"
         />
       </div>
@@ -546,6 +547,10 @@ const pillarIcons = [
 
 <style>
   @media (max-width: 980px) {
+    .cgs-hero-visual {
+      width: min(100%, 360px) !important;
+      justify-self: center !important;
+    }
     .cgs-why-head {
       grid-template-columns: 1fr !important;
       gap: 20px !important;

@@ -169,7 +169,7 @@ def site_data() -> dict:
                 "items": [
                     {
                         "title": "Email + SMS Follow-Up",
-                        "body": "Lead education, consult reminders, reactivation, retention, and patient follow-up sequences.",
+                        "body": "Lead education, consult reminders, reactivation, retention, and cross-program nurture that moves patients from one service line into the next.",
                     },
                 ],
             },
