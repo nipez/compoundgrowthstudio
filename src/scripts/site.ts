@@ -335,8 +335,42 @@ function initSystemStages() {
   }, 1400);
 }
 
+function initMobileNav() {
+  const nav = document.querySelector<HTMLElement>('[data-cgs-nav]');
+  const toggle = document.querySelector<HTMLButtonElement>('[data-cgs-nav-toggle]');
+  const panel = document.querySelector<HTMLElement>('[data-cgs-nav-panel]');
+  if (!nav || !toggle || !panel) return;
+
+  const setOpen = (open: boolean) => {
+    nav.dataset.open = open ? 'true' : 'false';
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    document.body.classList.toggle('cgs-nav-lock', open);
+  };
+
+  toggle.addEventListener('click', () => {
+    setOpen(nav.dataset.open !== 'true');
+  });
+
+  panel.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => setOpen(false));
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') setOpen(false);
+  });
+
+  const mq = window.matchMedia('(min-width: 1101px)');
+  const onBreakpoint = () => {
+    if (mq.matches) setOpen(false);
+  };
+  if (typeof mq.addEventListener === 'function') mq.addEventListener('change', onBreakpoint);
+  else mq.addListener(onBreakpoint);
+}
+
 initForms();
 initCalculator();
 initCounters();
 initAiDemoHeight();
 initSystemStages();
+initMobileNav();

@@ -117,15 +117,15 @@ const recoveryCtaHref = defaults.recoveryCtaHref;
 <div>
   <header style="background: #0A1D38; color: #F4F7FB; position: relative; overflow: hidden;">
     <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(127,176,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(127,176,255,.07) 1px, transparent 1px); background-size: 56px 56px;"></div>
-    <div style="position: relative; max-width: 1280px; margin: 0 auto; padding: 84px 48px 76px; text-align: center;">
+    <div class="cgs-pad" style="position: relative; max-width: 1280px; margin: 0 auto; padding: 84px 48px 76px; text-align: center;">
       <div style="font-size: 12.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #7FB0FF; animation: rise .6s both;">{doc?.eyebrow ?? defaults.eyebrow}</div>
-      <h1 style="margin: 18px auto 0; max-width: 780px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 52px; line-height: 1.06; letter-spacing: -2px; animation: rise .7s .1s both;">{preventWidow(doc?.headline ?? defaults.headline)}</h1>
+      <h1 class="cgs-display" style="margin: 18px auto 0; max-width: 780px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 52px; line-height: 1.06; letter-spacing: -2px; animation: rise .7s .1s both;">{preventWidow(doc?.headline ?? defaults.headline)}</h1>
       <p style="margin: 22px auto 0; max-width: 620px; font-size: 17.5px; line-height: 1.6; color: rgba(244,247,251,.74); animation: rise .7s .2s both;">{doc?.subhead ?? defaults.subhead}</p>
     </div>
   </header>
-  <section style="max-width: 1180px; margin: 0 auto; padding: 56px 48px 0;">
+  <section class="cgs-pad" style="max-width: 1180px; margin: 0 auto; padding: 56px 48px 0;">
     <p style="text-align: center; margin: 0 0 44px; font-size: 13.5px; letter-spacing: .04em; color: rgba(10,29,56,.56);">{doc?.intro ?? defaults.intro}</p>
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch;">
+    <div class="cgs-pricing-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch;">
       {tiers.map((tier, index) => {
         const fallback = defaults.tiers[index];
         const highlighted = Boolean(tier.highlighted);
@@ -151,14 +151,14 @@ const recoveryCtaHref = defaults.recoveryCtaHref;
         );
       })}
     </div>
-    <div style="display: flex; align-items: center; justify-content: space-between; gap: 30px; margin-top: 26px; padding: 32px 36px; background: #0A1D38; color: #F4F7FB; border-radius: 4px; position: relative; overflow: hidden; animation: rise .8s both; animation-timeline: view(); animation-range: entry 0% entry 60%;">
+    <div class="cgs-pricing-recovery" style="display: flex; align-items: center; justify-content: space-between; gap: 30px; margin-top: 26px; padding: 32px 28px; background: #0A1D38; color: #F4F7FB; border-radius: 4px; position: relative; overflow: hidden; animation: rise .8s both; animation-timeline: view(); animation-range: entry 0% entry 60%;">
       <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(127,176,255,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(127,176,255,.06) 1px, transparent 1px); background-size: 56px 56px;"></div>
       <div style="position: relative; max-width: 640px;">
         <div style="font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: #7FB0FF;">{doc?.recoveryEyebrow ?? defaults.recoveryEyebrow}</div>
         <h3 style="margin: 10px 0 8px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 23px; letter-spacing: -.6px;">{doc?.recoveryTitle ?? defaults.recoveryTitle}</h3>
         <p style="margin: 0; font-size: 14px; line-height: 1.55; color: rgba(244,247,251,.72);">{doc?.recoveryBody ?? defaults.recoveryBody}</p>
       </div>
-      <div style="position: relative; text-align: right; white-space: nowrap; flex-shrink: 0;">
+      <div class="cgs-pricing-recovery__aside" style="position: relative; text-align: right; white-space: nowrap; flex-shrink: 0;">
         <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 28px;">{recoveryPriceLabel}</div>
         <div style="margin-top: 2px; font-size: 12.5px; color: rgba(244,247,251,.6);">{recoveryTimeline}</div>
         <a class="cgs-h47" href={recoveryCtaHref} style="display: inline-block; margin-top: 14px; padding: 12px 22px; border: 1.5px solid rgba(244,247,251,.35); color: #F4F7FB; font-weight: 600; font-size: 14px; border-radius: 3px; transition: border-color .2s;">{doc?.recoveryCtaLabel ?? defaults.recoveryCtaLabel}</a>
@@ -167,7 +167,7 @@ const recoveryCtaHref = defaults.recoveryCtaHref;
     <p style="text-align: center; margin: 44px 0 96px; font-size: 14.5px; color: rgba(10,29,56,.62);">{doc?.footerNoteBefore ?? defaults.footerNoteBefore} <a href={doc?.footerNoteLinkHref ?? defaults.footerNoteLinkHref} style="font-weight: 600;">{doc?.footerNoteLinkLabel ?? defaults.footerNoteLinkLabel}</a></p>
   </section>
 
-  <section id="newsletter" style="max-width: 640px; margin: 0 auto; padding: 0 48px 96px;">
+  <section id="newsletter" class="cgs-pad" style="max-width: 640px; margin: 0 auto; padding: 0 48px 96px;">
     <form data-cgs-form="newsletter" style="display: grid; gap: 12px; padding: 36px 32px; background: #FFFFFF; border: 1px solid rgba(10,29,56,.1); border-radius: 4px;">
       <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" />
       <input type="email" name="email" required placeholder={newsletter.emailPlaceholder} style="padding: 15px 16px; font-family: 'Archivo', sans-serif; font-size: 15px; color: #0A1D38; background: #F4F7FB; border: 1px solid rgba(10,29,56,.2); border-radius: 3px; outline: none;" class="cgs-focus-blue" />
@@ -176,3 +176,23 @@ const recoveryCtaHref = defaults.recoveryCtaHref;
     </form>
   </section>
 </div>
+
+<style>
+  @media (max-width: 980px) {
+    .cgs-pricing-grid {
+      grid-template-columns: 1fr !important;
+    }
+    .cgs-pricing-grid > div {
+      transform: none !important;
+    }
+    .cgs-pricing-recovery {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+    }
+    .cgs-pricing-recovery__aside {
+      text-align: left !important;
+      white-space: normal !important;
+      width: 100%;
+    }
+  }
+</style>

@@ -48,39 +48,213 @@ const exploreLinks = defaults.footerExploreLinks.map(remapServeLabel);
 const getStartedLinks = defaults.footerGetStartedLinks;
 ---
 
-<footer style="background: #071426; color: rgba(244,247,251,.6);">
-  <div style="max-width: 1280px; margin: 0 auto; padding: 60px 48px 44px;">
-    <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 64px; padding-bottom: 40px; border-bottom: 1px solid rgba(244,247,251,.1);">
+<footer class="cgs-footer">
+  <div class="cgs-footer__inner">
+    <div class="cgs-footer__top">
       <div>
-        <div style="display: flex; align-items: center; gap: 12px; color: #F4F7FB;">
-          <span style="display: grid; place-items: center; width: 32px; height: 32px; background: #1A4FD0; color: #FFFFFF; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 13px;">{settings?.brandMark ?? defaults.brandMark}</span>
-          <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 16px;">{settings?.brandName ?? defaults.brandName}</span>
+        <div class="cgs-footer__brand">
+          <span class="cgs-footer__mark">{settings?.brandMark ?? defaults.brandMark}</span>
+          <span class="cgs-footer__name">{settings?.brandName ?? defaults.brandName}</span>
         </div>
-        <p style="margin: 18px 0 0; max-width: 480px; font-size: 13.5px; line-height: 1.7;">{footerBlurb}</p>
-        <div style="margin-top: 26px; max-width: 480px;">
-          <div style="font-size: 13px; font-weight: 600; color: rgba(244,247,251,.8);">{settings?.footerLeadMagnetTitle ?? defaults.footerLeadMagnetTitle}</div>
-          <form data-cgs-form="lead_magnet" style="display: flex; gap: 10px; margin-top: 12px;">
-            <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" />
-            <input name="email" class="cgs-f0" type="email" required placeholder={footerLeadMagnet.emailPlaceholder} style="flex: 1; min-width: 0; padding: 12px 14px; font-family: 'Archivo', sans-serif; font-size: 14px; color: #F4F7FB; background: rgba(244,247,251,.07); border: 1px solid rgba(244,247,251,.2); border-radius: 3px; outline: none;" />
-            <button class="cgs-h7" type="submit" style="flex-shrink: 0; padding: 12px 18px; font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 14px; color: #FFFFFF; background: #1A4FD0; border: none; border-radius: 3px; cursor: pointer; transition: background .2s;" data-cgs-label-idle={footerLeadMagnet.submitLabelIdle} data-cgs-label-done={footerLeadMagnet.submitLabelDone}>{footerLeadMagnet.submitLabelIdle}</button>
+        <p class="cgs-footer__blurb">{footerBlurb}</p>
+        <div class="cgs-footer__magnet">
+          <div class="cgs-footer__magnet-title">{settings?.footerLeadMagnetTitle ?? defaults.footerLeadMagnetTitle}</div>
+          <form data-cgs-form="lead_magnet" class="cgs-footer__form">
+            <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="cgs-footer__honeypot" />
+            <input name="email" class="cgs-f0 cgs-footer__input" type="email" required placeholder={footerLeadMagnet.emailPlaceholder} />
+            <button class="cgs-h7 cgs-footer__submit" type="submit" data-cgs-label-idle={footerLeadMagnet.submitLabelIdle} data-cgs-label-done={footerLeadMagnet.submitLabelDone}>{footerLeadMagnet.submitLabelIdle}</button>
           </form>
         </div>
       </div>
-      <div style="display: flex; gap: 56px; justify-content: end;">
-        <div style="display: grid; gap: 11px; align-content: start; font-size: 14px;">
-          <div style="font-size: 11.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(244,247,251,.4);">{settings?.footerExploreHeading ?? defaults.footerExploreHeading}</div>
+      <div class="cgs-footer__cols">
+        <div class="cgs-footer__col">
+          <div class="cgs-footer__heading">{settings?.footerExploreHeading ?? defaults.footerExploreHeading}</div>
           {exploreLinks.map((item, index) => (
-            <a class={`cgs-h${8 + index}`} href={item.href} style="color: rgba(244,247,251,.75);">{item.label}</a>
+            <a class={`cgs-h${8 + index}`} href={item.href}>{item.label}</a>
           ))}
         </div>
-        <div style="display: grid; gap: 11px; align-content: start; font-size: 14px;">
-          <div style="font-size: 11.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(244,247,251,.4);">{settings?.footerGetStartedHeading ?? defaults.footerGetStartedHeading}</div>
+        <div class="cgs-footer__col">
+          <div class="cgs-footer__heading">{settings?.footerGetStartedHeading ?? defaults.footerGetStartedHeading}</div>
           {getStartedLinks.map((item, index) => (
-            <a class={`cgs-h${14 + index}`} href={item.href} style="color: rgba(244,247,251,.75);">{item.label}</a>
+            <a class={`cgs-h${14 + index}`} href={item.href}>{item.label}</a>
           ))}
         </div>
       </div>
     </div>
-    <p style="margin: 28px 0 0; max-width: 900px; font-size: 12px; line-height: 1.7; color: rgba(244,247,251,.42);">{settings?.footerDisclaimer ?? defaults.footerDisclaimer}</p>
+    <p class="cgs-footer__disclaimer">{settings?.footerDisclaimer ?? defaults.footerDisclaimer}</p>
   </div>
 </footer>
+
+<style>
+  .cgs-footer {
+    background: #071426;
+    color: rgba(244, 247, 251, 0.6);
+  }
+
+  .cgs-footer__inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 60px 48px 44px;
+  }
+
+  .cgs-footer__top {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 64px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(244, 247, 251, 0.1);
+  }
+
+  .cgs-footer__brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #f4f7fb;
+  }
+
+  .cgs-footer__mark {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    background: #1a4fd0;
+    color: #ffffff;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+  }
+
+  .cgs-footer__name {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  .cgs-footer__blurb {
+    margin: 18px 0 0;
+    max-width: 480px;
+    font-size: 13.5px;
+    line-height: 1.7;
+  }
+
+  .cgs-footer__magnet {
+    margin-top: 26px;
+    max-width: 480px;
+  }
+
+  .cgs-footer__magnet-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(244, 247, 251, 0.8);
+  }
+
+  .cgs-footer__form {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .cgs-footer__honeypot {
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+    height: 0;
+    width: 0;
+  }
+
+  .cgs-footer__input {
+    flex: 1;
+    min-width: 0;
+    padding: 12px 14px;
+    font-family: 'Archivo', sans-serif;
+    font-size: 14px;
+    color: #f4f7fb;
+    background: rgba(244, 247, 251, 0.07);
+    border: 1px solid rgba(244, 247, 251, 0.2);
+    border-radius: 3px;
+    outline: none;
+  }
+
+  .cgs-footer__submit {
+    flex-shrink: 0;
+    padding: 12px 18px;
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: #ffffff;
+    background: #1a4fd0;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .cgs-footer__cols {
+    display: flex;
+    gap: 56px;
+    justify-content: end;
+  }
+
+  .cgs-footer__col {
+    display: grid;
+    gap: 11px;
+    align-content: start;
+    font-size: 14px;
+  }
+
+  .cgs-footer__col a {
+    color: rgba(244, 247, 251, 0.75);
+  }
+
+  .cgs-footer__heading {
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(244, 247, 251, 0.4);
+  }
+
+  .cgs-footer__disclaimer {
+    margin: 28px 0 0;
+    max-width: 900px;
+    font-size: 12px;
+    line-height: 1.7;
+    color: rgba(244, 247, 251, 0.42);
+  }
+
+  @media (max-width: 900px) {
+    .cgs-footer__inner {
+      padding: 48px 24px 36px;
+    }
+
+    .cgs-footer__top {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .cgs-footer__cols {
+      justify-content: start;
+      gap: 40px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .cgs-footer__inner {
+      padding: 40px 20px 32px;
+    }
+
+    .cgs-footer__form {
+      flex-direction: column;
+    }
+
+    .cgs-footer__submit {
+      width: 100%;
+    }
+
+    .cgs-footer__cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+  }
+</style>
