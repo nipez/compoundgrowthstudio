@@ -32,26 +32,35 @@ const navCtaHref = settings?.navCtaHref ?? defaults.navCtaHref;
 const navCtaLabel = settings?.navCtaLabel ?? defaults.navCtaLabel;
 ---
 
-<nav class="cgs-nav" data-cgs-nav>
-  <a href="/" class="cgs-nav__brand">
-    <span class="cgs-nav__mark">{brandMark}</span>
-    <span class="cgs-nav__name">{brandName}</span>
-  </a>
+<div class="cgs-nav" data-cgs-nav>
+  <nav class="cgs-nav__bar" aria-label="Primary">
+    <a href="/" class="cgs-nav__brand">
+      <span class="cgs-nav__mark">{brandMark}</span>
+      <span class="cgs-nav__name">{brandName}</span>
+    </a>
 
-  <button
-    type="button"
-    class="cgs-nav__toggle"
-    data-cgs-nav-toggle
-    aria-expanded="false"
-    aria-controls="cgs-nav-panel"
-    aria-label="Open menu"
-  >
-    <span class="cgs-nav__toggle-bars" aria-hidden="true">
-      <span></span>
-      <span></span>
-      <span></span>
-    </span>
-  </button>
+    <button
+      type="button"
+      class="cgs-nav__toggle"
+      data-cgs-nav-toggle
+      aria-expanded="false"
+      aria-controls="cgs-nav-panel"
+      aria-label="Open menu"
+    >
+      <span class="cgs-nav__toggle-bars" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+    </button>
+
+    <div class="cgs-nav__desktop">
+      {navItems.map((item, index) => (
+        <a class={`cgs-h${index} cgs-nav__link`} href={item.href}>{item.label}</a>
+      ))}
+      <a class="cgs-h6 cgs-nav__cta" href={navCtaHref}>{navCtaLabel}</a>
+    </div>
+  </nav>
 
   <div class="cgs-nav__panel" id="cgs-nav-panel" data-cgs-nav-panel>
     <div class="cgs-nav__links">
@@ -61,13 +70,18 @@ const navCtaLabel = settings?.navCtaLabel ?? defaults.navCtaLabel;
       <a class="cgs-h6 cgs-nav__cta" href={navCtaHref}>{navCtaLabel}</a>
     </div>
   </div>
-</nav>
+</div>
 
 <style>
   .cgs-nav {
     position: sticky;
     top: 0;
     z-index: 50;
+  }
+
+  .cgs-nav__bar {
+    position: relative;
+    z-index: 2;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -84,6 +98,7 @@ const navCtaLabel = settings?.navCtaLabel ?? defaults.navCtaLabel;
     gap: 12px;
     min-width: 0;
     color: #0a1d38;
+    position: relative;
     z-index: 2;
   }
 
@@ -153,15 +168,25 @@ const navCtaLabel = settings?.navCtaLabel ?? defaults.navCtaLabel;
     transform: translateY(-7px) rotate(-45deg);
   }
 
-  .cgs-nav__panel {
+  .cgs-nav__desktop {
     display: flex;
     align-items: center;
+    gap: 4px;
+    font-size: 14.5px;
+    font-weight: 500;
+  }
+
+  .cgs-nav__panel {
+    display: none;
   }
 
   .cgs-nav__links {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: stretch;
     gap: 4px;
+    max-width: 480px;
+    margin: 0 auto;
     font-size: 14.5px;
     font-weight: 500;
   }
@@ -188,13 +213,17 @@ const navCtaLabel = settings?.navCtaLabel ?? defaults.navCtaLabel;
   }
 
   @media (max-width: 1100px) {
-    .cgs-nav {
+    .cgs-nav__bar {
       padding: 12px 20px;
     }
 
     .cgs-nav__toggle {
       display: grid;
       place-items: center;
+    }
+
+    .cgs-nav__desktop {
+      display: none;
     }
 
     .cgs-nav__panel {
@@ -204,7 +233,6 @@ const navCtaLabel = settings?.navCtaLabel ?? defaults.navCtaLabel;
       display: block;
       padding: 84px 20px 32px;
       background: #f4f7fb;
-      backdrop-filter: none;
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
@@ -220,12 +248,9 @@ const navCtaLabel = settings?.navCtaLabel ?? defaults.navCtaLabel;
       transform: none;
     }
 
-    .cgs-nav__links {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 4px;
-      max-width: 480px;
-      margin: 0 auto;
+    .cgs-nav[data-open='true'] .cgs-nav__bar {
+      background: #f4f7fb;
+      backdrop-filter: none;
     }
 
     .cgs-nav__link {
