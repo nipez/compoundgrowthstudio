@@ -1,14 +1,14 @@
 import { collectAttribution, type LeadKind, type LeadPayload } from '../lib/leads';
 
-function readEnv(name: 'PUBLIC_CRM_LEADS_ENDPOINT'): string {
+function readEnv(name: 'PUBLIC_FORM_ENDPOINT'): string {
   // Read via bracket access so Vite cannot fold empty defines into dead code.
   const value = (import.meta.env as Record<string, string | undefined>)[name];
   return typeof value === 'string' ? value.trim() : '';
 }
 
 function leadsEndpoint(): string {
-  const endpoint = readEnv('PUBLIC_CRM_LEADS_ENDPOINT');
-  if (!endpoint) console.error('[cgs] Missing PUBLIC_CRM_LEADS_ENDPOINT — form submissions cannot be delivered');
+  const endpoint = readEnv('PUBLIC_FORM_ENDPOINT');
+  if (!endpoint) console.error('[cgs] Missing PUBLIC_FORM_ENDPOINT — form submissions cannot be delivered');
   return endpoint;
 }
 
@@ -67,7 +67,10 @@ async function deliver(payload: LeadPayload): Promise<boolean> {
   try {
     const response = await fetch(endpoint, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      // text/plain keeps this a "simple" request, so the browser skips the
+      // CORS preflight that Google Apps Script cannot answer. Receivers still
+      // parse the body as JSON.
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify(payload),
       keepalive: true,
     });
