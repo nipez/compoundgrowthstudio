@@ -1,0 +1,354 @@
+---
+import {getCollection, render} from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import {SITE_NAME} from '../../lib/site';
+import {preventWidow} from '../../lib/copy';
+import {formatPostDate, readingMinutes} from '../../lib/blog';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({data}) => !data.draft);
+  return posts.map((post) => ({params: {slug: post.id}, props: {post}}));
+}
+
+const {post} = Astro.props;
+const {Content} = await render(post);
+
+const page = {
+  path: `/blog/${post.id}/`,
+  title: `${post.data.title} | ${SITE_NAME}`,
+  description: post.data.description,
+};
+
+const minutes = readingMinutes(post.body ?? '');
+
+const related = (await getCollection('blog', ({data}) => !data.draft))
+  .filter((entry) => entry.id !== post.id)
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
+  .slice(0, 2);
+---
+
+<BaseLayout page={page}>
+  <article class="post">
+    <header class="post__hero">
+      <div class="post__hero-grid" aria-hidden="true"></div>
+      <div class="post__hero-inner cgs-pad">
+        <a class="post__back" href="/blog/">← All posts</a>
+        <div class="post__meta">
+          <span class="post__tag">{post.data.category}</span>
+          <span class="post__date">
+            {formatPostDate(post.data.publishedAt)} · {minutes} min read
+          </span>
+        </div>
+        <h1 class="cgs-display post__title">{preventWidow(post.data.title)}</h1>
+        <p class="post__desc">{post.data.description}</p>
+      </div>
+    </header>
+
+    <div class="post__body cgs-pad">
+      <div class="post__prose">
+        <Content />
+      </div>
+
+      <div class="post__cta">
+        <h2 class="post__cta-title">Find the gaps in your growth system</h2>
+        <p class="post__cta-body">
+          Thirty minutes, no pitch deck. We map acquisition, conversion, and follow-up,
+          then tell you which gap is costing the most.
+        </p>
+        <a class="cgs-h48 post__cta-btn" href="/contact/">Book a growth call</a>
+      </div>
+
+      {related.length > 0 && (
+        <section class="post__related">
+          <h2 class="post__related-title">Keep reading</h2>
+          <div class="post__related-grid cgs-grid-2">
+            {related.map((entry) => (
+              <a class="post__related-card" href={`/blog/${entry.id}/`}>
+                <span class="post__tag">{entry.data.category}</span>
+                <h3 class="post__related-heading">{entry.data.title}</h3>
+                <p class="post__related-desc">{entry.data.description}</p>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .post__hero {
+    position: relative;
+    overflow: hidden;
+    background: #0a1d38;
+    color: #f4f7fb;
+  }
+
+  .post__hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(127, 176, 255, 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(127, 176, 255, 0.07) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .post__hero-inner {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: var(--cgs-content-max, 1280px);
+    margin: 0 auto;
+    padding: 56px 48px 72px;
+  }
+
+  .post__back {
+    display: inline-block;
+    margin-bottom: 28px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #7fb0ff;
+  }
+
+  .post__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .post__tag {
+    display: inline-block;
+    padding: 4px 10px;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #7fb0ff;
+    background: rgba(127, 176, 255, 0.12);
+    border-radius: 999px;
+  }
+
+  .post__date {
+    font-size: 13px;
+    color: rgba(244, 247, 251, 0.6);
+  }
+
+  .post__title {
+    margin: 18px 0 0;
+    max-width: 20ch;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 46px;
+    line-height: 1.08;
+    letter-spacing: -1.8px;
+  }
+
+  .post__desc {
+    margin: 20px 0 0;
+    max-width: 62ch;
+    font-size: 17.5px;
+    line-height: 1.6;
+    color: rgba(244, 247, 251, 0.74);
+  }
+
+  .post__body {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: var(--cgs-content-max, 1280px);
+    margin: 0 auto;
+    padding: 64px 48px 96px;
+  }
+
+  .post__prose {
+    max-width: 68ch;
+    font-size: 17px;
+    line-height: 1.75;
+    color: rgba(10, 29, 56, 0.82);
+  }
+
+  .post__prose :global(h2) {
+    margin: 44px 0 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 27px;
+    line-height: 1.2;
+    letter-spacing: -1px;
+    color: #0a1d38;
+  }
+
+  .post__prose :global(h3) {
+    margin: 32px 0 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: -0.5px;
+    color: #0a1d38;
+  }
+
+  .post__prose :global(p) {
+    margin: 18px 0 0;
+  }
+
+  .post__prose :global(ul),
+  .post__prose :global(ol) {
+    margin: 18px 0 0;
+    padding-left: 22px;
+  }
+
+  .post__prose :global(li) {
+    margin-top: 10px;
+  }
+
+  .post__prose :global(li::marker) {
+    color: #1a4fd0;
+  }
+
+  .post__prose :global(strong) {
+    font-weight: 700;
+    color: #0a1d38;
+  }
+
+  .post__prose :global(a) {
+    color: #1a4fd0;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(26, 79, 208, 0.32);
+  }
+
+  .post__prose :global(a:hover) {
+    border-bottom-color: #1a4fd0;
+  }
+
+  .post__prose :global(blockquote) {
+    margin: 28px 0 0;
+    padding: 4px 0 4px 20px;
+    border-left: 3px solid #7fb0ff;
+    color: rgba(10, 29, 56, 0.7);
+  }
+
+  .post__prose :global(hr) {
+    margin: 40px 0 0;
+    border: none;
+    border-top: 1px solid rgba(10, 29, 56, 0.12);
+  }
+
+  .post__prose :global(code) {
+    padding: 2px 6px;
+    font-size: 0.9em;
+    background: #e7eefa;
+    border-radius: 3px;
+  }
+
+  .post__cta {
+    max-width: 68ch;
+    margin-top: 56px;
+    padding: 32px 30px;
+    background: #e7eefa;
+    border-radius: 4px;
+  }
+
+  .post__cta-title {
+    margin: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 24px;
+    letter-spacing: -0.9px;
+    color: #0a1d38;
+  }
+
+  .post__cta-body {
+    margin: 10px 0 22px;
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: rgba(10, 29, 56, 0.7);
+  }
+
+  .post__cta-btn {
+    display: inline-block;
+    padding: 15px 24px;
+    background: #1a4fd0;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 15px;
+    border-radius: 3px;
+    transition:
+      transform 0.2s,
+      background 0.2s;
+  }
+
+  .post__related {
+    margin-top: 64px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(10, 29, 56, 0.12);
+  }
+
+  .post__related-title {
+    margin: 0 0 22px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: -0.8px;
+    color: #0a1d38;
+  }
+
+  .post__related-grid {
+    display: grid;
+    gap: 20px;
+  }
+
+  .post__related-card {
+    display: block;
+    padding: 26px 24px;
+    background: #ffffff;
+    border: 1px solid rgba(10, 29, 56, 0.11);
+    border-radius: 4px;
+    color: inherit;
+    transition:
+      transform 0.2s,
+      border-color 0.2s,
+      box-shadow 0.2s;
+  }
+
+  .post__related-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(26, 79, 208, 0.35);
+    box-shadow: 0 14px 34px rgba(10, 29, 56, 0.1);
+  }
+
+  .post__related-card .post__tag {
+    color: #1a4fd0;
+    background: #e7eefa;
+  }
+
+  .post__related-heading {
+    margin: 14px 0 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 19px;
+    line-height: 1.24;
+    letter-spacing: -0.6px;
+    color: #0a1d38;
+  }
+
+  .post__related-desc {
+    margin: 10px 0 0;
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: rgba(10, 29, 56, 0.68);
+  }
+
+  @media (max-width: 900px) {
+    .post__title {
+      max-width: none;
+      font-size: 34px;
+    }
+
+    .post__hero-inner {
+      padding-bottom: 56px;
+    }
+
+    .post__body {
+      padding-top: 48px;
+    }
+  }
+</style>

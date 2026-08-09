@@ -71,6 +71,12 @@ export const pages: Record<string, PageMeta> = {
     description:
       'Meet the operators behind Compound Growth Studio — experience scaling brands, healthcare networks, and high-growth demand systems.',
   },
+  blog: {
+    path: '/blog/',
+    title: 'Blog | Compound Growth Studio',
+    description:
+      'Notes on clinic growth — retention, compliant acquisition, local visibility, and the systems behind them for GLP-1, weight loss, peptide, and med spa clinics.',
+  },
   faq: {
     path: '/faq/',
     title: 'FAQ | Compound Growth Studio',
