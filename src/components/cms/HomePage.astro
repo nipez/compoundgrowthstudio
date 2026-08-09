@@ -267,7 +267,7 @@ const teamMembers = defaults.teamMembers.map((fallback, index) => {
     photoAlt: person.photoAlt ?? fallback.photoAlt,
     bio: isNick ? (fallback.bio ?? person.bio) : (person.bio ?? fallback.bio),
     name: person.name ?? fallback.name,
-    role: person.role ?? fallback.role,
+    role: isNick ? (fallback.role ?? person.role) : (person.role ?? fallback.role),
   };
 });
 const provenStats = (doc?.provenStats?.length ? doc.provenStats : defaults.provenStats).map((stat, index) => {
