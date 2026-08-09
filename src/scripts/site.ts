@@ -1,19 +1,15 @@
-import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+import { collectAttribution, type LeadKind, type LeadPayload } from '../lib/leads';
 
-function readEnv(name: 'PUBLIC_SUPABASE_URL' | 'PUBLIC_SUPABASE_ANON_KEY'): string {
+function readEnv(name: 'PUBLIC_CRM_LEADS_ENDPOINT'): string {
   // Read via bracket access so Vite cannot fold empty defines into dead code.
   const value = (import.meta.env as Record<string, string | undefined>)[name];
-  return typeof value === 'string' ? value : '';
+  return typeof value === 'string' ? value.trim() : '';
 }
 
-function supabase(): SupabaseClient | null {
-  const url = readEnv('PUBLIC_SUPABASE_URL');
-  const key = readEnv('PUBLIC_SUPABASE_ANON_KEY');
-  if (!url || !key) {
-    console.warn('[cgs] Missing PUBLIC_SUPABASE_URL / PUBLIC_SUPABASE_ANON_KEY');
-    return null;
-  }
-  return createClient(url, key);
+function leadsEndpoint(): string {
+  const endpoint = readEnv('PUBLIC_CRM_LEADS_ENDPOINT');
+  if (!endpoint) console.error('[cgs] Missing PUBLIC_CRM_LEADS_ENDPOINT — form submissions cannot be delivered');
+  return endpoint;
 }
 
 function isValidEmail(email: string): boolean {
@@ -35,14 +31,71 @@ function markSuccess(form: HTMLFormElement) {
   }
 }
 
-function sourcePage(): string {
-  return `${location.pathname}${location.hash || ''}` || '/';
+function setPending(form: HTMLFormElement, pending: boolean) {
+  const btn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+  if (!btn) return;
+  btn.disabled = pending;
+  if (pending) {
+    btn.dataset.cgsLabelPrev = btn.textContent ?? '';
+    btn.textContent = 'Sending…';
+  } else if (btn.dataset.cgsLabelPrev) {
+    btn.textContent = btn.dataset.cgsLabelPrev;
+    delete btn.dataset.cgsLabelPrev;
+  }
 }
 
-async function submitLead(
-  form: HTMLFormElement,
-  tag: 'lead_magnet' | 'newsletter' | 'calculator',
-) {
+function markError(form: HTMLFormElement) {
+  const note = form.querySelector<HTMLElement>('[data-cgs-note]');
+  const message = 'We could not send that. Please try again, or email us and we will pick it up.';
+  if (note) {
+    note.textContent = message;
+    note.dataset.cgsState = 'error';
+    return;
+  }
+  alert(message);
+}
+
+function sourcePage(): string {
+  return `${location.pathname}${location.search || ''}${location.hash || ''}` || '/';
+}
+
+/** Posts to the CRM. Returns false so callers can surface a real failure. */
+async function deliver(payload: LeadPayload): Promise<boolean> {
+  const endpoint = leadsEndpoint();
+  if (!endpoint) return false;
+
+  try {
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      keepalive: true,
+    });
+    if (!response.ok) {
+      console.error('[cgs] lead delivery failed', response.status, await response.text());
+      return false;
+    }
+    return true;
+  } catch (error) {
+    console.error('[cgs] lead delivery error', error);
+    return false;
+  }
+}
+
+function basePayload(kind: LeadKind, email: string): LeadPayload {
+  const url = new URL(location.href);
+  return {
+    kind,
+    email,
+    sourcePage: sourcePage(),
+    sourceUrl: url.toString(),
+    referrer: document.referrer || undefined,
+    utm: collectAttribution(url),
+    submittedAt: new Date().toISOString(),
+  };
+}
+
+async function submitLead(form: HTMLFormElement, kind: 'guide' | 'newsletter' | 'calculator') {
   const honeypot = (form.elements.namedItem('website') as HTMLInputElement | null)?.value;
   if (honeypot) {
     markSuccess(form);
@@ -61,49 +114,31 @@ async function submitLead(
     (form.elements.namedItem('calc_summary') as HTMLInputElement | null)?.value || '',
   ).trim();
 
-  if (tag === 'calculator' && (!clinic || !city)) {
+  if (kind === 'calculator' && (!clinic || !city)) {
     form.reportValidity();
     return;
   }
 
-  const client = supabase();
-  if (!client) {
-    markSuccess(form);
-    if (tag === 'lead_magnet') {
-      window.setTimeout(() => {
-        window.location.assign('/guides/meta-ads/?thanks=1');
-      }, 350);
-    }
+  setPending(form, true);
+  const delivered = await deliver({
+    ...basePayload(kind, email),
+    clinic: clinic || undefined,
+    city: city || undefined,
+    calculator: kind === 'calculator' ? calcSummary || undefined : undefined,
+  });
+  setPending(form, false);
+
+  if (!delivered) {
+    markError(form);
     return;
   }
-  const { error } = await client.from('leads').insert({
-    email,
-    source_page: sourcePage(),
-    tag,
-    // Extra context when columns exist; ignored/null-safe if schema is email-only.
-    clinic: clinic || null,
-    city: city || null,
-    notes: calcSummary || null,
-  });
-  if (error) {
-    // Fallback without optional columns if the leads table is still minimal.
-    const { error: retryError } = await client.from('leads').insert({
-      email,
-      source_page: sourcePage(),
-      tag,
-    });
-    if (retryError) {
-      console.error('[cgs] lead insert failed', error.message, retryError.message);
-      alert('Something went wrong. Please try again.');
-      return;
-    }
-  }
+
   markSuccess(form);
-  if (tag === 'lead_magnet') {
+  if (kind === 'guide') {
     window.setTimeout(() => {
       window.location.assign('/guides/meta-ads/?thanks=1');
     }, 350);
-  } else if (tag === 'calculator') {
+  } else if (kind === 'calculator') {
     window.setTimeout(() => {
       window.location.assign('/contact/?from=calculator');
     }, 900);
@@ -133,32 +168,19 @@ async function submitContact(form: HTMLFormElement) {
     return;
   }
 
-  const client = supabase();
-  if (!client) {
-    markSuccess(form);
-    return;
-  }
-
-  const { error } = await client.from('contact_submissions').insert({
+  setPending(form, true);
+  const delivered = await deliver({
+    ...basePayload('contact', email),
     name,
-    email,
-    clinic: clinic || null,
-    message: message || null,
+    clinic: clinic || undefined,
+    message: message || undefined,
     newsletter,
-    source_page: sourcePage(),
   });
-  if (error) {
-    console.error('[cgs] contact insert failed', error.message);
-    alert('Something went wrong. Please try again.');
-    return;
-  }
+  setPending(form, false);
 
-  if (newsletter) {
-    await client.from('leads').insert({
-      email,
-      source_page: sourcePage(),
-      tag: 'newsletter',
-    });
+  if (!delivered) {
+    markError(form);
+    return;
   }
 
   markSuccess(form);
@@ -248,7 +270,7 @@ function initForms() {
     form.addEventListener('submit', (event) => {
       event.preventDefault();
       const kind = form.dataset.cgsForm;
-      if (kind === 'lead_magnet') void submitLead(form, 'lead_magnet');
+      if (kind === 'lead_magnet') void submitLead(form, 'guide');
       else if (kind === 'newsletter') void submitLead(form, 'newsletter');
       else if (kind === 'calculator') void submitLead(form, 'calculator');
       else if (kind === 'contact') void submitContact(form);
