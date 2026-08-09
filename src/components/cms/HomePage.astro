@@ -174,28 +174,28 @@ const defaults = {
       name: 'Nick',
       role: 'Co-Founder · Growth & Healthcare',
       bio: 'Healthcare growth executive with 20+ years driving patient acquisition across multi-location healthcare, digital health, and cash-pay clinics.',
-      photoUrl: '/images/team-nick.jpg',
+      photoUrl: '/images/team-nick-v2.jpg',
       photoAlt: 'Nick Perez',
     },
     {
       name: 'Tony Pardilla',
       role: 'Creative Partner',
       bio: 'Turns strategy into landing pages, campaign creative, and conversion-focused digital experiences.',
-      photoUrl: '/images/team-tony.jpg',
+      photoUrl: '/images/team-tony-v2.jpg',
       photoAlt: 'Tony Pardilla',
     },
     {
       name: 'Chris Cyril',
       role: 'Systems Partner',
       bio: 'Connects forms, tracking, CRM workflows, automation, and reporting behind the growth engine.',
-      photoUrl: '/images/team-chris.jpg',
+      photoUrl: '/images/team-chris-v2.jpg',
       photoAlt: 'Chris Cyril',
     },
     {
       name: 'Jessica Rodrigues',
       role: 'Client Experience',
       bio: 'Keeps onboarding, scheduling, follow-ups, and asset collection from falling through the cracks.',
-      photoUrl: '/images/team-jessica.jpg',
+      photoUrl: '/images/team-jessica-v2.jpg',
       photoAlt: 'Jessica Rodrigues',
     },
   ] satisfies PersonCard[],
@@ -497,7 +497,7 @@ const pillarIcons = [
         return (
           <div style="text-align: center; padding: 8px 6px 4px; animation: rise .8s both; animation-timeline: view(); animation-range: entry 0% entry 50%;">
             {photoUrl ? (
-              <img src={photoUrl} alt={photoAlt} style="display: block; width: 112px; height: 112px; margin: 0 auto; border-radius: 50%; object-fit: cover; object-position: center top; background: #F8F8F8; border: 3px solid #E7EEFA;" />
+              <img src={photoUrl} alt={photoAlt} style="display: block; width: 112px; height: 112px; margin: 0 auto; border-radius: 50%; object-fit: cover; object-position: center center; background: #F8F8F8; border: 3px solid #E7EEFA;" />
             ) : (
               <div style="display: grid; place-items: center; width: 112px; height: 112px; margin: 0 auto; border-radius: 50%; background: #0A1D38; color: #7FB0FF; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 28px; letter-spacing: -.5px; border: 3px solid #E7EEFA;" aria-hidden="true">{initials(name)}</div>
             )}
