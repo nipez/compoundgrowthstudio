@@ -125,6 +125,17 @@ redeploy is required for the change to take effect.
 Submit the guide form in the site footer with your own email. A new row should
 appear in the sheet within a second or two.
 
+## If a submission shows "We could not send that"
+
+Some browsers and privacy extensions refuse to expose the response of a
+cross-origin redirect, which is how Apps Script replies. The site retries such
+a submission without reading the reply, so the row still arrives — the
+`data.id` check above is what keeps that retry from creating a duplicate.
+
+If the error persists, the request is being blocked outright. Check for an ad
+blocker or content blocker on `script.google.com`, or confirm the deployment's
+**Who has access** is still **Anyone**.
+
 ## Getting notified
 
 To get an email whenever a submission arrives, in the sheet go to
