@@ -95,7 +95,7 @@ const founders = defaults.founders.map((fallback, index) => {
     // Prefer shipped Nick copy until Sanity leadership founders are re-seeded.
     bio: isNick ? (fallback.bio ?? person.bio) : (person.bio ?? fallback.bio),
     name: person.name ?? fallback.name,
-    role: person.role ?? fallback.role,
+    role: isNick ? (fallback.role ?? person.role) : (person.role ?? fallback.role),
   };
 });
 const partners = defaults.partners.map((fallback, index) => {
