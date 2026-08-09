@@ -11,6 +11,32 @@ The original self-contained HTML export lives in [`/site/`](./site/). Editable m
 - **CRM** at [crm.compoundgrowthstudio.com](https://crm.compoundgrowthstudio.com) (lead + contact intake)
 - **Railway** (Docker + nginx)
 
+## Client portal (`/portal`)
+
+Separate Astro SSR app for **client** and **CGS ops** logins — billing, intake/onboarding, messaging, approvals, deliverables, and documents.
+
+See [`portal/README.md`](./portal/README.md) for modules, local setup, and the Supabase migration [`supabase/migrations/002_portal_foundation.sql`](./supabase/migrations/002_portal_foundation.sql).
+
+```bash
+cd portal
+cp .env.example .env
+npm install
+npm run dev   # http://localhost:4322
+```
+
+Demo mode works without Supabase: open `/login/` → Continue as demo client / CGS ops.
+
+### Portal on Railway
+
+Add a **second Railway service** (do not reuse the marketing nginx Dockerfile):
+
+1. New service from the same GitHub repo  
+2. Root Directory = `portal`  
+3. Uses `portal/Dockerfile` + `portal/railway.toml`  
+4. Optional: set `PUBLIC_PORTAL_URL` to the service URL  
+
+Full notes: [`portal/README.md`](./portal/README.md#deploy-on-railway-demo-preview).
+
 ## Pages
 
 | Route | Page |

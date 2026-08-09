@@ -1,0 +1,47 @@
+---
+import PortalLayout from '../../layouts/PortalLayout.astro';
+import { gateUser } from '../../lib/auth';
+import { demoMessages } from '../../lib/demo-data';
+import { CLIENT_NAV } from '../../lib/modules';
+import { getSessionUser } from '../../lib/supabase';
+
+const user = await getSessionUser(Astro.request, Astro.cookies);
+const gate = gateUser(user, 'client');
+if (gate) return Astro.redirect(gate);
+if (!user) return Astro.redirect('/login/');
+---
+
+<PortalLayout title="Messages" user={user} nav={CLIENT_NAV} portalLabel="Client portal">
+  <header class="page-head">
+    <div>
+      <p class="eyebrow">Communication</p>
+      <h1>Messages</h1>
+      <p class="lede">One thread with your CGS strategist — decisions and asks stay attached to the engagement.</p>
+    </div>
+  </header>
+
+  <section class="panel">
+    <h2>Conversion Foundation — GLP-1</h2>
+    <p class="meta">Open conversation with Conor</p>
+    <div class="thread">
+      {
+        demoMessages.map((m) => (
+          <div class={`bubble ${m.side}`}>
+            <div class="who">
+              {m.from} · {new Date(m.at).toLocaleString()}
+            </div>
+            <div>{m.body}</div>
+          </div>
+        ))
+      }
+    </div>
+    <form class="form" method="POST" action="/api/messages/send/">
+      <div class="field">
+        <label for="body">Reply</label>
+        <textarea id="body" name="body" placeholder="Ask a question or share an update…"></textarea>
+      </div>
+      <button class="btn btn-primary" type="submit">Send message</button>
+    </form>
+    <p class="notice">Email notifications and file attachments are next-module items.</p>
+  </section>
+</PortalLayout>

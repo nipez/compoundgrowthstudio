@@ -1,0 +1,74 @@
+---
+import PortalLayout from '../../layouts/PortalLayout.astro';
+import { gateUser } from '../../lib/auth';
+import { demoEngagement, demoInvoices } from '../../lib/demo-data';
+import { CLIENT_NAV } from '../../lib/modules';
+import { getSessionUser } from '../../lib/supabase';
+import { PLAN_LABELS } from '../../lib/types';
+
+const user = await getSessionUser(Astro.request, Astro.cookies);
+const gate = gateUser(user, 'client');
+if (gate) return Astro.redirect(gate);
+if (!user) return Astro.redirect('/login/');
+---
+
+<PortalLayout title="Billing" user={user} nav={CLIENT_NAV} portalLabel="Client portal">
+  <header class="page-head">
+    <div>
+      <p class="eyebrow">Payments</p>
+      <h1>Billing</h1>
+      <p class="lede">
+        Retainers run on Stripe Billing. Update cards and download invoices without emailing the team.
+      </p>
+    </div>
+    <div class="actions">
+      <form method="POST" action="/api/billing/portal/">
+        <button class="btn btn-primary" type="submit">Manage payment method</button>
+      </form>
+    </div>
+  </header>
+
+  <div class="grid grid-3">
+    <div class="panel stat">
+      <div class="label">Plan</div>
+      <div class="value" style="font-size:20px;">{PLAN_LABELS[demoEngagement.planType]}</div>
+    </div>
+    <div class="panel stat">
+      <div class="label">MRR</div>
+      <div class="value">${(demoEngagement.mrrCents / 100).toLocaleString()}</div>
+    </div>
+    <div class="panel stat">
+      <div class="label">Next invoice</div>
+      <div class="value" style="font-size:20px;">Aug 1</div>
+    </div>
+  </div>
+
+  <section class="panel" style="margin-top:16px;">
+    <h2>Invoices</h2>
+    <p class="meta">Synced from Stripe via webhook into `billing_invoices`.</p>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Invoice</th>
+          <th>Due</th>
+          <th>Amount</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          demoInvoices.map((inv) => (
+            <tr>
+              <td>{inv.number}</td>
+              <td>{inv.dueDate}</td>
+              <td>${(inv.amountCents / 100).toLocaleString()}</td>
+              <td>
+                <span class={`pill ${inv.status === 'paid' ? 'pill-ok' : 'pill-warn'}`}>{inv.status}</span>
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </section>
+</PortalLayout>
