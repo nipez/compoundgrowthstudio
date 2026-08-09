@@ -146,7 +146,7 @@ const recoveryCtaHref = defaults.recoveryCtaHref;
                 <div style="display: flex; gap: 10px;"><span style={`color: ${highlighted ? '#7FB0FF' : '#1A4FD0'}; font-weight: 700;`}>✓</span>{feature}</div>
               ))}
             </div>
-            <a class={highlighted ? 'cgs-h45' : index === 0 ? 'cgs-h44' : 'cgs-h46'} href={tier.ctaHref ?? fallback?.ctaHref} style={highlighted ? 'display: block; margin-top: 26px; padding: 14px 0; text-align: center; background: #1A4FD0; color: #FFFFFF; font-weight: 700; font-size: 14.5px; border-radius: 3px; transition: transform .2s, background .2s;' : 'display: block; margin-top: 26px; padding: 14px 0; text-align: center; border: 1.5px solid #0A1D38; color: #0A1D38; font-weight: 600; font-size: 14.5px; border-radius: 3px; transition: background .2s, color .2s;'}>{tier.ctaLabel ?? fallback?.ctaLabel}</a>
+            <a class={`cgs-pricing-tier__cta ${highlighted ? 'cgs-h45' : index === 0 ? 'cgs-h44' : 'cgs-h46'}`} href={tier.ctaHref ?? fallback?.ctaHref} style={highlighted ? 'display: block; margin-top: 26px; padding: 14px 0; text-align: center; background: #1A4FD0; color: #FFFFFF; font-weight: 700; font-size: 14.5px; border-radius: 3px; transition: transform .2s, background .2s;' : 'display: block; margin-top: 26px; padding: 14px 0; text-align: center; border: 1.5px solid #0A1D38; color: #0A1D38; font-weight: 600; font-size: 14.5px; border-radius: 3px; transition: background .2s, color .2s;'}>{tier.ctaLabel ?? fallback?.ctaLabel}</a>
           </div>
         );
       })}
@@ -178,6 +178,13 @@ const recoveryCtaHref = defaults.recoveryCtaHref;
 </div>
 
 <style>
+  /* Tier CTAs set color inline, which outranks the shared hover rules. */
+  .cgs-pricing-tier__cta.cgs-h44:hover,
+  .cgs-pricing-tier__cta.cgs-h46:hover,
+  .cgs-pricing-tier__cta.cgs-h45:hover {
+    color: #ffffff !important;
+  }
+
   .cgs-pricing-recovery {
     position: relative;
     overflow: hidden;
