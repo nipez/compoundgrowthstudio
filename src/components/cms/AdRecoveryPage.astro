@@ -36,13 +36,68 @@ const price = '$2,500';
       ))}
     </div>
     <p style="margin: 28px 0 0; font-size: 14.5px; color: rgba(10,29,56,.55);">We cannot guarantee a platform decision. We design for clearance — the single biggest reason clinic campaigns stall.</p>
-    <div style="margin-top: 40px; padding: 28px 30px; background: #E7EEFA; border-radius: 4px;">
-      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px 22px;">
-        <a href="/contact/?from=ad-account-recovery" style="display: inline-block; padding: 14px 22px; background: #1A4FD0; color: #FFFFFF; font-weight: 700; border-radius: 3px;">Request Ad Account Recovery</a>
-        <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 36px; letter-spacing: -1.4px; line-height: 1; color: #0A1D38;">{price}</div>
+    <div class="cgs-recovery-cta">
+      <div class="cgs-recovery-cta__row">
+        <a href="/contact/?from=ad-account-recovery" class="cgs-recovery-cta__btn">Request Ad Account Recovery</a>
+        <div class="cgs-recovery-cta__price">{price}</div>
       </div>
-      <div style="margin-top: 12px; font-size: 14px; line-height: 1.45; color: rgba(10,29,56,.58);">Fixed price · same-week start when capacity allows</div>
+      <div class="cgs-recovery-cta__note">Fixed price · same-week start when capacity allows</div>
     </div>
     </div>
   </section>
 </div>
+
+<style>
+  .cgs-recovery-cta {
+    display: inline-block;
+    max-width: 100%;
+    margin-top: 40px;
+    padding: 26px 30px;
+    background: #e7eefa;
+    border-radius: 4px;
+  }
+
+  .cgs-recovery-cta__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px 20px;
+  }
+
+  .cgs-recovery-cta__btn {
+    display: inline-block;
+    padding: 14px 22px;
+    background: #1a4fd0;
+    color: #ffffff;
+    font-weight: 700;
+    border-radius: 3px;
+  }
+
+  .cgs-recovery-cta__price {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 32px;
+    letter-spacing: -1.2px;
+    line-height: 1;
+    color: #0a1d38;
+  }
+
+  .cgs-recovery-cta__note {
+    margin-top: 14px;
+    font-size: 14px;
+    line-height: 1.45;
+    color: rgba(10, 29, 56, 0.58);
+  }
+
+  @media (max-width: 560px) {
+    .cgs-recovery-cta {
+      display: block;
+      padding: 24px 22px;
+    }
+
+    .cgs-recovery-cta__btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>
