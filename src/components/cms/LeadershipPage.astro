@@ -137,7 +137,7 @@ function initials(name = ''): string {
     <div class="cgs-grid-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
       {founders.map((founder, index) => (
         <div style={`display: flex; gap: 28px; padding: 36px; background: #FFFFFF; border: 1px solid rgba(10,29,56,.09); border-radius: 4px; animation: rise .8s ${index ? '.1s' : ''} both;`}>
-          <img src={founder.photoUrl ?? defaults.founders[index]?.photoUrl} alt={founder.photoAlt ?? founder.name ?? defaults.founders[index]?.photoAlt} style="flex-shrink: 0; width: 112px; height: 112px; border-radius: 50%; object-fit: cover;" />
+          <img src={founder.photoUrl ?? defaults.founders[index]?.photoUrl} alt={founder.photoAlt ?? founder.name ?? defaults.founders[index]?.photoAlt} style="flex-shrink: 0; width: 112px; height: 112px; border-radius: 50%; object-fit: cover; background: #F8F8F8;" />
           <div>
             <h2 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 23px; letter-spacing: -.6px;">{founder.name ?? defaults.founders[index]?.name}</h2>
             <div style="margin: 6px 0 14px; font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #1A4FD0;">{founder.role ?? defaults.founders[index]?.role}</div>
@@ -162,7 +162,7 @@ function initials(name = ''): string {
         return (
           <div style="padding: 32px 30px; background: #FFFFFF; border: 1px solid rgba(10,29,56,.09); border-radius: 4px; animation: rise .8s both; animation-timeline: view(); animation-range: entry 0% entry 50%;">
             {photoUrl ? (
-              <img src={photoUrl} alt={photoAlt} style="display: block; width: 88px; height: 88px; margin: 0 0 18px; border-radius: 50%; object-fit: cover; object-position: center top;" />
+              <img src={photoUrl} alt={photoAlt} style="display: block; width: 88px; height: 88px; margin: 0 0 18px; border-radius: 50%; object-fit: cover; object-position: center top; background: #F8F8F8;" />
             ) : (
               <div style="display: grid; place-items: center; width: 88px; height: 88px; margin: 0 0 18px; border-radius: 50%; background: #0A1D38; color: #7FB0FF; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 22px;" aria-hidden="true">{initials(name)}</div>
             )}
