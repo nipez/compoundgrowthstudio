@@ -22,7 +22,7 @@ export default defineConfig({
   trailingSlash: 'always',
   integrations: [
     sitemap({
-      filter: (page) => !page.includes('/preview/'),
+      filter: (page) => !page.includes('/preview/') && !page.includes('/admin/'),
     }),
   ],
 });

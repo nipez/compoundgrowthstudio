@@ -24,6 +24,7 @@ The original self-contained HTML export lives in [`/site/`](./site/). Editable m
 | `/faq/` | FAQ |
 | `/contact/` | Contact / growth call |
 | `/ai-voice-agent/` | AI voice agent demo |
+| `/admin/` | Internal submissions log (noindex, Supabase login) |
 
 ## Local development
 
@@ -99,6 +100,18 @@ At build time these are also exposed as `PUBLIC_SUPABASE_*` for the client form 
 - `name`, `email`, `clinic`, `message`, `newsletter`, `source_page`, `created_at`
 
 Both tables use **RLS with insert-only policies for `anon`**. Forms also include a honeypot field (`website`) and basic email validation.
+
+Run [`supabase/migrations/002_calculator_tag_and_lead_context.sql`](./supabase/migrations/002_calculator_tag_and_lead_context.sql) too — it allows the `calculator` tag and adds the optional `clinic` / `city` / `notes` columns.
+
+## Admin submissions log (`/admin/`)
+
+`/admin/` is a `noindex` page that lists both tables in the browser. It signs in against Supabase Auth and reads rows with the existing `authenticated` select policies — no server or service-role key involved.
+
+1. In Supabase → **Authentication → Users → Add user**, create an email + password login for each teammate (enable *Auto Confirm*).
+2. Visit `/admin/`, sign in, and switch between **Contact requests** and **Guide & newsletter**.
+3. Search filters the loaded rows; **Export CSV** downloads what is currently shown.
+
+Anonymous visitors can still only insert, so the page shows nothing without a valid login.
 
 ## Deploy on Railway
 
