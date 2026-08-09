@@ -1,0 +1,292 @@
+---
+import {getCollection} from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import {pages} from '../../lib/site';
+import {preventWidow} from '../../lib/copy';
+import {formatPostDate} from '../../lib/blog';
+
+const posts = (await getCollection('blog', ({data}) => !data.draft)).sort(
+  (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf(),
+);
+
+const [featured, ...rest] = posts;
+const page = pages.blog;
+---
+
+<BaseLayout page={page}>
+  <div>
+    <header class="blog-hero">
+      <div class="blog-hero__grid" aria-hidden="true"></div>
+      <div class="blog-hero__inner cgs-pad">
+        <div class="blog-hero__eyebrow">Notes on clinic growth</div>
+        <h1 class="cgs-display blog-hero__title">
+          {preventWidow('Retention, compliant acquisition, and the systems behind them.')}
+        </h1>
+        <p class="blog-hero__sub">
+          Practical write-ups for GLP-1, weight loss, peptide, and med spa clinics — what
+          we see working, and what quietly costs clinics patients.
+        </p>
+      </div>
+    </header>
+
+    <section class="blog-list cgs-pad">
+      {posts.length === 0 ? (
+        <p class="blog-empty">First posts are on the way.</p>
+      ) : (
+        <>
+          <a class="blog-feature" href={`/blog/${featured.id}/`}>
+            <div class="blog-feature__meta">
+              <span class="blog-tag">{featured.data.category}</span>
+              <span class="blog-date">{formatPostDate(featured.data.publishedAt)}</span>
+            </div>
+            <h2 class="blog-feature__title">{preventWidow(featured.data.title)}</h2>
+            <p class="blog-feature__desc">{featured.data.description}</p>
+            <span class="blog-more">Read the post →</span>
+          </a>
+
+          {rest.length > 0 && (
+            <div class="blog-grid cgs-grid-2">
+              {rest.map((post) => (
+                <a class="blog-card" href={`/blog/${post.id}/`}>
+                  <div class="blog-card__meta">
+                    <span class="blog-tag">{post.data.category}</span>
+                    <span class="blog-date">{formatPostDate(post.data.publishedAt)}</span>
+                  </div>
+                  <h2 class="blog-card__title">{post.data.title}</h2>
+                  <p class="blog-card__desc">{post.data.description}</p>
+                  <span class="blog-more">Read the post →</span>
+                </a>
+              ))}
+            </div>
+          )}
+        </>
+      )}
+
+      <div class="blog-cta cgs-cta-row">
+        <div>
+          <h2 class="blog-cta__title">Want this applied to your clinic?</h2>
+          <p class="blog-cta__body">
+            We map the gaps across visibility, conversion, and follow-up — then fix the
+            one costing you the most.
+          </p>
+        </div>
+        <a class="cgs-h48 blog-cta__btn" href="/contact/">Find Your Growth Gaps</a>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .blog-hero {
+    position: relative;
+    overflow: hidden;
+    background: #0a1d38;
+    color: #f4f7fb;
+  }
+
+  .blog-hero__grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(127, 176, 255, 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(127, 176, 255, 0.07) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .blog-hero__inner {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: var(--cgs-content-max, 1280px);
+    margin: 0 auto;
+    padding: 84px 48px 76px;
+  }
+
+  .blog-hero__eyebrow {
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #7fb0ff;
+  }
+
+  .blog-hero__title {
+    margin: 18px 0 0;
+    max-width: 860px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 50px;
+    line-height: 1.06;
+    letter-spacing: -2px;
+  }
+
+  .blog-hero__sub {
+    margin: 22px 0 0;
+    max-width: 640px;
+    font-size: 17.5px;
+    line-height: 1.6;
+    color: rgba(244, 247, 251, 0.74);
+  }
+
+  .blog-list {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: var(--cgs-content-max, 1280px);
+    margin: 0 auto;
+    padding: 72px 48px 96px;
+  }
+
+  .blog-tag {
+    display: inline-block;
+    padding: 4px 10px;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #1a4fd0;
+    background: #e7eefa;
+    border-radius: 999px;
+  }
+
+  .blog-date {
+    font-size: 13px;
+    color: rgba(10, 29, 56, 0.55);
+  }
+
+  .blog-feature,
+  .blog-card {
+    display: block;
+    padding: 32px 30px;
+    background: #ffffff;
+    border: 1px solid rgba(10, 29, 56, 0.11);
+    border-radius: 4px;
+    color: inherit;
+    transition:
+      transform 0.2s,
+      box-shadow 0.2s,
+      border-color 0.2s;
+  }
+
+  .blog-feature:hover,
+  .blog-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(26, 79, 208, 0.35);
+    box-shadow: 0 14px 34px rgba(10, 29, 56, 0.1);
+  }
+
+  .blog-feature__meta,
+  .blog-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .blog-feature__title {
+    margin: 0;
+    max-width: 20ch;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 34px;
+    line-height: 1.14;
+    letter-spacing: -1.3px;
+    color: #0a1d38;
+  }
+
+  .blog-feature__desc {
+    margin: 14px 0 0;
+    max-width: 62ch;
+    font-size: 16px;
+    line-height: 1.65;
+    color: rgba(10, 29, 56, 0.72);
+  }
+
+  .blog-grid {
+    display: grid;
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .blog-card__title {
+    margin: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 21px;
+    line-height: 1.2;
+    letter-spacing: -0.7px;
+    color: #0a1d38;
+  }
+
+  .blog-card__desc {
+    margin: 12px 0 0;
+    font-size: 15px;
+    line-height: 1.62;
+    color: rgba(10, 29, 56, 0.7);
+  }
+
+  .blog-more {
+    display: inline-block;
+    margin-top: 18px;
+    font-size: 14.5px;
+    font-weight: 600;
+    color: #1a4fd0;
+  }
+
+  .blog-empty {
+    margin: 0;
+    padding: 48px 0;
+    color: rgba(10, 29, 56, 0.6);
+  }
+
+  .blog-cta {
+    margin-top: 56px;
+    padding: 32px 30px;
+    background: #e7eefa;
+    border-radius: 4px;
+  }
+
+  .blog-cta__title {
+    margin: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 26px;
+    letter-spacing: -1px;
+    color: #0a1d38;
+  }
+
+  .blog-cta__body {
+    margin: 10px 0 0;
+    max-width: 60ch;
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: rgba(10, 29, 56, 0.7);
+  }
+
+  .blog-cta__btn {
+    flex-shrink: 0;
+    display: inline-block;
+    padding: 16px 26px;
+    background: #1a4fd0;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 15px;
+    white-space: nowrap;
+    border-radius: 3px;
+    transition:
+      transform 0.2s,
+      background 0.2s;
+  }
+
+  @media (max-width: 900px) {
+    .blog-hero__inner {
+      padding-top: 64px;
+      padding-bottom: 56px;
+    }
+
+    .blog-feature__title {
+      max-width: none;
+      font-size: 28px;
+    }
+  }
+</style>
