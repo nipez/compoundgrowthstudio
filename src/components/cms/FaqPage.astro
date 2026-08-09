@@ -100,7 +100,8 @@ function linkify(text: string): string {
       {doc?.subhead && <p style="margin: 22px 0 0; max-width: 640px; font-size: 17.5px; line-height: 1.6; color: rgba(244,247,251,.74); animation: rise .7s .2s both;">{doc.subhead}</p>}
     </div>
   </header>
-  <section class="cgs-pad" style="max-width: 940px; margin: 0 auto; padding: 76px 48px 100px;">
+  <section class="cgs-pad" style="max-width: 1280px; margin: 0 auto; padding: 76px 48px 100px;">
+    <div style="max-width: 940px;">
     <div style="margin-bottom: 36px; padding: 32px 34px; background: #E7EEFA; border-radius: 4px; animation: rise .7s both;">
       <h2 style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 26px; letter-spacing: -1px; color: #0A1D38; line-height: 1.2;">{preventWidow(surfacedObjection.question)}</h2>
       {surfacedObjection.sentences.map((sentence, index) => (
@@ -125,6 +126,7 @@ function linkify(text: string): string {
         <p style="margin: 0; font-size: 15.5px; line-height: 1.6; color: rgba(10,29,56,.7);">{closingCta.body}</p>
       </div>
       <a class="cgs-h48" href={closingCta.ctaHref} style="flex-shrink: 0; display: inline-block; padding: 16px 26px; background: #1A4FD0; color: #FFFFFF; font-weight: 700; font-size: 15px; border-radius: 3px; transition: transform .2s;">{closingCta.ctaLabel}</a>
+    </div>
     </div>
   </section>
 </div>

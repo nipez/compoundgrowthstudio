@@ -77,6 +77,9 @@ const navCtaLabel = settings?.navCtaLabel ?? defaults.navCtaLabel;
     position: sticky;
     top: 0;
     z-index: 50;
+    background: rgba(244, 247, 251, 0.88);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(10, 29, 56, 0.09);
   }
 
   .cgs-nav__bar {
@@ -86,10 +89,11 @@ const navCtaLabel = settings?.navCtaLabel ?? defaults.navCtaLabel;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    padding: 14px 48px;
-    background: rgba(244, 247, 251, 0.88);
-    backdrop-filter: blur(14px);
-    border-bottom: 1px solid rgba(10, 29, 56, 0.09);
+    box-sizing: border-box;
+    width: 100%;
+    max-width: var(--cgs-content-max, 1280px);
+    margin: 0 auto;
+    padding: 14px var(--cgs-pad-x, 48px);
   }
 
   .cgs-nav__brand {
@@ -214,7 +218,7 @@ const navCtaLabel = settings?.navCtaLabel ?? defaults.navCtaLabel;
 
   @media (max-width: 1100px) {
     .cgs-nav__bar {
-      padding: 12px 20px;
+      padding: 12px var(--cgs-pad-x, 20px);
     }
 
     .cgs-nav__toggle {
@@ -231,7 +235,7 @@ const navCtaLabel = settings?.navCtaLabel ?? defaults.navCtaLabel;
       inset: 0;
       z-index: 1;
       display: block;
-      padding: 84px 20px 32px;
+      padding: 84px var(--cgs-pad-x, 20px) 32px;
       background: #f4f7fb;
       opacity: 0;
       visibility: hidden;
@@ -248,7 +252,7 @@ const navCtaLabel = settings?.navCtaLabel ?? defaults.navCtaLabel;
       transform: none;
     }
 
-    .cgs-nav[data-open='true'] .cgs-nav__bar {
+    .cgs-nav[data-open='true'] {
       background: #f4f7fb;
       backdrop-filter: none;
     }

@@ -92,9 +92,11 @@ const getStartedLinks = defaults.footerGetStartedLinks;
   }
 
   .cgs-footer__inner {
-    max-width: 1280px;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: var(--cgs-content-max, 1280px);
     margin: 0 auto;
-    padding: 60px 48px 44px;
+    padding: 60px var(--cgs-pad-x, 48px) 44px;
   }
 
   .cgs-footer__top {
@@ -224,7 +226,7 @@ const getStartedLinks = defaults.footerGetStartedLinks;
 
   @media (max-width: 900px) {
     .cgs-footer__inner {
-      padding: 48px 24px 36px;
+      padding: 48px var(--cgs-pad-x, 24px) 36px;
     }
 
     .cgs-footer__top {
@@ -240,7 +242,7 @@ const getStartedLinks = defaults.footerGetStartedLinks;
 
   @media (max-width: 560px) {
     .cgs-footer__inner {
-      padding: 40px 20px 32px;
+      padding: 40px var(--cgs-pad-x, 20px) 32px;
     }
 
     .cgs-footer__form {
