@@ -230,9 +230,11 @@ const timelineHeaderLines = splitSentences(doc?.timelineHeader ?? defaults.timel
 
   .sys-hero__inner {
     position: relative;
-    max-width: 1280px;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: var(--cgs-content-max, 1280px);
     margin: 0 auto;
-    padding: 84px 48px 88px;
+    padding: 84px var(--cgs-pad-x, 48px) 88px;
   }
 
   .sys-hero__eyebrow {
@@ -414,12 +416,20 @@ const timelineHeaderLines = splitSentences(doc?.timelineHeader ?? defaults.timel
   }
 
   .sys-timeline {
-    padding: 88px 48px 100px;
+    padding: 88px var(--cgs-pad-x, 48px) 100px;
   }
 
   .sys-timeline__inner {
-    max-width: 920px;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: var(--cgs-content-max, 1280px);
     margin: 0 auto;
+  }
+
+  .sys-timeline__header,
+  .sys-timeline__list,
+  .sys-cta {
+    max-width: 920px;
   }
 
   .sys-timeline__header {

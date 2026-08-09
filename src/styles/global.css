@@ -5,6 +5,7 @@
   --cgs-off-white: #f4f7fb;
   --cgs-font-heading: 'Plus Jakarta Sans', sans-serif;
   --cgs-font-body: 'Archivo', sans-serif;
+  --cgs-content-max: 1280px;
   --cgs-pad-x: 48px;
 }
 

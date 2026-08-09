@@ -123,7 +123,7 @@ const recoveryCtaHref = defaults.recoveryCtaHref;
       <p style="margin: 22px auto 0; max-width: 620px; font-size: 17.5px; line-height: 1.6; color: rgba(244,247,251,.74); animation: rise .7s .2s both;">{doc?.subhead ?? defaults.subhead}</p>
     </div>
   </header>
-  <section class="cgs-pad" style="max-width: 1180px; margin: 0 auto; padding: 56px 48px 0;">
+  <section class="cgs-pad" style="max-width: 1280px; margin: 0 auto; padding: 56px 48px 0;">
     <p style="text-align: center; margin: 0 0 44px; font-size: 13.5px; letter-spacing: .04em; color: rgba(10,29,56,.56);">{doc?.intro ?? defaults.intro}</p>
     <div class="cgs-pricing-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch;">
       {tiers.map((tier, index) => {
@@ -167,8 +167,8 @@ const recoveryCtaHref = defaults.recoveryCtaHref;
     <p style="text-align: center; margin: 44px 0 96px; font-size: 14.5px; color: rgba(10,29,56,.62);">{doc?.footerNoteBefore ?? defaults.footerNoteBefore} <a href={doc?.footerNoteLinkHref ?? defaults.footerNoteLinkHref} style="font-weight: 600;">{doc?.footerNoteLinkLabel ?? defaults.footerNoteLinkLabel}</a></p>
   </section>
 
-  <section id="newsletter" class="cgs-pad" style="max-width: 640px; margin: 0 auto; padding: 0 48px 96px;">
-    <form data-cgs-form="newsletter" style="display: grid; gap: 12px; padding: 36px 32px; background: #FFFFFF; border: 1px solid rgba(10,29,56,.1); border-radius: 4px;">
+  <section id="newsletter" class="cgs-pad" style="max-width: 1280px; margin: 0 auto; padding: 0 48px 96px;">
+    <form data-cgs-form="newsletter" style="display: grid; gap: 12px; max-width: 640px; padding: 36px 32px; background: #FFFFFF; border: 1px solid rgba(10,29,56,.1); border-radius: 4px;">
       <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" />
       <input type="email" name="email" required placeholder={newsletter.emailPlaceholder} style="padding: 15px 16px; font-family: 'Archivo', sans-serif; font-size: 15px; color: #0A1D38; background: #F4F7FB; border: 1px solid rgba(10,29,56,.2); border-radius: 3px; outline: none;" class="cgs-focus-blue" />
       <button type="submit" data-cgs-label-idle={newsletter.submitLabelIdle} data-cgs-label-done={newsletter.submitLabelDone} style="padding: 15px 0; font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 15px; color: #FFFFFF; background: #1A4FD0; border: none; border-radius: 3px; cursor: pointer; transition: background .2s;" class="cgs-h-navy">{newsletter.submitLabelIdle}</button>

@@ -392,9 +392,11 @@ function polar(cx: number, cy: number, r: number, deg: number) {
   }
 
   .hpv-wrap {
-    max-width: 1180px;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: var(--cgs-content-max, 1280px);
     margin: 0 auto;
-    padding: 0 48px;
+    padding: 0 var(--cgs-pad-x, 48px);
   }
 
   .hpv-narrow {
