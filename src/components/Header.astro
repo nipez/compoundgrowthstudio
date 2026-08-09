@@ -26,17 +26,254 @@ function remapServeLabel(item: Link): Link {
 const settings = await fetchDocument<SiteSettings>(pageIds.settings);
 // Prefer shipped nav so Calculator + Ad Recovery ship without a Sanity reseed.
 const navItems = defaults.navItems.map(remapServeLabel);
+const brandName = settings?.brandName ?? defaults.brandName;
+const brandMark = settings?.brandMark ?? defaults.brandMark;
+const navCtaHref = settings?.navCtaHref ?? defaults.navCtaHref;
+const navCtaLabel = settings?.navCtaLabel ?? defaults.navCtaLabel;
 ---
 
-<nav style="position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 16px 48px; background: rgba(244,247,251,.88); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(10,29,56,.09);">
-  <a href="/" style="display: flex; align-items: center; gap: 12px; color: #0A1D38;">
-    <span style="display: grid; place-items: center; width: 36px; height: 36px; background: #0A1D38; color: #7FB0FF; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 14px; letter-spacing: -.4px;">{settings?.brandMark ?? defaults.brandMark}</span>
-    <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 16.5px; letter-spacing: -.4px;">{settings?.brandName ?? defaults.brandName}</span>
-  </a>
-  <div style="display: flex; align-items: center; gap: 4px; font-size: 14.5px; font-weight: 500;">
-    {navItems.map((item, index) => (
-      <a class={`cgs-h${index}`} href={item.href} style="display: inline-block; padding: 10px 14px; color: #0A1D38; border-radius: 4px; white-space: nowrap; transition: background .18s, color .18s;">{item.label}</a>
-    ))}
-    <a class="cgs-h6" href={settings?.navCtaHref ?? defaults.navCtaHref} style="display: inline-block; margin-left: 14px; padding: 11px 20px; background: #1A4FD0; color: #FFFFFF; font-weight: 600; border-radius: 4px; white-space: nowrap; transition: background .2s, transform .2s;">{settings?.navCtaLabel ?? defaults.navCtaLabel}</a>
+<div class="cgs-nav" data-cgs-nav>
+  <nav class="cgs-nav__bar" aria-label="Primary">
+    <a href="/" class="cgs-nav__brand">
+      <span class="cgs-nav__mark">{brandMark}</span>
+      <span class="cgs-nav__name">{brandName}</span>
+    </a>
+
+    <button
+      type="button"
+      class="cgs-nav__toggle"
+      data-cgs-nav-toggle
+      aria-expanded="false"
+      aria-controls="cgs-nav-panel"
+      aria-label="Open menu"
+    >
+      <span class="cgs-nav__toggle-bars" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+    </button>
+
+    <div class="cgs-nav__desktop">
+      {navItems.map((item, index) => (
+        <a class={`cgs-h${index} cgs-nav__link`} href={item.href}>{item.label}</a>
+      ))}
+      <a class="cgs-h6 cgs-nav__cta" href={navCtaHref}>{navCtaLabel}</a>
+    </div>
+  </nav>
+
+  <div class="cgs-nav__panel" id="cgs-nav-panel" data-cgs-nav-panel>
+    <div class="cgs-nav__links">
+      {navItems.map((item, index) => (
+        <a class={`cgs-h${index} cgs-nav__link`} href={item.href}>{item.label}</a>
+      ))}
+      <a class="cgs-h6 cgs-nav__cta" href={navCtaHref}>{navCtaLabel}</a>
+    </div>
   </div>
-</nav>
+</div>
+
+<style>
+  .cgs-nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  .cgs-nav__bar {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 48px;
+    background: rgba(244, 247, 251, 0.88);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(10, 29, 56, 0.09);
+  }
+
+  .cgs-nav__brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    color: #0a1d38;
+    position: relative;
+    z-index: 2;
+  }
+
+  .cgs-nav__mark {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    background: #0a1d38;
+    color: #7fb0ff;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: -0.4px;
+  }
+
+  .cgs-nav__name {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 16.5px;
+    letter-spacing: -0.4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .cgs-nav__toggle {
+    display: none;
+    position: relative;
+    z-index: 2;
+    width: 44px;
+    height: 44px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid rgba(10, 29, 56, 0.14);
+    border-radius: 4px;
+    background: #ffffff;
+    color: #0a1d38;
+    cursor: pointer;
+  }
+
+  .cgs-nav__toggle-bars {
+    display: grid;
+    gap: 5px;
+    justify-items: center;
+  }
+
+  .cgs-nav__toggle-bars span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 1px;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+
+  .cgs-nav[data-open='true'] .cgs-nav__toggle-bars span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .cgs-nav[data-open='true'] .cgs-nav__toggle-bars span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .cgs-nav[data-open='true'] .cgs-nav__toggle-bars span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .cgs-nav__desktop {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14.5px;
+    font-weight: 500;
+  }
+
+  .cgs-nav__panel {
+    display: none;
+  }
+
+  .cgs-nav__links {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    max-width: 480px;
+    margin: 0 auto;
+    font-size: 14.5px;
+    font-weight: 500;
+  }
+
+  .cgs-nav__link {
+    display: inline-block;
+    padding: 10px 14px;
+    color: #0a1d38;
+    border-radius: 4px;
+    white-space: nowrap;
+    transition: background 0.18s, color 0.18s;
+  }
+
+  .cgs-nav__cta {
+    display: inline-block;
+    margin-left: 14px;
+    padding: 11px 20px;
+    background: #1a4fd0;
+    color: #ffffff;
+    font-weight: 600;
+    border-radius: 4px;
+    white-space: nowrap;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  @media (max-width: 1100px) {
+    .cgs-nav__bar {
+      padding: 12px 20px;
+    }
+
+    .cgs-nav__toggle {
+      display: grid;
+      place-items: center;
+    }
+
+    .cgs-nav__desktop {
+      display: none;
+    }
+
+    .cgs-nav__panel {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      display: block;
+      padding: 84px 20px 32px;
+      background: #f4f7fb;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(-8px);
+      transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+      overflow-y: auto;
+    }
+
+    .cgs-nav[data-open='true'] .cgs-nav__panel {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: none;
+    }
+
+    .cgs-nav[data-open='true'] .cgs-nav__bar {
+      background: #f4f7fb;
+      backdrop-filter: none;
+    }
+
+    .cgs-nav__link {
+      padding: 16px 14px;
+      font-size: 17px;
+      font-weight: 600;
+      border-bottom: 1px solid rgba(10, 29, 56, 0.08);
+      border-radius: 0;
+      white-space: normal;
+    }
+
+    .cgs-nav__cta {
+      margin: 16px 0 0;
+      padding: 16px 20px;
+      text-align: center;
+      font-size: 16px;
+      white-space: normal;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .cgs-nav__name {
+      font-size: 14.5px;
+    }
+  }
+</style>

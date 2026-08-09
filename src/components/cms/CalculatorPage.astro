@@ -8,14 +8,14 @@ const initial = computeLeak(LEAK_DEFAULTS);
 <div>
   <header style="background: #0A1D38; color: #F4F7FB; position: relative; overflow: hidden;">
     <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(127,176,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(127,176,255,.07) 1px, transparent 1px); background-size: 56px 56px;"></div>
-    <div style="position: relative; max-width: 1280px; margin: 0 auto; padding: 72px 48px 56px;">
+    <div class="cgs-pad" style="position: relative; max-width: 1280px; margin: 0 auto; padding: 72px 48px 56px;">
       <div style="font-size: 12.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #7FB0FF;">Patient Leak Calculator</div>
-      <h1 style="margin: 16px 0 0; max-width: 820px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 46px; line-height: 1.08; letter-spacing: -1.8px;">{preventWidow("See what month four is costing your clinic.", 3)}</h1>
+      <h1 class="cgs-display" style="margin: 16px 0 0; max-width: 820px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 46px; line-height: 1.08; letter-spacing: -1.8px;">{preventWidow("See what month four is costing your clinic.", 3)}</h1>
       <p style="margin: 18px 0 0; max-width: 640px; font-size: 17px; line-height: 1.6; color: rgba(244,247,251,.74);">No login. Results update as you type. Email is only for the PDF breakdown — not to see your numbers.</p>
     </div>
   </header>
 
-  <section style="max-width: 1120px; margin: 0 auto; padding: 48px 48px 96px;">
+  <section class="cgs-pad" style="max-width: 1120px; margin: 0 auto; padding: 48px 48px 96px;">
     <div class="cgs-calc" data-cgs-calculator style="display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start;">
       <form data-cgs-calc-inputs style="display: grid; gap: 16px; padding: 28px 26px; background: #FFFFFF; border: 1px solid rgba(10,29,56,.1); border-radius: 4px;">
         <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 18px; letter-spacing: -.3px; color: #0A1D38;">Your clinic numbers</div>
@@ -92,6 +92,13 @@ const initial = computeLeak(LEAK_DEFAULTS);
   @media (max-width: 860px) {
     .cgs-calc {
       grid-template-columns: 1fr !important;
+    }
+  }
+  @media (max-width: 560px) {
+    .cgs-calc form,
+    .cgs-calc > div {
+      padding-left: 20px !important;
+      padding-right: 20px !important;
     }
   }
 </style>

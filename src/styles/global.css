@@ -5,6 +5,17 @@
   --cgs-off-white: #f4f7fb;
   --cgs-font-heading: 'Plus Jakarta Sans', sans-serif;
   --cgs-font-body: 'Archivo', sans-serif;
+  --cgs-pad-x: 48px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: clip;
 }
 
 body {
@@ -13,12 +24,166 @@ body {
   color: var(--cgs-navy);
   font-family: var(--cgs-font-body);
   -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+body.cgs-nav-lock {
+  overflow: hidden;
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Shared layout helpers — override common inline desktop grids on small screens */
+.cgs-pad {
+  padding-left: var(--cgs-pad-x) !important;
+  padding-right: var(--cgs-pad-x) !important;
+}
+
+.cgs-grid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+
+.cgs-grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+}
+
+.cgs-grid-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+}
+
+.cgs-grid-5 {
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+}
+
+.cgs-grid-6 {
+  grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+}
+
+.cgs-cta-row {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+.cgs-cta-actions {
+  display: flex !important;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 20px;
+}
+
+.cgs-display {
+  font-size: clamp(2rem, 4.6vw, 3.375rem) !important;
+  letter-spacing: -0.04em !important;
+  line-height: 1.08 !important;
+}
+
+.cgs-title {
+  font-size: clamp(1.75rem, 3.6vw, 2.625rem) !important;
+  letter-spacing: -0.035em !important;
+  line-height: 1.12 !important;
+}
+
+@media (max-width: 900px) {
+  :root {
+    --cgs-pad-x: 24px;
+  }
+
+  .cgs-grid-4,
+  .cgs-grid-5,
+  .cgs-grid-6 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .cgs-cta-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+
+  .cgs-cta-row > a {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --cgs-pad-x: 20px;
+  }
+
+  .cgs-grid-2,
+  .cgs-grid-3,
+  .cgs-grid-4,
+  .cgs-grid-5,
+  .cgs-grid-6 {
+    grid-template-columns: 1fr !important;
+  }
+
+  .cgs-cta-actions {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .cgs-cta-actions > a {
+    text-align: center;
+  }
 }
 
 h1,
 h2,
 h3 {
   text-wrap: pretty;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Let grids/flex shrink below long non-breaking headline runs */
+.cgs-pad,
+.cgs-why-head,
+.cgs-cta-row,
+.cgs-cta-row > *,
+.cgs-cta-actions,
+.cgs-grid-2,
+.cgs-grid-3,
+.cgs-grid-4,
+.cgs-grid-5,
+.cgs-grid-6,
+.cgs-compare__grid,
+.cgs-retention__grid,
+.cgs-tools,
+.cgs-team__grid,
+.cgs-home-stages,
+.cgs-svc-row,
+.cgs-svc-items,
+.cgs-pricing-grid,
+.cgs-contact,
+.cgs-glp-compliance,
+.cgs-calc {
+  min-width: 0;
+}
+
+.cgs-why-head > *,
+.cgs-grid-2 > *,
+.cgs-grid-3 > *,
+.cgs-grid-4 > *,
+.cgs-grid-5 > *,
+.cgs-grid-6 > *,
+.cgs-compare__grid > *,
+.cgs-retention__grid > *,
+.cgs-tools > *,
+.cgs-home-stages > *,
+.cgs-pricing-grid > *,
+.cgs-contact > *,
+.cgs-glp-compliance > *,
+.cgs-calc > * {
+  min-width: 0;
 }
 
 a {

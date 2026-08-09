@@ -619,6 +619,7 @@ function polar(cx: number, cy: number, r: number, deg: number) {
     margin: 0 auto;
     background: linear-gradient(180deg, transparent, rgba(10, 29, 56, 0.55) 28%, rgba(10, 29, 56, 0.92));
     width: 100%;
+    box-sizing: border-box;
   }
 
   .hpv-hero__sub {
@@ -981,8 +982,12 @@ function polar(cx: number, cy: number, r: number, deg: number) {
   }
 
   @media (max-width: 640px) {
+    .hpv-wrap {
+      padding: 0 20px;
+    }
+
     .hpv-section {
-      padding: 72px 0;
+      padding: 64px 0;
     }
 
     .hpv-stats,
@@ -994,7 +999,11 @@ function polar(cx: number, cy: number, r: number, deg: number) {
     }
 
     .hpv-hero__content {
-      padding: 110px 24px 72px;
+      padding: 100px 20px 64px;
+    }
+
+    .hpv-hero__title {
+      font-size: clamp(2.4rem, 11vw, 3.5rem);
     }
 
     .hpv-hero__actions {
@@ -1003,8 +1012,12 @@ function polar(cx: number, cy: number, r: number, deg: number) {
     }
 
     .hpv-hero__viz {
-      opacity: 0.35;
-      top: 36%;
+      opacity: 0.28;
+      top: 40%;
+    }
+
+    .hpv-cta__content {
+      padding: 56px 24px;
     }
   }
 </style>

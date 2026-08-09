@@ -288,8 +288,13 @@ const thanks = Astro.url.searchParams.get('thanks') === '1';
   @media (max-width: 720px) {
     .guide__hero-inner,
     .guide__list {
-      padding-left: 24px;
-      padding-right: 24px;
+      padding-left: var(--cgs-pad-x, 20px);
+      padding-right: var(--cgs-pad-x, 20px);
+    }
+
+    .guide__title {
+      font-size: clamp(2rem, 8vw, 3rem);
+      letter-spacing: -0.04em;
     }
 
     .guide__reason {
@@ -299,9 +304,14 @@ const thanks = Astro.url.searchParams.get('thanks') === '1';
     }
 
     .guide__close {
-      margin-left: 24px;
-      margin-right: 24px;
+      margin-left: var(--cgs-pad-x, 20px);
+      margin-right: var(--cgs-pad-x, 20px);
       padding: 28px 24px;
+    }
+
+    .guide__actions {
+      flex-direction: column;
+      align-items: stretch;
     }
   }
 
