@@ -1,4 +1,4 @@
-import { collectAttribution, type LeadKind, type LeadPayload } from '../lib/leads';
+import { collectAttribution, submissionId, type LeadKind, type LeadPayload } from '../lib/leads';
 
 function readEnv(name: 'PUBLIC_FORM_ENDPOINT'): string {
   // Read via bracket access so Vite cannot fold empty defines into dead code.
@@ -45,49 +45,65 @@ function setPending(form: HTMLFormElement, pending: boolean) {
 }
 
 function markError(form: HTMLFormElement) {
+  const message = 'We could not send that. Please try again in a moment.';
   const note = form.querySelector<HTMLElement>('[data-cgs-note]');
-  const message = 'We could not send that. Please try again, or email us and we will pick it up.';
   if (note) {
     note.textContent = message;
     note.dataset.cgsState = 'error';
     return;
   }
-  alert(message);
+  // Forms without a note line get an inline message rather than a browser alert.
+  let inline = form.querySelector<HTMLElement>('[data-cgs-inline-error]');
+  if (!inline) {
+    inline = document.createElement('div');
+    inline.setAttribute('data-cgs-inline-error', '');
+    inline.style.cssText = 'margin-top: 10px; font-size: 13px; line-height: 1.45; color: #B42318;';
+    form.appendChild(inline);
+  }
+  inline.textContent = message;
 }
 
 function sourcePage(): string {
   return `${location.pathname}${location.search || ''}${location.hash || ''}` || '/';
 }
 
-/** Posts to the CRM. Returns false so callers can surface a real failure. */
+/** Posts the submission. Returns false so callers can surface a real failure. */
 async function deliver(payload: LeadPayload): Promise<boolean> {
   const endpoint = leadsEndpoint();
   if (!endpoint) return false;
 
+  // text/plain keeps this a "simple" request, so the browser skips the CORS
+  // preflight that Google Apps Script cannot answer. Receivers still parse
+  // the body as JSON.
+  const body = JSON.stringify(payload);
+  const headers = { 'Content-Type': 'text/plain;charset=utf-8' };
+
   try {
-    const response = await fetch(endpoint, {
-      method: 'POST',
-      // text/plain keeps this a "simple" request, so the browser skips the
-      // CORS preflight that Google Apps Script cannot answer. Receivers still
-      // parse the body as JSON.
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify(payload),
-      keepalive: true,
-    });
+    const response = await fetch(endpoint, { method: 'POST', headers, body });
     if (!response.ok) {
-      console.error('[cgs] lead delivery failed', response.status, await response.text());
+      console.error('[cgs] delivery rejected', response.status);
       return false;
     }
     return true;
   } catch (error) {
-    console.error('[cgs] lead delivery error', error);
-    return false;
+    // Some browsers and privacy extensions refuse to expose the response of a
+    // cross-origin redirect. The request itself still goes through, so send it
+    // once more without reading the reply rather than losing the submission.
+    console.warn('[cgs] delivery response unreadable, retrying opaque', error);
+    try {
+      await fetch(endpoint, { method: 'POST', headers, body, mode: 'no-cors' });
+      return true;
+    } catch (retryError) {
+      console.error('[cgs] delivery failed', retryError);
+      return false;
+    }
   }
 }
 
 function basePayload(kind: LeadKind, email: string): LeadPayload {
   const url = new URL(location.href);
   return {
+    id: submissionId(),
     kind,
     email,
     sourcePage: sourcePage(),

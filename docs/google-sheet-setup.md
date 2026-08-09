@@ -37,6 +37,19 @@ function doPost(e) {
   lock.waitLock(20000);
 
   try {
+    const data = JSON.parse(e.postData.contents);
+
+    // The site retries when a browser blocks reading the response, so ignore
+    // a submission id that was already stored.
+    const cache = CacheService.getScriptCache();
+    if (data.id) {
+      if (cache.get(data.id)) {
+        return ContentService.createTextOutput(JSON.stringify({ ok: true, duplicate: true }))
+          .setMimeType(ContentService.MimeType.JSON);
+      }
+      cache.put(data.id, '1', 600);
+    }
+
     const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
     if (sheet.getLastRow() === 0) {
       sheet.appendRow(HEADERS);
@@ -44,7 +57,6 @@ function doPost(e) {
       sheet.setFrozenRows(1);
     }
 
-    const data = JSON.parse(e.postData.contents);
     const utm = data.utm || {};
 
     sheet.appendRow([
