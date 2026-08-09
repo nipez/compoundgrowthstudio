@@ -37,6 +37,19 @@ function doPost(e) {
   lock.waitLock(20000);
 
   try {
+    const data = JSON.parse(e.postData.contents);
+
+    // The site retries when a browser blocks reading the response, so ignore
+    // a submission id that was already stored.
+    const cache = CacheService.getScriptCache();
+    if (data.id) {
+      if (cache.get(data.id)) {
+        return ContentService.createTextOutput(JSON.stringify({ ok: true, duplicate: true }))
+          .setMimeType(ContentService.MimeType.JSON);
+      }
+      cache.put(data.id, '1', 600);
+    }
+
     const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
     if (sheet.getLastRow() === 0) {
       sheet.appendRow(HEADERS);
@@ -44,7 +57,6 @@ function doPost(e) {
       sheet.setFrozenRows(1);
     }
 
-    const data = JSON.parse(e.postData.contents);
     const utm = data.utm || {};
 
     sheet.appendRow([
@@ -112,6 +124,17 @@ redeploy is required for the change to take effect.
 
 Submit the guide form in the site footer with your own email. A new row should
 appear in the sheet within a second or two.
+
+## If a submission shows "We could not send that"
+
+Some browsers and privacy extensions refuse to expose the response of a
+cross-origin redirect, which is how Apps Script replies. The site retries such
+a submission without reading the reply, so the row still arrives — the
+`data.id` check above is what keeps that retry from creating a duplicate.
+
+If the error persists, the request is being blocked outright. Check for an ad
+blocker or content blocker on `script.google.com`, or confirm the deployment's
+**Who has access** is still **Anyone**.
 
 ## Getting notified
 

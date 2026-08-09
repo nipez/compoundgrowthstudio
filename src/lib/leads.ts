@@ -2,6 +2,8 @@
 export type LeadKind = 'contact' | 'guide' | 'newsletter' | 'calculator';
 
 export type LeadPayload = {
+  /** Stable per-submission id so a retried delivery is not stored twice. */
+  id: string;
   kind: LeadKind;
   email: string;
   name?: string;
@@ -29,6 +31,12 @@ const UTM_KEYS = [
   'gclid',
   'fbclid',
 ] as const;
+
+export function submissionId(): string {
+  const cryptoApi = globalThis.crypto;
+  if (cryptoApi && typeof cryptoApi.randomUUID === 'function') return cryptoApi.randomUUID();
+  return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
+}
 
 /** Campaign + intent params, so `?from=compliance-teardown` reaches the CRM. */
 export function collectAttribution(url: URL): Record<string, string> {
