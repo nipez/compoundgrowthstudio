@@ -146,22 +146,22 @@ const recoveryCtaHref = defaults.recoveryCtaHref;
                 <div style="display: flex; gap: 10px;"><span style={`color: ${highlighted ? '#7FB0FF' : '#1A4FD0'}; font-weight: 700;`}>✓</span>{feature}</div>
               ))}
             </div>
-            <a class={highlighted ? 'cgs-h45' : index === 0 ? 'cgs-h44' : 'cgs-h46'} href={tier.ctaHref ?? fallback?.ctaHref} style={highlighted ? 'display: block; margin-top: 26px; padding: 14px 0; text-align: center; background: #1A4FD0; color: #FFFFFF; font-weight: 700; font-size: 14.5px; border-radius: 3px; transition: transform .2s, background .2s;' : 'display: block; margin-top: 26px; padding: 14px 0; text-align: center; border: 1.5px solid #0A1D38; color: #0A1D38; font-weight: 600; font-size: 14.5px; border-radius: 3px; transition: background .2s, color .2s;'}>{tier.ctaLabel ?? fallback?.ctaLabel}</a>
+            <a class={`cgs-pricing-tier__cta ${highlighted ? 'cgs-h45' : index === 0 ? 'cgs-h44' : 'cgs-h46'}`} href={tier.ctaHref ?? fallback?.ctaHref} style={highlighted ? 'display: block; margin-top: 26px; padding: 14px 0; text-align: center; background: #1A4FD0; color: #FFFFFF; font-weight: 700; font-size: 14.5px; border-radius: 3px; transition: transform .2s, background .2s;' : 'display: block; margin-top: 26px; padding: 14px 0; text-align: center; border: 1.5px solid #0A1D38; color: #0A1D38; font-weight: 600; font-size: 14.5px; border-radius: 3px; transition: background .2s, color .2s;'}>{tier.ctaLabel ?? fallback?.ctaLabel}</a>
           </div>
         );
       })}
     </div>
-    <div class="cgs-pricing-recovery" style="display: flex; align-items: center; justify-content: space-between; gap: 30px; margin-top: 26px; padding: 32px 28px; background: #0A1D38; color: #F4F7FB; border-radius: 4px; position: relative; overflow: hidden; animation: rise .8s both; animation-timeline: view(); animation-range: entry 0% entry 60%;">
-      <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(127,176,255,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(127,176,255,.06) 1px, transparent 1px); background-size: 56px 56px;"></div>
-      <div style="position: relative; max-width: 640px;">
-        <div style="font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: #7FB0FF;">{doc?.recoveryEyebrow ?? defaults.recoveryEyebrow}</div>
-        <h3 style="margin: 10px 0 8px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 23px; letter-spacing: -.6px;">{doc?.recoveryTitle ?? defaults.recoveryTitle}</h3>
-        <p style="margin: 0; font-size: 14px; line-height: 1.55; color: rgba(244,247,251,.72);">{doc?.recoveryBody ?? defaults.recoveryBody}</p>
+    <div class="cgs-pricing-recovery">
+      <div class="cgs-pricing-recovery__grid" aria-hidden="true"></div>
+      <div class="cgs-pricing-recovery__copy">
+        <div class="cgs-pricing-recovery__eyebrow">{doc?.recoveryEyebrow ?? defaults.recoveryEyebrow}</div>
+        <h3 class="cgs-pricing-recovery__title">{doc?.recoveryTitle ?? defaults.recoveryTitle}</h3>
+        <p class="cgs-pricing-recovery__body">{doc?.recoveryBody ?? defaults.recoveryBody}</p>
       </div>
-      <div class="cgs-pricing-recovery__aside" style="position: relative; text-align: right; white-space: nowrap; flex-shrink: 0;">
-        <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 28px;">{recoveryPriceLabel}</div>
-        <div style="margin-top: 2px; font-size: 12.5px; color: rgba(244,247,251,.6);">{recoveryTimeline}</div>
-        <a class="cgs-h47" href={recoveryCtaHref} style="display: inline-block; margin-top: 14px; padding: 12px 22px; border: 1.5px solid rgba(244,247,251,.35); color: #F4F7FB; font-weight: 600; font-size: 14px; border-radius: 3px; transition: border-color .2s;">{doc?.recoveryCtaLabel ?? defaults.recoveryCtaLabel}</a>
+      <div class="cgs-pricing-recovery__aside">
+        <div class="cgs-pricing-recovery__price">{recoveryPriceLabel}</div>
+        <div class="cgs-pricing-recovery__timeline">{recoveryTimeline}</div>
+        <a class="cgs-h47 cgs-pricing-recovery__cta" href={recoveryCtaHref}>{doc?.recoveryCtaLabel ?? defaults.recoveryCtaLabel}</a>
       </div>
     </div>
     <p style="text-align: center; margin: 44px 0 96px; font-size: 14.5px; color: rgba(10,29,56,.62);">{doc?.footerNoteBefore ?? defaults.footerNoteBefore} <a href={doc?.footerNoteLinkHref ?? defaults.footerNoteLinkHref} style="font-weight: 600;">{doc?.footerNoteLinkLabel ?? defaults.footerNoteLinkLabel}</a></p>
@@ -178,6 +178,102 @@ const recoveryCtaHref = defaults.recoveryCtaHref;
 </div>
 
 <style>
+  /* Tier CTAs set color inline, which outranks the shared hover rules. */
+  .cgs-pricing-tier__cta.cgs-h44:hover,
+  .cgs-pricing-tier__cta.cgs-h46:hover,
+  .cgs-pricing-tier__cta.cgs-h45:hover {
+    color: #ffffff !important;
+  }
+
+  .cgs-pricing-recovery {
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 40px;
+    margin-top: 26px;
+    padding: 32px;
+    background: #0a1d38;
+    color: #f4f7fb;
+    border-radius: 4px;
+    animation: rise 0.8s both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 60%;
+  }
+
+  .cgs-pricing-recovery__grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(127, 176, 255, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(127, 176, 255, 0.06) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .cgs-pricing-recovery__copy,
+  .cgs-pricing-recovery__aside {
+    position: relative;
+  }
+
+  .cgs-pricing-recovery__eyebrow {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #7fb0ff;
+  }
+
+  .cgs-pricing-recovery__title {
+    margin: 10px 0 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 23px;
+    letter-spacing: -0.6px;
+  }
+
+  .cgs-pricing-recovery__body {
+    margin: 0;
+    max-width: 62ch;
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: rgba(244, 247, 251, 0.72);
+  }
+
+  .cgs-pricing-recovery__aside {
+    display: grid;
+    justify-items: end;
+    gap: 4px;
+    text-align: right;
+  }
+
+  .cgs-pricing-recovery__price {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 30px;
+    letter-spacing: -1px;
+    line-height: 1;
+  }
+
+  .cgs-pricing-recovery__timeline {
+    font-size: 12.5px;
+    color: rgba(244, 247, 251, 0.6);
+    white-space: nowrap;
+  }
+
+  .cgs-pricing-recovery__cta {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 12px 22px;
+    border: 1.5px solid rgba(244, 247, 251, 0.35);
+    color: #f4f7fb;
+    font-weight: 600;
+    font-size: 14px;
+    white-space: nowrap;
+    border-radius: 3px;
+    transition: border-color 0.2s;
+  }
+
   @media (max-width: 980px) {
     .cgs-pricing-grid {
       grid-template-columns: 1fr !important;
@@ -186,13 +282,13 @@ const recoveryCtaHref = defaults.recoveryCtaHref;
       transform: none !important;
     }
     .cgs-pricing-recovery {
-      flex-direction: column !important;
-      align-items: flex-start !important;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      padding: 28px 24px;
     }
     .cgs-pricing-recovery__aside {
-      text-align: left !important;
-      white-space: normal !important;
-      width: 100%;
+      justify-items: start;
+      text-align: left;
     }
   }
 </style>
