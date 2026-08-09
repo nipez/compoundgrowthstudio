@@ -1,6 +1,6 @@
 # Compound Growth Studio
 
-Marketing site for [compoundgrowthstudio.com](https://compoundgrowthstudio.com) — Astro static site with Sanity CMS + Supabase-backed forms.
+Marketing site for [compoundgrowthstudio.com](https://compoundgrowthstudio.com) — Astro static site with Sanity CMS, posting form submissions to the CRM.
 
 The original self-contained HTML export lives in [`/site/`](./site/). Editable marketing copy is moving into **Sanity**; layout/code stays in this repo (Cursor/GitHub).
 
@@ -8,7 +8,7 @@ The original self-contained HTML export lives in [`/site/`](./site/). Editable m
 
 - **Astro** (static output)
 - **Sanity** (CMS for Conor + team — Studio in `/studio`)
-- **Supabase** (leads + contact submissions, insert-only RLS)
+- **CRM** at [crm.compoundgrowthstudio.com](https://crm.compoundgrowthstudio.com) (lead + contact intake)
 - **Railway** (Docker + nginx)
 
 ## Pages
@@ -77,38 +77,27 @@ python3 scripts/convert-site.py
 
 | Variable | Required | Notes |
 | --- | --- | --- |
-| `SUPABASE_URL` | Yes | Project URL (`https://xxxx.supabase.co`) |
-| `SUPABASE_ANON_KEY` | Yes | Anon/public key — safe in the browser with RLS |
+| `CRM_LEADS_ENDPOINT` | Yes | CRM lead intake URL (`https://crm.compoundgrowthstudio.com/api/leads`) |
 
-At build time these are also exposed as `PUBLIC_SUPABASE_*` for the client form script.
+At build time this is exposed as `PUBLIC_CRM_LEADS_ENDPOINT` for the client form script.
 
-## Supabase setup
+## Forms
 
-1. Create a Supabase project.
-2. Run [`supabase/migrations/001_leads_and_contact.sql`](./supabase/migrations/001_leads_and_contact.sql) in the SQL editor.
-3. Copy the project URL + anon key into `.env` / Railway.
+Every form — contact, footer guide download, pricing newsletter, and the calculator email capture — POSTs JSON to the CRM. The site is static, so nothing it holds is private; routing through the CRM's server keeps database credentials out of the browser and makes the CRM the single source of truth for leads.
 
-### Tables
+See [`docs/crm-lead-intake.md`](./docs/crm-lead-intake.md) for the request payload, CORS requirements, and the response the CRM route must return.
 
-**`leads`** — lead magnet + newsletter
-
-- `email`, `source_page`, `tag` (`lead_magnet` \| `newsletter`), `created_at`
-
-**`contact_submissions`** — contact form
-
-- `name`, `email`, `clinic`, `message`, `newsletter`, `source_page`, `created_at`
-
-Both tables use **RLS with insert-only policies for `anon`**. Forms also include a honeypot field (`website`) and basic email validation.
+Forms include a hidden `website` honeypot and client-side email validation. A failed request now shows an inline error rather than a false success, so submissions are never silently dropped.
 
 ## Deploy on Railway
 
 1. Create a new Railway project from this GitHub repo.
-2. Add variables: `SUPABASE_URL`, `SUPABASE_ANON_KEY`.
+2. Add the variable `CRM_LEADS_ENDPOINT`.
 3. Railway detects the `Dockerfile` (see `railway.toml`).
 4. Set the public domain (or attach `compoundgrowthstudio.com`).
-5. Redeploy after env changes so keys are baked into the static bundle.
+5. Redeploy after env changes so the value is baked into the static bundle.
 
-Build args / env must be present **at image build time** — the anon key is inlined into the client JS during `astro build`.
+Build args / env must be present **at image build time** — the endpoint is inlined into the client JS during `astro build`.
 
 ### Alternative: static-only host
 
@@ -123,9 +112,10 @@ src/
   components/{Header,Footer}.astro
   content/partials/       Expanded page HTML from /site/
   pages/                  One route per page
+  lib/leads.ts            Lead payload shape + attribution capture
   scripts/site.ts         Forms, counters, AI demo height listener
   styles/                 Design tokens + hover/focus rules
-supabase/migrations/      SQL for tables + RLS
+docs/crm-lead-intake.md   Contract for the CRM lead endpoint
 scripts/convert-site.py   /site/ → partials converter
 Dockerfile + nginx.conf   Railway static serve
 ```
