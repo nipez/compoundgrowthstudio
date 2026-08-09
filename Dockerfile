@@ -7,10 +7,12 @@ RUN npm ci
 
 COPY . .
 
-# Bake the CRM lead endpoint into the static client bundle at build time.
+# Bake the form collector URL into the static client bundle at build time.
+# CRM_LEADS_ENDPOINT is still accepted so existing deploys keep working.
+ARG FORM_ENDPOINT
 ARG CRM_LEADS_ENDPOINT
+ENV FORM_ENDPOINT=$FORM_ENDPOINT
 ENV CRM_LEADS_ENDPOINT=$CRM_LEADS_ENDPOINT
-ENV PUBLIC_CRM_LEADS_ENDPOINT=$CRM_LEADS_ENDPOINT
 
 RUN npm run build
 

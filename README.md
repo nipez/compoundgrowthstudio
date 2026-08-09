@@ -77,22 +77,25 @@ python3 scripts/convert-site.py
 
 | Variable | Required | Notes |
 | --- | --- | --- |
-| `CRM_LEADS_ENDPOINT` | Yes | CRM lead intake URL (`https://crm.compoundgrowthstudio.com/api/leads`) |
+| `FORM_ENDPOINT` | Yes | Where form submissions are POSTed (Google Apps Script web app, CRM route, etc.) |
 
-At build time this is exposed as `PUBLIC_CRM_LEADS_ENDPOINT` for the client form script.
+At build time this is exposed as `PUBLIC_FORM_ENDPOINT` for the client form script. The older `CRM_LEADS_ENDPOINT` name is still accepted.
 
 ## Forms
 
-Every form — contact, footer guide download, pricing newsletter, and the calculator email capture — POSTs JSON to the CRM. The site is static, so nothing it holds is private; routing through the CRM's server keeps database credentials out of the browser and makes the CRM the single source of truth for leads.
+Every form — contact, footer guide download, pricing newsletter, and the calculator email capture — POSTs the same JSON payload to `FORM_ENDPOINT`. The site is static, so nothing it holds is private; sending to one collector URL keeps database credentials out of the browser and makes swapping destinations a config change rather than a code change.
 
-See [`docs/crm-lead-intake.md`](./docs/crm-lead-intake.md) for the request payload, CORS requirements, and the response the CRM route must return.
+- **Simplest setup — Google Sheet:** [`docs/google-sheet-setup.md`](./docs/google-sheet-setup.md). Each submission becomes a row. No database or login.
+- **CRM intake route:** [`docs/crm-lead-intake.md`](./docs/crm-lead-intake.md) for the payload shape and a reference implementation.
 
-Forms include a hidden `website` honeypot and client-side email validation. A failed request now shows an inline error rather than a false success, so submissions are never silently dropped.
+The request is sent as `text/plain` so browsers skip the CORS preflight, which Google Apps Script cannot answer. Receivers parse the body as JSON either way.
+
+Forms include a hidden `website` honeypot and client-side email validation. A failed request shows an inline error rather than a false success, so submissions are never silently dropped.
 
 ## Deploy on Railway
 
 1. Create a new Railway project from this GitHub repo.
-2. Add the variable `CRM_LEADS_ENDPOINT`.
+2. Add the variable `FORM_ENDPOINT`.
 3. Railway detects the `Dockerfile` (see `railway.toml`).
 4. Set the public domain (or attach `compoundgrowthstudio.com`).
 5. Redeploy after env changes so the value is baked into the static bundle.
@@ -115,6 +118,7 @@ src/
   lib/leads.ts            Lead payload shape + attribution capture
   scripts/site.ts         Forms, counters, AI demo height listener
   styles/                 Design tokens + hover/focus rules
+docs/google-sheet-setup.md  Send submissions to a Google Sheet
 docs/crm-lead-intake.md   Contract for the CRM lead endpoint
 scripts/convert-site.py   /site/ → partials converter
 Dockerfile + nginx.conf   Railway static serve
