@@ -497,7 +497,7 @@ const pillarIcons = [
         return (
           <div style="text-align: center; padding: 8px 6px 4px; animation: rise .8s both; animation-timeline: view(); animation-range: entry 0% entry 50%;">
             {photoUrl ? (
-              <img src={photoUrl} alt={photoAlt} style="display: block; width: 112px; height: 112px; margin: 0 auto; border-radius: 50%; object-fit: cover; object-position: center top; border: 3px solid #E7EEFA;" />
+              <img src={photoUrl} alt={photoAlt} style="display: block; width: 112px; height: 112px; margin: 0 auto; border-radius: 50%; object-fit: cover; object-position: center top; background: #F8F8F8; border: 3px solid #E7EEFA;" />
             ) : (
               <div style="display: grid; place-items: center; width: 112px; height: 112px; margin: 0 auto; border-radius: 50%; background: #0A1D38; color: #7FB0FF; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 28px; letter-spacing: -.5px; border: 3px solid #E7EEFA;" aria-hidden="true">{initials(name)}</div>
             )}
