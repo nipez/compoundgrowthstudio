@@ -12,7 +12,7 @@ const defaults = {
   eyebrow: 'One connected growth system',
   headline: 'Six stages that hand qualified patients to the next.',
   subhead:
-    'Most clinics buy these as six separate projects from six vendors — and the seams cost them patients. We run them as one system, so every stage feeds the next instead of dropping the lead.',
+    'Most agencies start with ads. We start with the systems that make ads profitable — foundation first, then paid acquisition pours into something that holds.',
   stageLabels: [
     {number: '1', title: 'Visibility'},
     {number: '2', title: 'Education'},
@@ -21,7 +21,7 @@ const defaults = {
     {number: '5', title: 'Follow-Up'},
     {number: '6', title: 'Optimization'},
   ] satisfies StagePill[],
-  timelineHeader: "Lead-gen agencies stop at the form fill. Our system doesn't.",
+  timelineHeader: 'Go 1-2-3, not 3-2-1. Each stage installs, then feeds the next.',
   stages: [
     {
       number: '1',
@@ -29,7 +29,7 @@ const defaults = {
       tag: 'Get found by patients who can actually pay.',
       desc: 'Cash-pay GLP-1 and peptide patients are searching right now. We make sure your clinic shows up — through ads that clear Meta’s health-category review instead of getting rejected.',
       builds: ['Compliant paid acquisition', 'Local SEO', 'Google Business Profile'],
-      handoffLabel: 'Passes on',
+      handoffLabel: 'Outcome',
       handoff: 'A visitor who found you but isn’t ready to book.',
     },
     {
@@ -38,7 +38,7 @@ const defaults = {
       tag: 'Answer the questions that stall a $600/mo decision.',
       desc: 'Peptide and hormone patients don’t convert on impulse. We build the content that resolves their doubts — dosing, safety, “is this legit” — before they ever fill out a form.',
       builds: ['Treatment explainers', 'Provider-led content', 'FAQ resources'],
-      handoffLabel: 'Passes on',
+      handoffLabel: 'Outcome',
       handoff: 'A patient who understands the treatment but not yet you.',
     },
     {
@@ -47,7 +47,7 @@ const defaults = {
       tag: 'Make your clinic the safe choice in a skeptical category.',
       desc: 'Weight-loss and TRT buyers have been burned by shady telehealth. We establish the provider authority and proof that separates you from the compounding-pharmacy noise.',
       builds: ['Provider authority', 'Reviews', 'Responsible, compliant messaging'],
-      handoffLabel: 'Passes on',
+      handoffLabel: 'Outcome',
       handoff: 'A patient who trusts you and is ready to act.',
     },
     {
@@ -56,7 +56,7 @@ const defaults = {
       tag: 'Turn interest into booked consultations.',
       desc: 'A ready patient still leaves if the path is clunky. We build the landing pages, intake, and CTAs that move them from “interested” to on your calendar — with conversion tracking that survives Meta’s data restrictions.',
       builds: ['Landing pages', 'Intake forms', 'Conversion tracking (CAPI)'],
-      handoffLabel: 'Passes on',
+      handoffLabel: 'Outcome',
       handoff: 'A booked lead worth keeping warm.',
     },
     {
@@ -71,7 +71,7 @@ const defaults = {
         'Rebooking & refill flows',
         'Win-back campaigns',
       ],
-      handoffLabel: 'Passes on',
+      handoffLabel: 'Outcome',
       handoff: 'The data on who booked, who returned, and who lapsed.',
     },
     {
@@ -94,10 +94,15 @@ const defaults = {
 };
 
 const stageLabels = doc?.stageLabels?.length ? doc.stageLabels : defaults.stageLabels;
-const stages = doc?.stages?.length ? doc.stages : defaults.stages;
-const closingCta = {...defaults.closingCta, ...(doc?.closingCta ?? {})};
+// Prefer shipped stage copy so the productized "install → outcome" framing wins
+// over stale CMS content.
+const stages = defaults.stages.map((fallback, index) => ({
+  ...(doc?.stages?.[index] ?? {}),
+  ...fallback,
+}));
+const closingCta = {...(doc?.closingCta ?? {}), ...defaults.closingCta};
 const stageCount = Math.max(stageLabels.length, 1);
-const timelineHeaderLines = splitSentences(doc?.timelineHeader ?? defaults.timelineHeader);
+const timelineHeaderLines = splitSentences(defaults.timelineHeader);
 ---
 
 <div class="sys-page">
@@ -107,7 +112,7 @@ const timelineHeaderLines = splitSentences(doc?.timelineHeader ?? defaults.timel
     <div class="sys-hero__inner">
       <div class="sys-hero__eyebrow">{doc?.eyebrow ?? defaults.eyebrow}</div>
       <h1 class="sys-hero__headline">{preventWidow(doc?.headline ?? defaults.headline)}</h1>
-      <p class="sys-hero__subhead">{doc?.subhead ?? defaults.subhead}</p>
+      <p class="sys-hero__subhead">{defaults.subhead}</p>
 
       <div class="sys-stages" data-cgs-stages style={`--stage-count: ${stageCount};`}>
         <div class="sys-stages__track" aria-hidden="true">
@@ -162,7 +167,7 @@ const timelineHeaderLines = splitSentences(doc?.timelineHeader ?? defaults.timel
                   <div class="sys-stage__tag">{stage.tag ?? fallback?.tag}</div>
                   <p class="sys-stage__desc">{stage.desc ?? fallback?.desc}</p>
                   <div class="sys-stage__builds">
-                    <span class="sys-stage__builds-label">What we build</span>
+                    <span class="sys-stage__builds-label">What we install</span>
                     <div class="sys-stage__chips">
                       {builds.map((item) => (
                         <span class="sys-stage__chip">{item}</span>
