@@ -18,6 +18,8 @@ const defaults = {
     'A written summary of the gaps we find',
     'Clear next step whether or not you hire us',
   ],
+  preCallNote:
+    'After you book, you’ll receive a short 5–7 minute video that walks through exactly how the Clinic Growth System works — so our call is focused and productive.',
   form: {
     namePlaceholder: 'Your name',
     clinicPlaceholder: 'Clinic name',
@@ -47,6 +49,12 @@ const form = {...defaults.form, ...(doc?.form ?? {})};
         {bullets.map((bullet) => (
           <div style="display: flex; gap: 12px; font-size: 15px; color: rgba(244,247,251,.82);"><span style="color: #7FB0FF; font-weight: 700;">✓</span>{bullet}</div>
         ))}
+      </div>
+      <div style="display: flex; gap: 14px; margin-top: 32px; padding: 20px 22px; max-width: 480px; background: rgba(127,176,255,.1); border: 1px solid rgba(127,176,255,.28); border-radius: 4px; animation: rise .7s .38s both;">
+        <span style="flex-shrink: 0; color: #7FB0FF;" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="14" height="14" rx="2"></rect><path d="M16 10l6-3v10l-6-3"></path></svg>
+        </span>
+        <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: rgba(244,247,251,.82);">{defaults.preCallNote}</p>
       </div>
     </div>
     <form data-cgs-form="contact" style="display: grid; gap: 14px; padding: 40px; background: rgba(244,247,251,.06); border: 1px solid rgba(244,247,251,.16); border-radius: 4px; backdrop-filter: blur(8px); animation: rise .8s .2s both;">

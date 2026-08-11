@@ -103,5 +103,5 @@ export const pages: Record<string, PageMeta> = {
   },
 };
 
-export const NAV_CTA = 'Find Your Growth Gaps';
-export const PRIMARY_CTA = 'Find the Gaps in Your Growth System';
+export const NAV_CTA = 'Book a Growth Gap Call';
+export const PRIMARY_CTA = 'Book a Growth Gap Call';

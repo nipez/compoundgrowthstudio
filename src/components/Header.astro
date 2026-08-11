@@ -12,7 +12,7 @@ const defaults = {
     {label: 'Ad Recovery', href: '/ad-account-recovery/'},
     {label: 'FAQ', href: '/faq/'},
   ] satisfies Link[],
-  navCtaLabel: 'Find Your Growth Gaps',
+  navCtaLabel: 'Book a Growth Gap Call',
   navCtaHref: '/contact/',
 };
 
@@ -29,7 +29,8 @@ const navItems = defaults.navItems.map(remapServeLabel);
 const brandName = settings?.brandName ?? defaults.brandName;
 const brandMark = settings?.brandMark ?? defaults.brandMark;
 const navCtaHref = settings?.navCtaHref ?? defaults.navCtaHref;
-const navCtaLabel = settings?.navCtaLabel ?? defaults.navCtaLabel;
+// Prefer the shipped CTA so the site-wide "Book a Growth Gap Call" wins over stale CMS copy.
+const navCtaLabel = defaults.navCtaLabel;
 ---
 
 <div class="cgs-nav" data-cgs-nav>

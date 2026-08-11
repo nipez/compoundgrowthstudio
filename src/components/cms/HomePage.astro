@@ -29,13 +29,49 @@ const defaults = {
   eyebrow: "Compliant ads aren't enough",
   headline: "Your clinic's biggest leak isn't lead gen. It's month four.",
   subhead:
-    'Branded GLP-1 programs retain about 32% of patients at 12 months. A clinic with 100 patients at $500/mo loses ~68 a year and pays $300–600 to replace each one — a ~$300K hole. We build the retention system that closes it.',
+    'We install the full patient acquisition + retention system so your ads actually produce booked, repeating patients.',
   heroExpandNote:
-    "The clinics that win aren't running better ads — they're running compliant ones. Then they keep the patients those ads win.",
-  primaryCtaLabel: 'Find the Gaps in Your Growth System',
-  primaryCtaHref: '/calculator/',
-  secondaryCtaLabel: 'See the growth system →',
-  secondaryCtaHref: '/system/',
+    'One connected growth system for GLP-1, medical weight loss, peptide, med spa, and the hormone / longevity lines clinics expand into.',
+  primaryCtaLabel: 'Book a Growth Gap Call',
+  primaryCtaHref: '/contact/',
+  secondaryCtaLabel: 'Calculate Your Patient Leak',
+  secondaryCtaHref: '/calculator/',
+  offerEyebrow: 'The core offer',
+  offerTitle: 'The Clinic Growth System',
+  offerBody:
+    'A productized monthly system that owns the full path from first click to booked, repeating patient.',
+  offerIncludes: [
+    {
+      title: 'Conversion-optimized website & landing pages',
+      body: 'Built compliance-aware, so pages survive the same review as the ads pointing at them.',
+    },
+    {
+      title: 'Automated SMS + email follow-up',
+      body: 'Nurture sequences for the undecided, reminders before the consult, and rebooking after it.',
+    },
+    {
+      title: 'Review & reputation system',
+      body: 'Steady review generation and response — the proof cash-pay patients check before booking.',
+    },
+    {
+      title: 'Local SEO + Google Business Profile',
+      body: 'Own the drug-name searches in your city, where national telehealth is structurally weak.',
+    },
+    {
+      title: 'Tracking, attribution, and monthly optimization',
+      body: 'Know which ad produced which booked patient, then reinvest in what actually works.',
+    },
+    {
+      title: 'Measured on booked consults + retention',
+      body: 'Not lead volume. The scoreboard is patients who book and patients who stay.',
+    },
+  ] satisfies FeatureCard[],
+  offerPositioning:
+    'This is the foundation. We get the systems working before (or alongside) scaling ads — so every dollar performs better.',
+  offerPriceLabel: '$1,997 – $2,997 / month',
+  offerPriceNote: 'Plus optional one-time setup fee.',
+  offerCtaLabel: 'Book a Growth Gap Call',
+  offerCtaHref: '/contact/',
   heroStats: [
     {value: '$150M', label: 'revenue scaled for one brand'},
     {value: '100+', label: 'clinic locations grown'},
@@ -72,8 +108,10 @@ const defaults = {
       body: '100 patients at $500/mo, ~68 lost in a year, plus replacement cost — a six-figure leak nobody is selling the fix for.',
     },
   ] satisfies StatCard[],
-  retentionCtaLabel: 'Calculate your patient leak →',
-  retentionCtaHref: '/calculator/',
+  retentionCtaLabel: 'Book a Growth Gap Call',
+  retentionCtaHref: '/contact/',
+  retentionSecondaryLabel: 'Calculate your patient leak →',
+  retentionSecondaryHref: '/calculator/',
   retentionFootnote: 'A 10-point retention lift on that same book is often worth more than another year of lead-gen spend.',
   whyEyebrow: 'Why clinics choose us',
   whyTitle: 'Specialized strategy for high-value health programs.',
@@ -111,7 +149,9 @@ const defaults = {
   programsClosing:
     'Most clinics start with weight loss and add lines from there. We market the whole book as one system, not eight separate campaigns.',
   compareEyebrow: 'The difference',
-  compareTitle: 'Lead-gen agencies stop at the form fill. Our system doesn’t.',
+  compareTitle: 'Most agencies start with ads. We start with the systems that make ads profitable.',
+  compareSubhead:
+    'Go 1-2-3, not 3-2-1: fix the foundation — site, follow-up, reviews, tracking — so paid acquisition actually converts.',
   compareWithoutLabel: 'Without Compound Growth Studio',
   compareWithLabel: 'With Compound Growth Studio',
   compareRows: [
@@ -148,6 +188,8 @@ const defaults = {
   ] satisfies CompareRow[],
   systemEyebrow: 'One connected growth system',
   systemTitle: 'Six stages. One system. Not six silos.',
+  systemSubhead:
+    'We install them in order. Foundation first — then paid acquisition pours into a system that holds.',
   systemStages: [
     {number: '1', title: 'Visibility', body: 'Get found by patients who can actually pay.'},
     {number: '2', title: 'Education', body: 'Answer the questions that stall a $600/mo decision.'},
@@ -199,7 +241,7 @@ const defaults = {
       photoAlt: 'Jessica Rodrigues',
     },
   ] satisfies PersonCard[],
-  teamCtaLabel: 'Find Your Growth Gaps',
+  teamCtaLabel: 'Book a Growth Gap Call',
   teamCtaHref: '/contact/',
   teamSecondaryLabel: 'Meet the full team →',
   teamSecondaryHref: '/leadership/',
@@ -215,9 +257,12 @@ const defaults = {
     'Still useful if paid is stuck — rejection triggers, targeting mistakes, and landing-page gaps. Secondary to the calculator.',
   leadMagnetCtaLabel: 'Get the Meta ads guide →',
   leadMagnetCtaHref: '/guides/meta-ads/',
-  provenEyebrow: 'Proven growth experience',
+  provenEyebrow: 'Results & proof',
   provenTitle: 'Built by operators who have scaled brands, teams, and revenue.',
   provenSource: 'Figures from prior operator roles — not invented case studies.',
+  // Add clinic quotes here as they come in; the section hides itself while empty.
+  testimonials: [] as {quote: string; name: string; role: string}[],
+  clientLogos: [] as {name: string; src: string}[],
   provenStats: [
     {
       value: '$150M',
@@ -282,6 +327,8 @@ const provenStats = (doc?.provenStats?.length ? doc.provenStats : defaults.prove
   };
 });
 const heroHeadlineLines = splitSentences(headline);
+const testimonials = defaults.testimonials;
+const clientLogos = defaults.clientLogos;
 
 const pillarIcons = [
   '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-4-3.5-8-6.5-8-11a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 4.5-4 7.5-8 11z"></path></svg>',
@@ -312,8 +359,8 @@ const pillarIcons = [
         <p style="margin: 24px 0 0; max-width: 520px; font-size: 18px; line-height: 1.6; color: rgba(244,247,251,.74); animation: rise .7s .3s both;">{subhead}</p>
         <p style="margin: 14px 0 0; max-width: 480px; font-size: 14.5px; line-height: 1.55; color: rgba(244,247,251,.52); animation: rise .7s .38s both;">{heroExpandNote}</p>
         <div class="cgs-cta-actions" style="display: flex; align-items: center; gap: 20px; margin-top: 32px; animation: rise .7s .45s both;">
-          <a class="cgs-h27" href={primaryCtaHref} style="display: inline-block; padding: 16px 26px; background: #1A4FD0; color: #FFFFFF; font-weight: 700; font-size: 15.5px; border-radius: 3px; transition: transform .2s, background .2s;">{primaryCtaLabel}</a>
-          <a class="cgs-h28" href={doc?.secondaryCtaHref ?? defaults.secondaryCtaHref} style="color: #F4F7FB; font-weight: 600; font-size: 15px; border-bottom: 1px solid rgba(244,247,251,.4); padding-bottom: 3px;">{doc?.secondaryCtaLabel ?? defaults.secondaryCtaLabel}</a>
+          <a class="cgs-h27 cgs-hero-cta" href={primaryCtaHref}>{primaryCtaLabel}</a>
+          <a class="cgs-h28" href={defaults.secondaryCtaHref} style="color: #F4F7FB; font-weight: 600; font-size: 15px; border-bottom: 1px solid rgba(244,247,251,.4); padding-bottom: 3px;">{defaults.secondaryCtaLabel}</a>
         </div>
       </div>
     </div>
@@ -347,6 +394,37 @@ const pillarIcons = [
       ))}
     </div>
   </div>
+
+  <section class="cgs-offer">
+    <div class="cgs-offer__inner cgs-pad">
+      <div class="cgs-offer__head">
+        <div class="cgs-offer__eyebrow">{defaults.offerEyebrow}</div>
+        <h2 class="cgs-offer__title">{defaults.offerTitle}</h2>
+        <p class="cgs-offer__body">{defaults.offerBody}</p>
+      </div>
+
+      <div class="cgs-offer__grid cgs-grid-3">
+        {defaults.offerIncludes.map((item) => (
+          <div class="cgs-offer__card">
+            <span class="cgs-offer__check" aria-hidden="true">✓</span>
+            <h3 class="cgs-offer__card-title">{item.title}</h3>
+            <p class="cgs-offer__card-body">{item.body}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="cgs-offer__foot">
+        <p class="cgs-offer__positioning">{defaults.offerPositioning}</p>
+        <div class="cgs-offer__buy">
+          <div>
+            <div class="cgs-offer__price">{defaults.offerPriceLabel}</div>
+            <div class="cgs-offer__price-note">{defaults.offerPriceNote}</div>
+          </div>
+          <a class="cgs-h27 cgs-offer__cta" href={defaults.offerCtaHref}>{defaults.offerCtaLabel}</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section class="cgs-pad" style="max-width: 1280px; margin: 0 auto; padding: 104px 48px 88px;">
     <div class="cgs-why-head" style="display: grid; grid-template-columns: 1.15fr 1.25fr; gap: 48px; align-items: end; margin-bottom: 52px;">
@@ -400,7 +478,8 @@ const pillarIcons = [
     <div class="cgs-pad" style="max-width: 1280px; margin: 0 auto; padding: 96px 48px;">
       <div style="max-width: 720px; margin: 0 auto 40px; text-align: center; animation: rise .8s both; animation-timeline: view(); animation-range: entry 0% entry 60%;">
         <div style="font-size: 12.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #1A4FD0;">{doc?.compareEyebrow ?? defaults.compareEyebrow}</div>
-        <h2 style="margin: 16px 0 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 38px; line-height: 1.12; letter-spacing: -1.4px; color: #0A1D38;">{preventWidow(doc?.compareTitle ?? defaults.compareTitle)}</h2>
+        <h2 style="margin: 16px 0 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 38px; line-height: 1.12; letter-spacing: -1.4px; color: #0A1D38;">{preventWidow(defaults.compareTitle)}</h2>
+        <p style="margin: 18px auto 0; max-width: 620px; font-size: 16.5px; line-height: 1.6; color: rgba(10,29,56,.7);">{defaults.compareSubhead}</p>
       </div>
       <div class="cgs-compare__grid" style="display: grid; grid-template-columns: 1fr 1.08fr; gap: 18px; align-items: stretch; animation: rise .8s both; animation-timeline: view(); animation-range: entry 0% entry 50%;">
         <div style="padding: 28px 26px 30px; background: #FFFFFF; border: 1px solid rgba(10,29,56,.1); border-radius: 4px;">
@@ -429,6 +508,9 @@ const pillarIcons = [
           </div>
         </div>
       </div>
+      <div style="text-align: center; margin-top: 40px;">
+        <a class="cgs-h27 cgs-section-cta" href="/contact/">Book a Growth Gap Call</a>
+      </div>
     </div>
   </section>
 
@@ -449,8 +531,11 @@ const pillarIcons = [
         ))}
       </div>
       <div style="text-align: center; margin-top: 40px;">
-        <a class="cgs-h27" href={defaults.retentionCtaHref} style="display: inline-block; padding: 16px 26px; background: #1A4FD0; color: #FFFFFF; font-weight: 700; font-size: 15.5px; border-radius: 3px;">{defaults.retentionCtaLabel}</a>
-        <p style="margin: 16px 0 0; font-size: 14.5px; color: rgba(10,29,56,.58);">{defaults.retentionFootnote}</p>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px 24px;">
+          <a class="cgs-h27 cgs-section-cta" href={defaults.retentionCtaHref}>{defaults.retentionCtaLabel}</a>
+          <a class="cgs-h28" href={defaults.retentionSecondaryHref} style="color: #0A1D38; font-weight: 600; font-size: 15px; border-bottom: 1px solid rgba(10,29,56,.28); padding-bottom: 3px;">{defaults.retentionSecondaryLabel}</a>
+        </div>
+        <p style="margin: 18px 0 0; font-size: 14.5px; color: rgba(10,29,56,.58);">{defaults.retentionFootnote}</p>
       </div>
     </div>
   </section>
@@ -461,6 +546,7 @@ const pillarIcons = [
       <div style="text-align: center; max-width: 720px; margin: 0 auto 60px; animation: rise .8s both; animation-timeline: view(); animation-range: entry 0% entry 60%;">
         <div style="font-size: 12.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #7FB0FF;">{doc?.systemEyebrow ?? defaults.systemEyebrow}</div>
         <h2 style="margin: 18px 0 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 42px; letter-spacing: -1.6px;">{preventWidow(doc?.systemTitle ?? defaults.systemTitle)}</h2>
+        <p style="margin: 18px 0 0; font-size: 16.5px; line-height: 1.6; color: rgba(244,247,251,.72);">{defaults.systemSubhead}</p>
       </div>
       <div style="position: relative;">
         <svg class="cgs-home-stages-line" viewBox="0 0 1184 8" preserveAspectRatio="none" style="position: absolute; top: 33px; left: 0; width: 100%; height: 8px;">
@@ -476,7 +562,8 @@ const pillarIcons = [
           ))}
         </div>
       </div>
-      <div style="text-align: center; margin-top: 56px;">
+      <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 18px 24px; margin-top: 56px;">
+        <a class="cgs-h27 cgs-section-cta" href="/contact/">Book a Growth Gap Call</a>
         <a class="cgs-h29" href={doc?.systemCtaHref ?? defaults.systemCtaHref} style="display: inline-block; padding: 15px 26px; border: 1.5px solid rgba(127,176,255,.6); color: #7FB0FF; font-weight: 600; font-size: 15px; border-radius: 3px; transition: background .2s, color .2s;">{doc?.systemCtaLabel ?? defaults.systemCtaLabel}</a>
       </div>
     </div>
@@ -509,7 +596,7 @@ const pillarIcons = [
       })}
     </div>
     <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 18px 24px; margin-top: 44px;">
-      <a class="cgs-h27" href={doc?.teamCtaHref ?? defaults.teamCtaHref} style="display: inline-block; padding: 15px 26px; background: #1A4FD0; color: #FFFFFF; font-weight: 700; font-size: 15px; border-radius: 3px; transition: transform .2s, background .2s;">{doc?.teamCtaLabel ?? defaults.teamCtaLabel}</a>
+      <a class="cgs-h27 cgs-section-cta" href={defaults.teamCtaHref}>{defaults.teamCtaLabel}</a>
       <a class="cgs-h28" href={doc?.teamSecondaryHref ?? defaults.teamSecondaryHref} style="color: #0A1D38; font-weight: 600; font-size: 15px; border-bottom: 1px solid rgba(10,29,56,.28); padding-bottom: 3px;">{doc?.teamSecondaryLabel ?? defaults.teamSecondaryLabel}</a>
     </div>
   </section>
@@ -533,7 +620,7 @@ const pillarIcons = [
 
   <section class="cgs-pad" style="max-width: 1280px; margin: 0 auto; padding: 104px 48px;">
     <div style="max-width: 760px; margin-bottom: 56px; animation: rise .8s both; animation-timeline: view(); animation-range: entry 0% entry 60%;">
-      <div style="font-size: 12.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #1A4FD0;">{doc?.provenEyebrow ?? defaults.provenEyebrow}</div>
+        <div style="font-size: 12.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #1A4FD0;">{defaults.provenEyebrow}</div>
       <h2 style="margin: 16px 0 0; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 42px; letter-spacing: -1.6px;">{preventWidow(doc?.provenTitle ?? defaults.provenTitle)}</h2>
       <p style="margin: 14px 0 0; font-size: 14.5px; color: rgba(10,29,56,.55);">{defaults.provenSource}</p>
     </div>
@@ -546,10 +633,272 @@ const pillarIcons = [
         </div>
       ))}
     </div>
+
+    {testimonials.length > 0 && (
+      <div class="cgs-quotes cgs-grid-3">
+        {testimonials.map((item) => (
+          <figure class="cgs-quote">
+            <blockquote class="cgs-quote__text">“{item.quote}”</blockquote>
+            <figcaption class="cgs-quote__who">
+              <span class="cgs-quote__name">{item.name}</span>
+              <span class="cgs-quote__role">{item.role}</span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    )}
+
+    {clientLogos.length > 0 && (
+      <div class="cgs-logos">
+        <div class="cgs-logos__label">Clinics we work with</div>
+        <div class="cgs-logos__row">
+          {clientLogos.map((logo) => (
+            <img class="cgs-logos__img" src={logo.src} alt={logo.name} loading="lazy" />
+          ))}
+        </div>
+      </div>
+    )}
+
+    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 18px 24px; margin-top: 48px;">
+      <a class="cgs-h27 cgs-section-cta" href="/contact/">Book a Growth Gap Call</a>
+      <a class="cgs-h28" href="/calculator/" style="color: #0A1D38; font-weight: 600; font-size: 15px; border-bottom: 1px solid rgba(10,29,56,.28); padding-bottom: 3px;">Calculate your patient leak →</a>
+    </div>
   </section>
 </div>
 
 <style>
+  /* Primary CTA — the most prominent action on the page. */
+  .cgs-hero-cta,
+  .cgs-section-cta,
+  .cgs-offer__cta {
+    display: inline-block;
+    padding: 18px 32px;
+    background: #1a4fd0;
+    color: #ffffff;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 16.5px;
+    letter-spacing: -0.2px;
+    border-radius: 3px;
+    box-shadow: 0 10px 26px rgba(26, 79, 208, 0.32);
+    transition:
+      transform 0.2s,
+      background 0.2s,
+      box-shadow 0.2s;
+  }
+
+  .cgs-hero-cta:hover,
+  .cgs-section-cta:hover,
+  .cgs-offer__cta:hover {
+    box-shadow: 0 14px 32px rgba(26, 79, 208, 0.42);
+  }
+
+  .cgs-offer {
+    background: #ffffff;
+    border-bottom: 1px solid rgba(10, 29, 56, 0.08);
+  }
+
+  .cgs-offer__inner {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: var(--cgs-content-max, 1280px);
+    margin: 0 auto;
+    padding: 96px 48px;
+  }
+
+  .cgs-offer__head {
+    max-width: 720px;
+    margin-bottom: 44px;
+  }
+
+  .cgs-offer__eyebrow {
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #1a4fd0;
+  }
+
+  .cgs-offer__title {
+    margin: 16px 0 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 42px;
+    line-height: 1.08;
+    letter-spacing: -1.6px;
+    color: #0a1d38;
+  }
+
+  .cgs-offer__body {
+    margin: 16px 0 0;
+    font-size: 17px;
+    line-height: 1.6;
+    color: rgba(10, 29, 56, 0.7);
+  }
+
+  .cgs-offer__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .cgs-offer__card {
+    padding: 26px 24px;
+    background: #f4f7fb;
+    border: 1px solid rgba(10, 29, 56, 0.09);
+    border-radius: 4px;
+  }
+
+  .cgs-offer__check {
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    background: #1a4fd0;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 50%;
+  }
+
+  .cgs-offer__card-title {
+    margin: 16px 0 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 1.25;
+    letter-spacing: -0.3px;
+    color: #0a1d38;
+  }
+
+  .cgs-offer__card-body {
+    margin: 0;
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: rgba(10, 29, 56, 0.66);
+  }
+
+  .cgs-offer__foot {
+    margin-top: 36px;
+    padding: 32px 30px;
+    background: #0a1d38;
+    color: #f4f7fb;
+    border-radius: 4px;
+  }
+
+  .cgs-offer__positioning {
+    margin: 0 0 26px;
+    max-width: 68ch;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1.5;
+    letter-spacing: -0.2px;
+  }
+
+  .cgs-offer__buy {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px 32px;
+    padding-top: 26px;
+    border-top: 1px solid rgba(244, 247, 251, 0.16);
+  }
+
+  .cgs-offer__price {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 28px;
+    letter-spacing: -1px;
+    line-height: 1.1;
+  }
+
+  .cgs-offer__price-note {
+    margin-top: 6px;
+    font-size: 13.5px;
+    color: rgba(244, 247, 251, 0.6);
+  }
+
+  .cgs-quotes {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 20px;
+  }
+
+  .cgs-quote {
+    margin: 0;
+    padding: 28px 26px;
+    background: #ffffff;
+    border: 1px solid rgba(10, 29, 56, 0.09);
+    border-left: 3px solid #1a4fd0;
+    border-radius: 4px;
+  }
+
+  .cgs-quote__text {
+    margin: 0;
+    font-size: 15.5px;
+    line-height: 1.65;
+    color: rgba(10, 29, 56, 0.82);
+  }
+
+  .cgs-quote__who {
+    margin-top: 18px;
+    display: grid;
+    gap: 2px;
+  }
+
+  .cgs-quote__name {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: #0a1d38;
+  }
+
+  .cgs-quote__role {
+    font-size: 13px;
+    color: rgba(10, 29, 56, 0.58);
+  }
+
+  .cgs-logos {
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(10, 29, 56, 0.1);
+  }
+
+  .cgs-logos__label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(10, 29, 56, 0.45);
+  }
+
+  .cgs-logos__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 28px 44px;
+    margin-top: 20px;
+  }
+
+  .cgs-logos__img {
+    height: 34px;
+    width: auto;
+    opacity: 0.72;
+  }
+
+  @media (max-width: 900px) {
+    .cgs-offer__inner {
+      padding-top: 72px;
+      padding-bottom: 72px;
+    }
+
+    .cgs-offer__title {
+      font-size: 32px;
+    }
+  }
+
   .cgs-hero {
     min-height: 640px;
   }
