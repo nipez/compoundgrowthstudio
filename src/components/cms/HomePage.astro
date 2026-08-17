@@ -755,7 +755,8 @@ const pillarIcons = [
     list-style: none;
   }
 
-  .cgs-path--them .cgs-path__flow {
+  .cgs-path--them .cgs-path__flow,
+  .cgs-path--us .cgs-path__flow {
     justify-content: center;
   }
 
@@ -829,6 +830,7 @@ const pillarIcons = [
   .cgs-path__loop {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
     margin-top: 18px;
     padding-top: 16px;
@@ -850,15 +852,18 @@ const pillarIcons = [
       gap: 0;
     }
 
-    .cgs-path--them .cgs-path__flow {
+    .cgs-path--them .cgs-path__flow,
+    .cgs-path--us .cgs-path__flow {
       align-items: center;
     }
 
-    .cgs-path--them .cgs-path__step {
+    .cgs-path--them .cgs-path__step,
+    .cgs-path--us .cgs-path__step {
       align-items: center;
     }
 
-    .cgs-path--them .cgs-path__step + .cgs-path__step::before {
+    .cgs-path--them .cgs-path__step + .cgs-path__step::before,
+    .cgs-path--us .cgs-path__step + .cgs-path__step::before {
       margin-left: 0;
     }
 
