@@ -154,7 +154,7 @@ const defaults = {
     'Go 1-2-3, not 3-2-1: fix the foundation — site, follow-up, reviews, tracking — so paid acquisition actually converts.',
   compareWithoutLabel: 'Most agencies',
   compareWithLabel: 'Compound Growth Studio',
-  pathThem: ['Ads', 'Form fill'],
+  pathThem: ['Brand + Organic Content', 'Ads', 'Form fill'],
   pathThemEnd: 'Lead goes cold',
   pathUs: ['Ads', 'Landing page', 'Follow-up', 'Booked consult', 'Retained patient'],
   pathUsLoop: 'What converts feeds back into acquisition',
@@ -755,6 +755,10 @@ const pillarIcons = [
     list-style: none;
   }
 
+  .cgs-path--them .cgs-path__flow {
+    justify-content: center;
+  }
+
   .cgs-path__step {
     display: flex;
     align-items: center;
@@ -844,6 +848,18 @@ const pillarIcons = [
       flex-direction: column;
       align-items: flex-start;
       gap: 0;
+    }
+
+    .cgs-path--them .cgs-path__flow {
+      align-items: center;
+    }
+
+    .cgs-path--them .cgs-path__step {
+      align-items: center;
+    }
+
+    .cgs-path--them .cgs-path__step + .cgs-path__step::before {
+      margin-left: 0;
     }
 
     .cgs-path__step {
