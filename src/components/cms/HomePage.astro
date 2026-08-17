@@ -733,12 +733,13 @@ const pillarIcons = [
   }
 
   .cgs-path__label {
-    margin-bottom: 20px;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
+    margin-bottom: 24px;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: rgba(10, 29, 56, 0.5);
+    text-align: center;
+    color: rgba(10, 29, 56, 0.55);
   }
 
   .cgs-path--us .cgs-path__label {
@@ -747,9 +748,10 @@ const pillarIcons = [
 
   .cgs-path__flow {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 12px 0;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    width: 100%;
+    gap: 0;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -763,19 +765,26 @@ const pillarIcons = [
   .cgs-path__step {
     display: flex;
     align-items: center;
+    flex: 1 1 0;
+    min-width: 0;
   }
 
   .cgs-path__pill,
   .cgs-path__dead {
     display: flex;
     align-items: center;
+    justify-content: center;
+    flex: 1 1 auto;
+    width: 100%;
     gap: 10px;
-    padding: 12px 18px;
+    padding: 16px 18px;
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-weight: 700;
-    font-size: 15px;
+    font-size: 16px;
     letter-spacing: -0.2px;
-    white-space: nowrap;
+    text-align: center;
+    white-space: normal;
+    line-height: 1.25;
     border-radius: 999px;
   }
 
@@ -783,9 +792,9 @@ const pillarIcons = [
   .cgs-path__step + .cgs-path__step::before {
     content: '';
     flex-shrink: 0;
-    width: 26px;
+    width: 18px;
     height: 2px;
-    margin: 0 10px;
+    margin: 0 8px;
     background: currentColor;
     opacity: 0.4;
   }
@@ -798,7 +807,8 @@ const pillarIcons = [
 
   .cgs-path__dead {
     color: #b42318;
-    padding-left: 0;
+    padding-left: 12px;
+    background: transparent;
   }
 
   .cgs-path__step--dead::before {
@@ -845,21 +855,45 @@ const pillarIcons = [
   }
 
   /* Stack the flow vertically on small screens so connectors never orphan. */
+  @media (max-width: 900px) {
+    .cgs-path__flow {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px 0;
+    }
+
+    .cgs-path__step {
+      flex: 1 1 calc(50% - 20px);
+    }
+  }
+
   @media (max-width: 760px) {
+    .cgs-path__label {
+      font-size: 13px;
+    }
+
     .cgs-path__flow {
       flex-direction: column;
-      align-items: flex-start;
+      flex-wrap: nowrap;
+      align-items: stretch;
       gap: 0;
     }
 
     .cgs-path--them .cgs-path__flow,
     .cgs-path--us .cgs-path__flow {
-      align-items: center;
+      align-items: stretch;
+    }
+
+    .cgs-path__step {
+      flex: 1 1 auto;
+      width: 100%;
+      flex-direction: column;
+      align-items: stretch;
     }
 
     .cgs-path--them .cgs-path__step,
     .cgs-path--us .cgs-path__step {
-      align-items: center;
+      align-items: stretch;
     }
 
     .cgs-path--them .cgs-path__step + .cgs-path__step::before,
@@ -867,21 +901,16 @@ const pillarIcons = [
       margin-left: 0;
     }
 
-    .cgs-path__step {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
     .cgs-path__pill,
     .cgs-path__dead {
-      font-size: 14px;
-      padding: 10px 16px;
+      font-size: 15px;
+      padding: 14px 18px;
     }
 
     .cgs-path__step + .cgs-path__step::before {
       width: 2px;
       height: 14px;
-      margin: 4px 0 4px 22px;
+      margin: 4px auto;
     }
 
     .cgs-path__step--dead::before {
