@@ -73,25 +73,11 @@ const defaults = {
   },
 };
 
-const tiers = defaults.tiers.map((fallback, index) => {
-  const tier = doc?.tiers?.[index] ?? {};
-  const isFoundation = fallback.name === 'Conversion Foundation';
-  // Prefer shipped Foundation (retention bullet) until Sanity is re-seeded.
-  if (isFoundation) {
-    return {
-      ...fallback,
-      ...tier,
-      price: fallback.price,
-      description: fallback.description,
-      features: fallback.features,
-    };
-  }
-  return {
-    ...fallback,
-    ...tier,
-    features: tier.features?.length ? tier.features : fallback.features,
-  };
-});
+const tiers = defaults.tiers;
+const subhead = defaults.subhead;
+const intro = defaults.intro;
+const eyebrow = doc?.eyebrow ?? defaults.eyebrow;
+const headline = doc?.headline ?? defaults.headline;
 const newsletter = {...defaults.newsletter, ...(doc?.newsletter ?? {})};
 const recoveryPriceLabel = defaults.recoveryPriceLabel;
 const recoveryTimeline = defaults.recoveryTimeline;
@@ -102,13 +88,13 @@ const recoveryCtaHref = defaults.recoveryCtaHref;
   <header style="background: #0A1D38; color: #F4F7FB; position: relative; overflow: hidden;">
     <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(127,176,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(127,176,255,.07) 1px, transparent 1px); background-size: 56px 56px;"></div>
     <div class="cgs-pad" style="position: relative; max-width: 1280px; margin: 0 auto; padding: 84px 48px 76px; text-align: center;">
-      <div style="font-size: 12.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #7FB0FF; animation: rise .6s both;">{doc?.eyebrow ?? defaults.eyebrow}</div>
-      <h1 class="cgs-display" style="margin: 18px auto 0; max-width: 780px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 52px; line-height: 1.06; letter-spacing: -2px; animation: rise .7s .1s both;">{preventWidow(doc?.headline ?? defaults.headline)}</h1>
-      <p style="margin: 22px auto 0; max-width: 620px; font-size: 17.5px; line-height: 1.6; color: rgba(244,247,251,.74); animation: rise .7s .2s both;">{doc?.subhead ?? defaults.subhead}</p>
+      <div style="font-size: 12.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #7FB0FF; animation: rise .6s both;">{eyebrow}</div>
+      <h1 class="cgs-display" style="margin: 18px auto 0; max-width: 780px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 52px; line-height: 1.06; letter-spacing: -2px; animation: rise .7s .1s both;">{preventWidow(headline)}</h1>
+      <p style="margin: 22px auto 0; max-width: 620px; font-size: 17.5px; line-height: 1.6; color: rgba(244,247,251,.74); animation: rise .7s .2s both;">{subhead}</p>
     </div>
   </header>
   <section class="cgs-pad" style="max-width: 1280px; margin: 0 auto; padding: 56px 48px 0;">
-    <p style="text-align: center; margin: 0 0 44px; font-size: 13.5px; letter-spacing: .04em; color: rgba(10,29,56,.56);">{doc?.intro ?? defaults.intro}</p>
+    <p style="text-align: center; margin: 0 0 44px; font-size: 13.5px; letter-spacing: .04em; color: rgba(10,29,56,.56);">{intro}</p>
     <div class="cgs-pricing-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; align-items: stretch; max-width: 900px; margin: 0 auto;">
       {tiers.map((tier, index) => {
         const fallback = defaults.tiers[index];

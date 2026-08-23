@@ -485,28 +485,10 @@
     "hero": {
       "eyebrow": "Get started",
       "headline": "Start small. Scale when it works.",
-      "subhead": "Four ways in — a compliant foundation, ongoing strategy, a full growth system, or a one-time fix when your ads are stuck."
+      "subhead": "Two ways in — a compliant foundation, a full growth system — plus a one-time fix when your ads are stuck."
     },
-    "intro": "One path, four entry points — most clinics start in the middle and grow up.",
+    "intro": "One path, two entry points — most clinics start in the middle and grow up.",
     "tiers": [
-      {
-        "name": "Clinic Growth Community",
-        "price": "$100",
-        "period": "/month",
-        "description": "Strategy, ideas, and frameworks before execution — for clinics that want direction without a full engagement.",
-        "features": [
-          "Practical clinic marketing guidance",
-          "Patient education ideas and templates",
-          "Frameworks you can apply immediately",
-          "Strategy support before you commit"
-        ],
-        "cta": {
-          "label": "Join the Community",
-          "href": "/contact/"
-        },
-        "highlighted": false,
-        "badge": null
-      },
       {
         "name": "Conversion Foundation",
         "price": "$1,000",
@@ -518,6 +500,7 @@
           "Ongoing updates and A/B testing monthly",
           "Conversion tracking + monthly reporting",
           "Add hormone, TRT, or longevity lines as you launch them",
+          "Month-3/4 retention sequences for patients you already acquired",
           "Grows with you — add paid, SEO, or nurture"
         ],
         "cta": {
