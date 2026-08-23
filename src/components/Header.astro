@@ -3,7 +3,8 @@ import {fetchDocument, pageIds, type Link, type SiteSettings} from '../lib/sanit
 
 const defaults = {
   brandName: 'Compound Growth Studio',
-  brandMark: 'CG',
+  brandLogo: '/images/logo-mark.svg',
+  brandLogoFull: '/images/logo.svg',
   navItems: [
     {label: 'Services', href: '/services/'},
     {label: 'Calculator', href: '/calculator/'},
@@ -27,7 +28,7 @@ const settings = await fetchDocument<SiteSettings>(pageIds.settings);
 // Prefer shipped nav so Calculator + Ad Recovery ship without a Sanity reseed.
 const navItems = defaults.navItems.map(remapServeLabel);
 const brandName = settings?.brandName ?? defaults.brandName;
-const brandMark = settings?.brandMark ?? defaults.brandMark;
+const brandLogo = defaults.brandLogo;
 const navCtaHref = settings?.navCtaHref ?? defaults.navCtaHref;
 // Prefer the shipped CTA so the site-wide "Book a Growth Gap Call" wins over stale CMS copy.
 const navCtaLabel = defaults.navCtaLabel;
@@ -36,7 +37,7 @@ const navCtaLabel = defaults.navCtaLabel;
 <div class="cgs-nav" data-cgs-nav>
   <nav class="cgs-nav__bar" aria-label="Primary">
     <a href="/" class="cgs-nav__brand">
-      <span class="cgs-nav__mark">{brandMark}</span>
+      <img class="cgs-nav__logo" src={brandLogo} alt="" width="36" height="36" decoding="async" />
       <span class="cgs-nav__name">{brandName}</span>
     </a>
 
@@ -107,18 +108,11 @@ const navCtaLabel = defaults.navCtaLabel;
     z-index: 2;
   }
 
-  .cgs-nav__mark {
-    display: grid;
-    place-items: center;
+  .cgs-nav__logo {
+    display: block;
     flex-shrink: 0;
     width: 36px;
     height: 36px;
-    background: #0a1d38;
-    color: #7fb0ff;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-weight: 800;
-    font-size: 14px;
-    letter-spacing: -0.4px;
   }
 
   .cgs-nav__name {

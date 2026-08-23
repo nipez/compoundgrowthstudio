@@ -1,5 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Compound Growth Studio">
-  <rect width="64" height="64" fill="#000000"/>
   <g transform="translate(32 34) rotate(-35)">
     <circle cx="0" cy="14" r="5.5" fill="#EAA770"/>
     <path d="M -15.5 14 A 15.5 15.5 0 0 1 15.5 14" fill="none" stroke="#F5F2ED" stroke-width="5.5" stroke-linecap="round"/>

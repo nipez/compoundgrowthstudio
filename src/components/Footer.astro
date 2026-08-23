@@ -3,7 +3,7 @@ import {fetchDocument, pageIds, type Link, type SiteSettings} from '../lib/sanit
 
 const defaults = {
   brandName: 'Compound Growth Studio',
-  brandMark: 'CG',
+  brandLogo: '/images/logo.svg',
   footerBlurb:
     'A boutique growth strategy and digital marketing studio for GLP-1, medical weight loss, peptide, and med spa clinics — and the hormone, metabolic, and longevity lines those clinics expand into.',
   footerLeadMagnetTitle: "Free guide: Top 10 reasons your clinic's ads are struggling on Meta",
@@ -54,10 +54,9 @@ const getStartedLinks = defaults.footerGetStartedLinks;
   <div class="cgs-footer__inner">
     <div class="cgs-footer__top">
       <div>
-        <div class="cgs-footer__brand">
-          <span class="cgs-footer__mark">{settings?.brandMark ?? defaults.brandMark}</span>
-          <span class="cgs-footer__name">{settings?.brandName ?? defaults.brandName}</span>
-        </div>
+        <a href="/" class="cgs-footer__brand">
+          <img class="cgs-footer__logo" src={defaults.brandLogo} alt={settings?.brandName ?? defaults.brandName} width="168" height="180" decoding="async" />
+        </a>
         <p class="cgs-footer__blurb">{footerBlurb}</p>
         <div class="cgs-footer__magnet">
           <div class="cgs-footer__magnet-title">{settings?.footerLeadMagnetTitle ?? defaults.footerLeadMagnetTitle}</div>
@@ -110,28 +109,14 @@ const getStartedLinks = defaults.footerGetStartedLinks;
   }
 
   .cgs-footer__brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    display: inline-block;
     color: #f4f7fb;
   }
 
-  .cgs-footer__mark {
-    display: grid;
-    place-items: center;
-    width: 32px;
-    height: 32px;
-    background: #1a4fd0;
-    color: #ffffff;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-weight: 800;
-    font-size: 13px;
-  }
-
-  .cgs-footer__name {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-weight: 700;
-    font-size: 16px;
+  .cgs-footer__logo {
+    display: block;
+    width: 148px;
+    height: auto;
   }
 
   .cgs-footer__blurb {
