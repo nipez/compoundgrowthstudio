@@ -156,7 +156,14 @@ const defaults = {
   compareWithLabel: 'Compound Growth Studio',
   pathThem: ['Brand + Organic Content', 'Ads', 'Form fill'],
   pathThemEnd: 'Lead goes cold',
-  pathUs: ['Ads', 'Landing page', 'Follow-up', 'Booked consult', 'Retained patient'],
+  pathUs: [
+    'Visibility (Website + Local SEO + Education)',
+    'Ads',
+    'Landing Pages & Conversion',
+    'Follow-Up',
+    'Booked Consult',
+    'Retained Patient',
+  ],
   pathUsLoop: 'What converts feeds back into acquisition',
   compareRows: [
     {
@@ -212,7 +219,7 @@ const defaults = {
     {
       name: 'Conor',
       role: 'Co-Founder · Brand & Demand',
-      bio: 'Helped scale B2B revenue from $20M to $150M and built a media brand to 300,000+ followers.',
+      bio: 'Helped scale AmTab (B2B) revenue from $20M to $150M and built a media brand to 300,000+ followers.',
       photoUrl: '/images/conor.jpg',
       photoAlt: 'Conor',
     },
@@ -271,7 +278,7 @@ const defaults = {
     {
       value: '$150M',
       title: 'B2B Brand & Revenue Growth',
-      body: 'Conor supported revenue growth from $20M to $150M through integrated strategy and demand generation.',
+      body: 'Conor helped scale AmTab (B2B) revenue from $20M to $150M through integrated strategy and demand generation.',
     },
     {
       value: '4B+',
@@ -307,16 +314,19 @@ const compareRows = doc?.compareRows?.length ? doc.compareRows : defaults.compar
 const systemStages = doc?.systemStages?.length ? doc.systemStages : defaults.systemStages;
 const teamMembers = defaults.teamMembers.map((fallback, index) => {
   const person = doc?.teamMembers?.[index] ?? {};
-  const isNick = (person.name ?? fallback.name ?? '').toLowerCase().startsWith('nick');
+  const name = (person.name ?? fallback.name ?? '').toLowerCase();
+  const isNick = name.startsWith('nick');
+  const isConor = name.startsWith('conor');
+  const preferShippedCopy = isNick || isConor;
   return {
     ...fallback,
     ...person,
     // Prefer shipped headshots so circle-fill crops always win over stale CMS/CDN assets.
     photoUrl: fallback.photoUrl ?? person.photoUrl ?? person.photoSrc,
     photoAlt: person.photoAlt ?? fallback.photoAlt,
-    bio: isNick ? (fallback.bio ?? person.bio) : (person.bio ?? fallback.bio),
+    bio: preferShippedCopy ? (fallback.bio ?? person.bio) : (person.bio ?? fallback.bio),
     name: person.name ?? fallback.name,
-    role: isNick ? (fallback.role ?? person.role) : (person.role ?? fallback.role),
+    role: preferShippedCopy ? (fallback.role ?? person.role) : (person.role ?? fallback.role),
   };
 });
 const provenStats = (doc?.provenStats?.length ? doc.provenStats : defaults.provenStats).map((stat, index) => {
@@ -487,8 +497,8 @@ const pillarIcons = [
       </div>
       <figure class="cgs-paths">
         <figcaption class="cgs-visually-hidden">
-          Most agencies stop after the form fill, so leads go cold. Our system continues
-          through the landing page, follow-up, booked consult, and retention — then feeds
+          Most agencies stop after the form fill, so leads go cold. Our system runs visibility,
+          ads, landing pages, follow-up, booked consult, and retained patients — then feeds
           what it learns back into acquisition.
         </figcaption>
 
@@ -830,6 +840,8 @@ const pillarIcons = [
     background: rgba(127, 176, 255, 0.12);
     border: 1px solid rgba(127, 176, 255, 0.32);
     color: #f4f7fb;
+    font-size: 13.5px;
+    padding: 14px 12px;
   }
 
   .cgs-path--us .cgs-path__step:last-child .cgs-path__pill {

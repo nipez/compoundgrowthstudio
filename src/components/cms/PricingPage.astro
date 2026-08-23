@@ -12,24 +12,9 @@ const defaults = {
   eyebrow: 'Get started',
   headline: 'Start small. Scale when it works.',
   subhead:
-    'Four ways in — a compliant foundation, ongoing strategy, a full growth system, or a one-time fix when your ads are stuck.',
-  intro: 'One path, four entry points — most clinics start in the middle and grow up.',
+    'Two ways in — a compliant foundation, a full growth system — plus a one-time fix when your ads are stuck.',
+  intro: 'One path, two entry points — most clinics start in the middle and grow up.',
   tiers: [
-    {
-      name: 'Clinic Growth Community',
-      price: '$50',
-      period: '/month',
-      description: 'Strategy, ideas, and frameworks before execution — for clinics that want direction without a full engagement.',
-      features: [
-        'Practical clinic marketing guidance',
-        'Patient education ideas and templates',
-        'Frameworks you can apply immediately',
-        'Strategy support before you commit',
-      ],
-      ctaLabel: 'Join the Community',
-      ctaHref: '/contact/',
-      highlighted: false,
-    },
     {
       badge: 'Where most clinics start',
       name: 'Conversion Foundation',
@@ -91,9 +76,8 @@ const defaults = {
 const tiers = defaults.tiers.map((fallback, index) => {
   const tier = doc?.tiers?.[index] ?? {};
   const isFoundation = fallback.name === 'Conversion Foundation';
-  const isCommunity = fallback.name === 'Clinic Growth Community';
-  // Prefer shipped Community ($50) + Foundation (retention bullet) until Sanity is re-seeded.
-  if (isFoundation || isCommunity) {
+  // Prefer shipped Foundation (retention bullet) until Sanity is re-seeded.
+  if (isFoundation) {
     return {
       ...fallback,
       ...tier,
@@ -125,7 +109,7 @@ const recoveryCtaHref = defaults.recoveryCtaHref;
   </header>
   <section class="cgs-pad" style="max-width: 1280px; margin: 0 auto; padding: 56px 48px 0;">
     <p style="text-align: center; margin: 0 0 44px; font-size: 13.5px; letter-spacing: .04em; color: rgba(10,29,56,.56);">{doc?.intro ?? defaults.intro}</p>
-    <div class="cgs-pricing-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch;">
+    <div class="cgs-pricing-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; align-items: stretch; max-width: 900px; margin: 0 auto;">
       {tiers.map((tier, index) => {
         const fallback = defaults.tiers[index];
         const highlighted = Boolean(tier.highlighted);
@@ -146,7 +130,7 @@ const recoveryCtaHref = defaults.recoveryCtaHref;
                 <div style="display: flex; gap: 10px;"><span style={`color: ${highlighted ? '#7FB0FF' : '#1A4FD0'}; font-weight: 700;`}>✓</span>{feature}</div>
               ))}
             </div>
-            <a class={`cgs-pricing-tier__cta ${highlighted ? 'cgs-h45' : index === 0 ? 'cgs-h44' : 'cgs-h46'}`} href={tier.ctaHref ?? fallback?.ctaHref} style={highlighted ? 'display: block; margin-top: 26px; padding: 14px 0; text-align: center; background: #1A4FD0; color: #FFFFFF; font-weight: 700; font-size: 14.5px; border-radius: 3px; transition: transform .2s, background .2s;' : 'display: block; margin-top: 26px; padding: 14px 0; text-align: center; border: 1.5px solid #0A1D38; color: #0A1D38; font-weight: 600; font-size: 14.5px; border-radius: 3px; transition: background .2s, color .2s;'}>{tier.ctaLabel ?? fallback?.ctaLabel}</a>
+            <a class={`cgs-pricing-tier__cta ${highlighted ? 'cgs-h45' : 'cgs-h46'}`} href={tier.ctaHref ?? fallback?.ctaHref} style={highlighted ? 'display: block; margin-top: 26px; padding: 14px 0; text-align: center; background: #1A4FD0; color: #FFFFFF; font-weight: 700; font-size: 14.5px; border-radius: 3px; transition: transform .2s, background .2s;' : 'display: block; margin-top: 26px; padding: 14px 0; text-align: center; border: 1.5px solid #0A1D38; color: #0A1D38; font-weight: 600; font-size: 14.5px; border-radius: 3px; transition: background .2s, color .2s;'}>{tier.ctaLabel ?? fallback?.ctaLabel}</a>
           </div>
         );
       })}

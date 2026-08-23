@@ -40,17 +40,19 @@ export function computeLeak(raw: Partial<LeakInputs>): LeakOutputs {
   const patientAcquisitionCost = Math.max(0, Number(raw.patientAcquisitionCost) || 0);
   const avgMonthsRetained = Math.max(0, Number(raw.avgMonthsRetained) || 0);
 
-  // Cohort framing Conor uses: of current active book, (1 − 12-mo retention) churn in a year.
-  const patientsLostPerYear = Math.round(activePatients * (1 - retentionAt12));
-  const retainedAt12 = Math.round(activePatients * retentionAt12);
+  const annualNewPatients = Math.round(newPatientsPerMonth * 12);
+  const addressableBook = activePatients + annualNewPatients;
+
+  // Churn from the current book plus patients acquired during the year who don't reach month 12.
+  const patientsLostPerYear = Math.round(
+    activePatients * (1 - retentionAt12) + annualNewPatients * (1 - retentionAt12),
+  );
+  const retainedAt12 = Math.round(addressableBook * retentionAt12);
   const annualRevenueNeverEarned = Math.round(patientsLostPerYear * monthlyPrice * avgMonthsRetained);
   const annualReplacementCost = Math.round(patientsLostPerYear * patientAcquisitionCost);
-  // 10-point retention lift on the same book.
-  const liftPatientsKept = Math.round(activePatients * 0.1);
+  // 10-point retention lift across the book you are actively managing this year.
+  const liftPatientsKept = Math.round(addressableBook * 0.1);
   const tenPointLiftWorth = Math.round(liftPatientsKept * monthlyPrice * avgMonthsRetained);
-
-  // newPatientsPerMonth reserved for future acquisition-side expansion / PDF context
-  void newPatientsPerMonth;
 
   return {
     patientsLostPerYear,

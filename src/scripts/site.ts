@@ -1,4 +1,5 @@
 import { collectAttribution, submissionId, type LeadKind, type LeadPayload } from '../lib/leads';
+import { computeLeak } from '../lib/retention';
 
 function readEnv(name: 'PUBLIC_FORM_ENDPOINT'): string {
   // Read via bracket access so Vite cannot fold empty defines into dead code.
@@ -240,33 +241,27 @@ function readCalcInputs(root: HTMLElement) {
 function paintCalc(root: HTMLElement) {
   const inputs = readCalcInputs(root);
   if (!inputs) return;
-  const patientsLostPerYear = Math.round(inputs.activePatients * (1 - inputs.retentionAt12));
-  const annualRevenueNeverEarned = Math.round(
-    patientsLostPerYear * inputs.monthlyPrice * inputs.avgMonthsRetained,
-  );
-  const annualReplacementCost = Math.round(patientsLostPerYear * inputs.patientAcquisitionCost);
-  const liftPatientsKept = Math.round(inputs.activePatients * 0.1);
-  const tenPointLiftWorth = Math.round(liftPatientsKept * inputs.monthlyPrice * inputs.avgMonthsRetained);
+  const result = computeLeak(inputs);
 
   const set = (sel: string, value: string) => {
     const el = root.querySelector<HTMLElement>(sel);
     if (el) el.textContent = value;
   };
-  set('[data-cgs-calc-headline]', money(tenPointLiftWorth));
-  set('[data-cgs-calc-lift-patients]', num(liftPatientsKept));
-  set('[data-cgs-calc-lost]', num(patientsLostPerYear));
-  set('[data-cgs-calc-revenue]', money(annualRevenueNeverEarned));
-  set('[data-cgs-calc-replace]', money(annualReplacementCost));
+  set('[data-cgs-calc-headline]', money(result.tenPointLiftWorth));
+  set('[data-cgs-calc-lift-patients]', num(result.liftPatientsKept));
+  set('[data-cgs-calc-lost]', num(result.patientsLostPerYear));
+  set('[data-cgs-calc-revenue]', money(result.annualRevenueNeverEarned));
+  set('[data-cgs-calc-replace]', money(result.annualReplacementCost));
 
   const summary = root.querySelector<HTMLInputElement>('[data-cgs-calc-summary]');
   if (summary) {
     summary.value = JSON.stringify({
       ...inputs,
-      patientsLostPerYear,
-      annualRevenueNeverEarned,
-      annualReplacementCost,
-      liftPatientsKept,
-      tenPointLiftWorth,
+      patientsLostPerYear: result.patientsLostPerYear,
+      annualRevenueNeverEarned: result.annualRevenueNeverEarned,
+      annualReplacementCost: result.annualReplacementCost,
+      liftPatientsKept: result.liftPatientsKept,
+      tenPointLiftWorth: result.tenPointLiftWorth,
     });
   }
 }
