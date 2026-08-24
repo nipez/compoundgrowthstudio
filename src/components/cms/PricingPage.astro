@@ -95,7 +95,8 @@ const recoveryCtaHref = defaults.recoveryCtaHref;
   </header>
   <section class="cgs-pad" style="max-width: 1280px; margin: 0 auto; padding: 56px 48px 0;">
     <p style="text-align: center; margin: 0 0 44px; font-size: 13.5px; letter-spacing: .04em; color: rgba(10,29,56,.56);">{intro}</p>
-    <div class="cgs-pricing-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; align-items: stretch; max-width: 900px; margin: 0 auto;">
+    <div class="cgs-pricing-stack">
+      <div class="cgs-pricing-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; align-items: stretch;">
       {tiers.map((tier, index) => {
         const fallback = defaults.tiers[index];
         const highlighted = Boolean(tier.highlighted);
@@ -120,18 +121,19 @@ const recoveryCtaHref = defaults.recoveryCtaHref;
           </div>
         );
       })}
-    </div>
-    <div class="cgs-pricing-recovery">
-      <div class="cgs-pricing-recovery__grid" aria-hidden="true"></div>
-      <div class="cgs-pricing-recovery__copy">
-        <div class="cgs-pricing-recovery__eyebrow">{doc?.recoveryEyebrow ?? defaults.recoveryEyebrow}</div>
-        <h3 class="cgs-pricing-recovery__title">{doc?.recoveryTitle ?? defaults.recoveryTitle}</h3>
-        <p class="cgs-pricing-recovery__body">{doc?.recoveryBody ?? defaults.recoveryBody}</p>
       </div>
-      <div class="cgs-pricing-recovery__aside">
-        <div class="cgs-pricing-recovery__price">{recoveryPriceLabel}</div>
-        <div class="cgs-pricing-recovery__timeline">{recoveryTimeline}</div>
-        <a class="cgs-h47 cgs-pricing-recovery__cta" href={recoveryCtaHref}>{doc?.recoveryCtaLabel ?? defaults.recoveryCtaLabel}</a>
+      <div class="cgs-pricing-recovery">
+        <div class="cgs-pricing-recovery__grid" aria-hidden="true"></div>
+        <div class="cgs-pricing-recovery__copy">
+          <div class="cgs-pricing-recovery__eyebrow">{doc?.recoveryEyebrow ?? defaults.recoveryEyebrow}</div>
+          <h3 class="cgs-pricing-recovery__title">{doc?.recoveryTitle ?? defaults.recoveryTitle}</h3>
+          <p class="cgs-pricing-recovery__body">{doc?.recoveryBody ?? defaults.recoveryBody}</p>
+        </div>
+        <div class="cgs-pricing-recovery__aside">
+          <div class="cgs-pricing-recovery__price">{recoveryPriceLabel}</div>
+          <div class="cgs-pricing-recovery__timeline">{recoveryTimeline}</div>
+          <a class="cgs-h47 cgs-pricing-recovery__cta" href={recoveryCtaHref}>{doc?.recoveryCtaLabel ?? defaults.recoveryCtaLabel}</a>
+        </div>
       </div>
     </div>
     <p style="text-align: center; margin: 44px 0 96px; font-size: 14.5px; color: rgba(10,29,56,.62);">{doc?.footerNoteBefore ?? defaults.footerNoteBefore} <a href={doc?.footerNoteLinkHref ?? defaults.footerNoteLinkHref} style="font-weight: 600;">{doc?.footerNoteLinkLabel ?? defaults.footerNoteLinkLabel}</a></p>
@@ -155,15 +157,19 @@ const recoveryCtaHref = defaults.recoveryCtaHref;
     color: #ffffff !important;
   }
 
+  .cgs-pricing-stack {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
   .cgs-pricing-recovery {
     position: relative;
     overflow: hidden;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
+    display: flex;
     align-items: center;
-    gap: 40px;
+    gap: 28px;
     margin-top: 26px;
-    padding: 32px;
+    padding: 28px 30px;
     background: #0a1d38;
     color: #f4f7fb;
     border-radius: 4px;
@@ -186,6 +192,11 @@ const recoveryCtaHref = defaults.recoveryCtaHref;
     position: relative;
   }
 
+  .cgs-pricing-recovery__copy {
+    flex: 1 1 320px;
+    min-width: 0;
+  }
+
   .cgs-pricing-recovery__eyebrow {
     font-size: 11px;
     font-weight: 800;
@@ -204,7 +215,6 @@ const recoveryCtaHref = defaults.recoveryCtaHref;
 
   .cgs-pricing-recovery__body {
     margin: 0;
-    max-width: 62ch;
     font-size: 14.5px;
     line-height: 1.6;
     color: rgba(244, 247, 251, 0.72);
@@ -212,6 +222,7 @@ const recoveryCtaHref = defaults.recoveryCtaHref;
 
   .cgs-pricing-recovery__aside {
     display: grid;
+    flex: 0 0 auto;
     justify-items: end;
     gap: 4px;
     text-align: right;
@@ -252,8 +263,9 @@ const recoveryCtaHref = defaults.recoveryCtaHref;
       transform: none !important;
     }
     .cgs-pricing-recovery {
-      grid-template-columns: 1fr;
-      gap: 24px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
       padding: 28px 24px;
     }
     .cgs-pricing-recovery__aside {
