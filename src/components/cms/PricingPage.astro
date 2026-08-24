@@ -140,12 +140,14 @@ const recoveryCtaHref = defaults.recoveryCtaHref;
   </section>
 
   <section id="newsletter" class="cgs-pad" style="max-width: 1280px; margin: 0 auto; padding: 0 48px 96px;">
-    <form data-cgs-form="newsletter" style="display: grid; gap: 12px; max-width: 640px; padding: 36px 32px; background: #FFFFFF; border: 1px solid rgba(10,29,56,.1); border-radius: 4px;">
+    <div class="cgs-pricing-stack">
+    <form data-cgs-form="newsletter" class="cgs-pricing-newsletter">
       <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" />
       <input type="email" name="email" required placeholder={newsletter.emailPlaceholder} style="padding: 15px 16px; font-family: 'Archivo', sans-serif; font-size: 15px; color: #0A1D38; background: #F4F7FB; border: 1px solid rgba(10,29,56,.2); border-radius: 3px; outline: none;" class="cgs-focus-blue" />
       <button type="submit" data-cgs-label-idle={newsletter.submitLabelIdle} data-cgs-label-done={newsletter.submitLabelDone} style="padding: 15px 0; font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 15px; color: #FFFFFF; background: #1A4FD0; border: none; border-radius: 3px; cursor: pointer; transition: background .2s;" class="cgs-h-navy">{newsletter.submitLabelIdle}</button>
       <div data-cgs-note data-cgs-note-idle={newsletter.noteIdle} data-cgs-note-done={newsletter.noteDone} style="font-size: 12.5px; color: rgba(10,29,56,.55);">{newsletter.noteIdle}</div>
     </form>
+    </div>
   </section>
 </div>
 
@@ -160,6 +162,18 @@ const recoveryCtaHref = defaults.recoveryCtaHref;
   .cgs-pricing-stack {
     max-width: 900px;
     margin: 0 auto;
+  }
+
+  .cgs-pricing-newsletter {
+    display: grid;
+    gap: 12px;
+    width: 100%;
+    max-width: 640px;
+    margin-left: auto;
+    padding: 36px 32px;
+    background: #ffffff;
+    border: 1px solid rgba(10, 29, 56, 0.1);
+    border-radius: 4px;
   }
 
   .cgs-pricing-recovery {
@@ -271,6 +285,10 @@ const recoveryCtaHref = defaults.recoveryCtaHref;
     .cgs-pricing-recovery__aside {
       justify-items: start;
       text-align: left;
+    }
+    .cgs-pricing-newsletter {
+      max-width: none;
+      margin-left: 0;
     }
   }
 </style>
