@@ -312,17 +312,28 @@ const programsPrimary = defaults.programsPrimary;
 const programsSecondary = defaults.programsSecondary;
 const compareRows = doc?.compareRows?.length ? doc.compareRows : defaults.compareRows;
 const systemStages = doc?.systemStages?.length ? doc.systemStages : defaults.systemStages;
-const teamMembers = defaults.teamMembers.map((fallback, index) => {
-  const person = doc?.teamMembers?.[index] ?? {};
+function cmsPersonByName(members: PersonCard[] | undefined, name: string): PersonCard {
+  if (!members?.length) return {};
+  const key = name.toLowerCase();
+  return (
+    members.find((person) => (person.name ?? '').toLowerCase() === key) ??
+    members.find((person) => key.startsWith((person.name ?? '').toLowerCase().split(/\s+/)[0] ?? '')) ??
+    {}
+  );
+}
+
+const teamMembers = defaults.teamMembers.map((fallback) => {
+  const person = cmsPersonByName(doc?.teamMembers, fallback.name ?? '');
   const name = (person.name ?? fallback.name ?? '').toLowerCase();
   const isNick = name.startsWith('nick');
   const isConor = name.startsWith('conor');
-  const preferShippedCopy = isNick || isConor;
+  const isTony = name.startsWith('tony');
+  const preferShippedCopy = isNick || isConor || isTony;
   return {
     ...fallback,
     ...person,
-    // Prefer shipped headshots so circle-fill crops always win over stale CMS/CDN assets.
-    photoUrl: fallback.photoUrl ?? person.photoUrl ?? person.photoSrc,
+    // Hard-force shipped headshots when defaults provide a local asset.
+    photoUrl: fallback.photoUrl || person.photoUrl || person.photoSrc,
     photoAlt: person.photoAlt ?? fallback.photoAlt,
     bio: preferShippedCopy ? (fallback.bio ?? person.bio) : (person.bio ?? fallback.bio),
     name: person.name ?? fallback.name,

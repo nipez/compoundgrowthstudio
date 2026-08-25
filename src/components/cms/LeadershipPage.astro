@@ -37,7 +37,7 @@ const defaults = {
       name: 'Tony Pardilla',
       role: 'Creative Partner, Design & Web',
       bio: 'Tony supports creative and web execution behind the studio’s clinic growth work — turning strategy into polished landing pages, campaign creative, visual systems, and conversion-focused digital experiences.',
-      photoUrl: '/images/team-tony-v8.jpg',
+      photoUrl: '/images/team-tony-v9.jpg',
       photoAlt: 'Tony Pardilla',
       helps: [
         'Website design direction',
@@ -98,16 +98,28 @@ const founders = defaults.founders.map((fallback, index) => {
     role: isNick ? (fallback.role ?? person.role) : (person.role ?? fallback.role),
   };
 });
-const partners = defaults.partners.map((fallback, index) => {
-  const person = doc?.partners?.[index] ?? {};
+function cmsPersonByName(members: PersonCard[] | undefined, name: string): PersonCard {
+  if (!members?.length) return {};
+  const key = name.toLowerCase();
+  return (
+    members.find((person) => (person.name ?? '').toLowerCase() === key) ??
+    members.find((person) => key.startsWith((person.name ?? '').toLowerCase().split(/\s+/)[0] ?? '')) ??
+    {}
+  );
+}
+
+const partners = defaults.partners.map((fallback) => {
+  const person = cmsPersonByName(doc?.partners, fallback.name ?? '');
+  const name = (person.name ?? fallback.name ?? '').toLowerCase();
+  const isTony = name.startsWith('tony');
   return {
     ...fallback,
     ...person,
-    photoUrl: fallback.photoUrl ?? person.photoUrl ?? person.photoSrc,
+    photoUrl: fallback.photoUrl || person.photoUrl || person.photoSrc,
     photoAlt: person.photoAlt ?? fallback.photoAlt,
     name: person.name ?? fallback.name,
-    role: person.role ?? fallback.role,
-    bio: person.bio ?? fallback.bio,
+    role: isTony ? (fallback.role ?? person.role) : (person.role ?? fallback.role),
+    bio: isTony ? (fallback.bio ?? person.bio) : (person.bio ?? fallback.bio),
     helps: person.helps?.length ? person.helps : fallback.helps,
   };
 });
