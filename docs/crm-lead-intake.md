@@ -25,6 +25,8 @@ Content-Type: application/json
   "clinic": "Northside Wellness",  // contact + calculator
   "city": "Austin",               // calculator
   "message": "Which program…",    // contact
+  "preferredDay": "Wed, Sep 2 (2026-09-02)", // contact calendar picker
+  "preferredTime": "2:30 PM ET",  // contact calendar picker
   "newsletter": true,             // contact checkbox
   "calculator": "{\"activePatients\":100,…}", // JSON string of inputs + results
   "sourcePage": "/contact/?from=compliance-teardown",

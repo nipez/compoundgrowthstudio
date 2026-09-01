@@ -179,6 +179,12 @@ async function submitContact(form: HTMLFormElement) {
   const message = String(
     (form.elements.namedItem('message') as HTMLTextAreaElement | null)?.value || '',
   ).trim();
+  const preferredDay = String(
+    (form.elements.namedItem('preferredDay') as HTMLInputElement | null)?.value || '',
+  ).trim();
+  const preferredTime = String(
+    (form.elements.namedItem('preferredTime') as HTMLInputElement | null)?.value || '',
+  ).trim();
   const newsletter = Boolean(
     (form.elements.namedItem('newsletter') as HTMLInputElement | null)?.checked,
   );
@@ -188,12 +194,18 @@ async function submitContact(form: HTMLFormElement) {
     return;
   }
 
+  const scheduleLine =
+    preferredDay && preferredTime ? `Preferred time: ${preferredDay} at ${preferredTime} ET` : '';
+  const combinedMessage = [scheduleLine, message].filter(Boolean).join('\n\n') || undefined;
+
   setPending(form, true);
   const delivered = await deliver({
     ...basePayload('contact', email),
     name,
     clinic: clinic || undefined,
-    message: message || undefined,
+    message: combinedMessage,
+    preferredDay: preferredDay || undefined,
+    preferredTime: preferredTime ? `${preferredTime} ET` : undefined,
     newsletter,
   });
   setPending(form, false);
@@ -204,7 +216,10 @@ async function submitContact(form: HTMLFormElement) {
   }
 
   markSuccess(form);
-  form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('input:not([type="hidden"]):not([name="website"]), textarea')
+  form
+    .querySelectorAll<HTMLInputElement | HTMLTextAreaElement | HTMLButtonElement>(
+      'input:not([type="hidden"]):not([name="website"]), textarea, button.cgs-day, button.cgs-slot',
+    )
     .forEach((el) => {
       if (el instanceof HTMLInputElement && el.type === 'checkbox') return;
       el.disabled = true;

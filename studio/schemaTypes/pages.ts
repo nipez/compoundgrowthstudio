@@ -380,6 +380,14 @@ export const contactPage = defineType({
       type: 'formCopy',
       group: 'content',
     }),
+    defineField({
+      name: 'bookingEmbedUrl',
+      title: 'Booking calendar embed URL',
+      type: 'url',
+      group: 'content',
+      description:
+        'Optional. Paste a Calendly, Cal.com, or Google Appointment Schedule URL to replace the built-in day/time picker with a live booking calendar.',
+    }),
   ],
   preview: {prepare: () => ({title: 'Contact'})},
 })

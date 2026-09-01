@@ -10,6 +10,10 @@ export type LeadPayload = {
   clinic?: string;
   city?: string;
   message?: string;
+  /** Preferred call day selected on /contact (human-readable + ISO). */
+  preferredDay?: string;
+  /** Preferred call time selected on /contact (e.g. "10:30 AM ET"). */
+  preferredTime?: string;
   newsletter?: boolean;
   /** Serialized calculator inputs + results when kind is 'calculator'. */
   calculator?: string;
