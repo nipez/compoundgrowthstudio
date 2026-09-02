@@ -107,9 +107,28 @@ function notifyTeam(data) {
     data.referrer ? `Referrer: ${data.referrer}` : '',
   ].filter(Boolean);
 
-  MailApp.sendEmail({
-    to: NOTIFY_EMAILS.join(','),
-    subject: subject,
-    body: lines.join('\n'),
+  const body = lines.join('\n');
+
+  NOTIFY_EMAILS.forEach(function (email) {
+    MailApp.sendEmail({
+      to: email,
+      subject: subject,
+      body: body,
+    });
+  });
+}
+
+/** Run manually in Apps Script: Run → testNotifyTeam */
+function testNotifyTeam() {
+  notifyTeam({
+    kind: 'contact',
+    name: 'Test User',
+    email: 'test@example.com',
+    clinic: 'Test Clinic',
+    preferredDay: 'Wed, Sep 3 (2026-09-03)',
+    preferredTime: '2:00 PM ET',
+    message: 'This is a test notification from Apps Script.',
+    sourcePage: '/contact/',
+    sourceUrl: 'https://compoundgrowthstudio.com/contact/',
   });
 }

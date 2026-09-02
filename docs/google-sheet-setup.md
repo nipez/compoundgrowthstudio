@@ -124,10 +124,29 @@ function notifyTeam(data) {
     data.referrer ? `Referrer: ${data.referrer}` : '',
   ].filter(Boolean);
 
-  MailApp.sendEmail({
-    to: NOTIFY_EMAILS.join(','),
-    subject: subject,
-    body: lines.join('\n'),
+  const body = lines.join('\n');
+
+  NOTIFY_EMAILS.forEach(function (email) {
+    MailApp.sendEmail({
+      to: email,
+      subject: subject,
+      body: body,
+    });
+  });
+}
+
+/** Run manually: Run → testNotifyTeam */
+function testNotifyTeam() {
+  notifyTeam({
+    kind: 'contact',
+    name: 'Test User',
+    email: 'test@example.com',
+    clinic: 'Test Clinic',
+    preferredDay: 'Wed, Sep 3 (2026-09-03)',
+    preferredTime: '2:00 PM ET',
+    message: 'This is a test notification from Apps Script.',
+    sourcePage: '/contact/',
+    sourceUrl: 'https://compoundgrowthstudio.com/contact/',
   });
 }
 ```
@@ -185,9 +204,19 @@ blocker or content blocker on `script.google.com`, or confirm the deployment's
 ## Getting notified
 
 Every submission emails **nick@compoundgrowthstudio.com** and
-**conor@compoundgrowthstudio.com** automatically (via `MailApp` in the script
-above). Contact requests use the subject line `New Growth Gap Call — {name}` and
-include the preferred day/time.
+**conor@compoundgrowthstudio.com** automatically — but only after you
+**paste the script below into Google Apps Script and redeploy**. Updating the
+GitHub repo does not change the live collector.
+
+### One-time email setup
+
+1. Open **CGS Form Submissions** → **Extensions → Apps Script**
+2. Replace the entire script with [`scripts/google-sheet-collector.js`](../scripts/google-sheet-collector.js)
+3. Click **Save**, then **Run → testNotifyTeam** (authorize Gmail when prompted)
+4. Confirm Nick and Conor each receive a test email
+5. **Deploy → Manage deployments → pencil → New version → Deploy**
+
+Until step 5 is done, submissions still land in the sheet but **no email is sent**.
 
 You can also turn on sheet notifications: **Tools → Notification settings → Edit
 notifications**, then choose *Any changes are made* and *Email — right away*.
