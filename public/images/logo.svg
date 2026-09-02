@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 300" role="img" aria-label="Compound Growth Studio">
+  <g transform="translate(140 78) rotate(-35)">
+    <circle cx="0" cy="18" r="11" fill="#EAA770"/>
+    <path d="M -30 18 A 30 30 0 0 1 30 18" fill="none" stroke="#F5F2ED" stroke-width="10" stroke-linecap="round"/>
+    <path d="M -46 18 A 46 46 0 0 1 46 18" fill="none" stroke="#3BA28C" stroke-width="10" stroke-linecap="round"/>
+  </g>
+  <text x="140" y="188" text-anchor="middle" fill="#F5F2ED" font-family="'Plus Jakarta Sans', 'Archivo', sans-serif" font-size="42" font-weight="800" letter-spacing="-1.2">Compound</text>
+  <text x="140" y="236" text-anchor="middle" fill="#F5F2ED" font-family="'Plus Jakarta Sans', 'Archivo', sans-serif" font-size="42" font-weight="800" letter-spacing="-1.2">Growth</text>
+  <text x="140" y="272" text-anchor="middle" fill="#3BA28C" font-family="'Plus Jakarta Sans', 'Archivo', sans-serif" font-size="18" font-weight="800" letter-spacing="0.42em">STUDIO</text>
+</svg>
