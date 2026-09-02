@@ -76,9 +76,6 @@ const minBookingDate = tomorrow.toISOString().slice(0, 10);
 const maxBookingDate = new Date(tomorrow.getFullYear(), tomorrow.getMonth() + 3, tomorrow.getDate())
   .toISOString()
   .slice(0, 10);
-
-const fieldStyle =
-  "padding: 15px 16px; font-family: 'Archivo', sans-serif; font-size: 15px; color: #F4F7FB; background: rgba(10,29,56,.5); border: 1px solid rgba(244,247,251,.2); border-radius: 3px; outline: none;";
 ---
 
 <div style="background: #0A1D38; color: #F4F7FB; position: relative; overflow: hidden;">
@@ -124,19 +121,28 @@ const fieldStyle =
 
         <div data-cgs-scheduler style="display: grid; gap: 12px; margin-top: 4px;">
           <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px;">
-            <label for="preferredDay" style="font-size: 12.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #7FB0FF;">1. Pick a date</label>
+            <div style="font-size: 12.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #7FB0FF;">1. Pick a date</div>
             <div style="font-size: 12px; color: rgba(244,247,251,.45);">Eastern Time · weekdays only</div>
           </div>
-          <input
-            id="preferredDay"
-            name="preferredDay"
-            type="date"
-            class="cgs-date-input"
-            required
-            min={minBookingDate}
-            max={maxBookingDate}
-            style={fieldStyle}
-          />
+
+          <div
+            class="cgs-cal"
+            data-cgs-calendar
+            data-min-date={minBookingDate}
+            data-max-date={maxBookingDate}
+            aria-label="Choose a date"
+          >
+            <div class="cgs-cal-header">
+              <button type="button" class="cgs-cal-nav" data-cgs-cal-prev aria-label="Previous month">‹</button>
+              <div class="cgs-cal-title" data-cgs-cal-title></div>
+              <button type="button" class="cgs-cal-nav" data-cgs-cal-next aria-label="Next month">›</button>
+            </div>
+            <div class="cgs-cal-weekdays" aria-hidden="true">
+              <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+            </div>
+            <div class="cgs-cal-grid" data-cgs-cal-grid role="grid"></div>
+          </div>
+          <input type="hidden" name="preferredDay" required />
 
           <div style="margin-top: 6px; font-size: 12.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #7FB0FF;">2. Pick a time</div>
           <div data-cgs-times class="cgs-time-grid" role="listbox" aria-label="Preferred time">
@@ -178,7 +184,7 @@ const fieldStyle =
     border: 1px solid rgba(244, 247, 251, 0.18);
     border-radius: 3px;
     cursor: pointer;
-    transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.15s;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
   }
   .cgs-slot:hover {
     border-color: rgba(127, 176, 255, 0.55);
@@ -189,15 +195,107 @@ const fieldStyle =
     background: #1a4fd0;
     border-color: #7fb0ff;
   }
-  .cgs-date-input {
-    color-scheme: dark;
-    width: 100%;
-    box-sizing: border-box;
+
+  /* :global so JS-rendered calendar cells pick up styles */
+  :global(.cgs-cal) {
+    padding: 14px;
+    background: rgba(10, 29, 56, 0.45);
+    border: 1px solid rgba(244, 247, 251, 0.16);
+    border-radius: 4px;
   }
-  .cgs-date-input::-webkit-calendar-picker-indicator {
+  :global(.cgs-cal-header) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  :global(.cgs-cal-title) {
+    font-family: 'Archivo', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #f4f7fb;
+    text-align: center;
+    flex: 1;
+  }
+  :global(.cgs-cal-nav) {
+    appearance: none;
+    width: 34px;
+    height: 34px;
+    margin: 0;
+    padding: 0;
+    font-size: 22px;
+    line-height: 1;
+    color: #f4f7fb;
+    background: rgba(244, 247, 251, 0.06);
+    border: 1px solid rgba(244, 247, 251, 0.18);
+    border-radius: 3px;
     cursor: pointer;
-    filter: invert(0.85);
   }
+  :global(.cgs-cal-nav:hover:not(:disabled)) {
+    border-color: rgba(127, 176, 255, 0.55);
+    background: rgba(26, 79, 208, 0.22);
+  }
+  :global(.cgs-cal-nav:disabled) {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+  :global(.cgs-cal-weekdays) {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 4px;
+    margin-bottom: 6px;
+  }
+  :global(.cgs-cal-weekdays span) {
+    font-family: 'Archivo', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-align: center;
+    color: rgba(244, 247, 251, 0.45);
+  }
+  :global(.cgs-cal-grid) {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 4px;
+  }
+  :global(.cgs-cal-day) {
+    appearance: none;
+    margin: 0;
+    min-height: 38px;
+    padding: 6px 0;
+    font-family: 'Archivo', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(244, 247, 251, 0.88);
+    background: rgba(244, 247, 251, 0.04);
+    border: 1px solid rgba(244, 247, 251, 0.12);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+  }
+  :global(.cgs-cal-day:hover:not(:disabled)) {
+    border-color: rgba(127, 176, 255, 0.55);
+    background: rgba(26, 79, 208, 0.22);
+  }
+  :global(.cgs-cal-day.is-selected) {
+    color: #ffffff;
+    background: #1a4fd0;
+    border-color: #7fb0ff;
+  }
+  :global(.cgs-cal-day.is-outside),
+  :global(.cgs-cal-day:disabled) {
+    opacity: 0.28;
+    cursor: not-allowed;
+    background: transparent;
+    border-color: transparent;
+  }
+  :global(.cgs-cal-day.is-empty) {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
   @media (max-width: 860px) {
     .cgs-contact {
       grid-template-columns: 1fr !important;
@@ -213,34 +311,140 @@ const fieldStyle =
     .cgs-time-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
+    :global(.cgs-cal-day) {
+      min-height: 34px;
+      font-size: 13px;
+    }
   }
 </style>
 
 {!bookingEmbedUrl && (
-  <script>
-    function isWeekday(isoDate) {
-      const day = new Date(`${isoDate}T12:00:00`).getDay();
+  <script define:vars={{ minBookingDate, maxBookingDate }}>
+    function parseIso(iso) {
+      const [y, m, d] = iso.split('-').map(Number);
+      return new Date(y, m - 1, d, 12, 0, 0, 0);
+    }
+
+    function toIso(date) {
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, '0');
+      const d = String(date.getDate()).padStart(2, '0');
+      return `${y}-${m}-${d}`;
+    }
+
+    function isWeekday(date) {
+      const day = date.getDay();
       return day !== 0 && day !== 6;
     }
 
+    function formatLabel(iso) {
+      return parseIso(iso).toLocaleDateString('en-US', {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
+      });
+    }
+
+    function monthStart(date) {
+      return new Date(date.getFullYear(), date.getMonth(), 1, 12, 0, 0, 0);
+    }
+
+    function initCalendar(cal) {
+      const minDate = parseIso(minBookingDate);
+      const maxDate = parseIso(maxBookingDate);
+      const grid = cal.querySelector('[data-cgs-cal-grid]');
+      const title = cal.querySelector('[data-cgs-cal-title]');
+      const prev = cal.querySelector('[data-cgs-cal-prev]');
+      const next = cal.querySelector('[data-cgs-cal-next]');
+      const scheduler = cal.closest('[data-cgs-scheduler]');
+      const dayInput = scheduler?.querySelector('input[name="preferredDay"]');
+      const error = scheduler?.querySelector('[data-cgs-schedule-error]');
+      if (
+        !(grid instanceof HTMLElement) ||
+        !(title instanceof HTMLElement) ||
+        !(prev instanceof HTMLButtonElement) ||
+        !(next instanceof HTMLButtonElement) ||
+        !(dayInput instanceof HTMLInputElement)
+      ) {
+        return;
+      }
+
+      let view = monthStart(minDate);
+      let selected = '';
+
+      function inRange(date) {
+        return date >= minDate && date <= maxDate && isWeekday(date);
+      }
+
+      function setSelected(iso) {
+        selected = iso;
+        dayInput.value = iso ? `${formatLabel(iso)} (${iso})` : '';
+        if (error) error.hidden = true;
+        render();
+      }
+
+      function render() {
+        const year = view.getFullYear();
+        const month = view.getMonth();
+        title.textContent = view.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+        const monthMin = monthStart(view);
+        const monthMax = new Date(year, month + 1, 0, 12, 0, 0, 0);
+        prev.disabled = monthMax < minDate;
+        next.disabled = monthMin > maxDate;
+
+        grid.replaceChildren();
+
+        // Monday-first offset (Mon=0 … Sun=6)
+        const firstDow = (new Date(year, month, 1).getDay() + 6) % 7;
+        for (let i = 0; i < firstDow; i += 1) {
+          const pad = document.createElement('span');
+          pad.className = 'cgs-cal-day is-empty';
+          pad.setAttribute('aria-hidden', 'true');
+          grid.appendChild(pad);
+        }
+
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        for (let day = 1; day <= daysInMonth; day += 1) {
+          const date = new Date(year, month, day, 12, 0, 0, 0);
+          const iso = toIso(date);
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'cgs-cal-day';
+          btn.textContent = String(day);
+          btn.dataset.iso = iso;
+
+          if (!inRange(date)) {
+            btn.disabled = true;
+            if (date < minDate || date > maxDate) btn.classList.add('is-outside');
+          }
+          if (iso === selected) btn.classList.add('is-selected');
+
+          btn.addEventListener('click', () => setSelected(iso));
+          grid.appendChild(btn);
+        }
+      }
+
+      prev.addEventListener('click', () => {
+        view = new Date(view.getFullYear(), view.getMonth() - 1, 1, 12, 0, 0, 0);
+        render();
+      });
+      next.addEventListener('click', () => {
+        view = new Date(view.getFullYear(), view.getMonth() + 1, 1, 12, 0, 0, 0);
+        render();
+      });
+
+      render();
+      return { getSelected: () => selected };
+    }
+
     function initScheduler(root) {
-      const dayInput = root.querySelector('input[name="preferredDay"]');
+      const cal = root.querySelector('[data-cgs-calendar]');
       const timeInput = root.querySelector('input[name="preferredTime"]');
       const error = root.querySelector('[data-cgs-schedule-error]');
-      if (!(dayInput instanceof HTMLInputElement) || !(timeInput instanceof HTMLInputElement)) return;
+      if (!(cal instanceof HTMLElement) || !(timeInput instanceof HTMLInputElement)) return;
 
-      dayInput.addEventListener('change', () => {
-        if (dayInput.value && !isWeekday(dayInput.value)) {
-          dayInput.setCustomValidity('Please pick a weekday (Mon–Fri).');
-          if (error) {
-            error.textContent = 'Please pick a weekday (Mon–Fri).';
-            error.hidden = false;
-          }
-        } else {
-          dayInput.setCustomValidity('');
-          if (error) error.hidden = true;
-        }
-      });
+      const calendar = initCalendar(cal);
 
       root.querySelectorAll('[data-cgs-time]').forEach((btn) => {
         btn.addEventListener('click', () => {
@@ -255,21 +459,13 @@ const fieldStyle =
       form?.addEventListener(
         'submit',
         (event) => {
-          if (!dayInput.value || !timeInput.value) {
+          const dayInput = root.querySelector('input[name="preferredDay"]');
+          const hasDay = dayInput instanceof HTMLInputElement && Boolean(dayInput.value);
+          if (!hasDay || !timeInput.value) {
             event.preventDefault();
             event.stopImmediatePropagation();
             if (error) {
               error.textContent = 'Choose a date and time to continue.';
-              error.hidden = false;
-            }
-            return;
-          }
-          if (!isWeekday(dayInput.value)) {
-            event.preventDefault();
-            event.stopImmediatePropagation();
-            dayInput.setCustomValidity('Please pick a weekday (Mon–Fri).');
-            if (error) {
-              error.textContent = 'Please pick a weekday (Mon–Fri).';
               error.hidden = false;
             }
           }

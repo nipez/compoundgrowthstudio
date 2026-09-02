@@ -194,13 +194,7 @@ async function submitContact(form: HTMLFormElement) {
     return;
   }
 
-  const preferredDay = preferredDayRaw
-    ? new Date(`${preferredDayRaw}T12:00:00`).toLocaleDateString('en-US', {
-        weekday: 'short',
-        month: 'short',
-        day: 'numeric',
-      }) + ` (${preferredDayRaw})`
-    : '';
+  const preferredDay = preferredDayRaw || '';
 
   const scheduleLine =
     preferredDay && preferredTime ? `Preferred time: ${preferredDay} at ${preferredTime} ET` : '';
