@@ -295,6 +295,8 @@ export type ContactDoc = SanityDocumentBase<'contactPage'> &
     seo?: Seo;
     bullets?: string[];
     form?: FormCopy;
+    /** Optional Calendly / Cal.com / Google Appointment Schedule embed URL. */
+    bookingEmbedUrl?: string;
   };
 
 export type AiVoiceDoc = SanityDocumentBase<'aiVoicePage'> &

@@ -24,17 +24,51 @@ const defaults = {
     namePlaceholder: 'Your name',
     clinicPlaceholder: 'Clinic name',
     emailPlaceholder: 'Work email',
-    messagePlaceholder: 'Which program are you trying to grow?',
+    messagePlaceholder: 'Which program are you trying to grow? (optional)',
     newsletterCheckboxLabel: 'Also send me the newsletter',
-    submitLabelIdle: 'Request My Growth Gap Review',
-    submitLabelDone: 'Request received — we’ll reply within one business day',
-    noteIdle: 'No obligation. We’ll never share your clinic details.',
-    noteDone: 'We’ll email you two or three times to find a slot that works.',
+    submitLabelIdle: 'Book My Growth Gap Call',
+    submitLabelDone: 'Booked — we’ll confirm your time shortly',
+    noteIdle: 'Pick a day and time. We’ll confirm within one business day.',
+    noteDone: 'You’re on the list. Watch for a confirmation email with the call details.',
   },
 };
 
 const bullets = doc?.bullets?.length ? doc.bullets : defaults.bullets;
-const form = {...defaults.form, ...(doc?.form ?? {})};
+// Prefer shipped booking copy for CTA / notes so stale CMS text doesn't
+// reintroduce "we'll email to find a slot" after the calendar picker ships.
+const form = {
+  ...defaults.form,
+  ...(doc?.form ?? {}),
+  submitLabelIdle: defaults.form.submitLabelIdle,
+  submitLabelDone: defaults.form.submitLabelDone,
+  noteIdle: defaults.form.noteIdle,
+  noteDone: defaults.form.noteDone,
+};
+
+const bookingEmbedUrl =
+  (typeof doc?.bookingEmbedUrl === 'string' && doc.bookingEmbedUrl.trim()) ||
+  (typeof import.meta.env.PUBLIC_BOOKING_EMBED_URL === 'string' &&
+    import.meta.env.PUBLIC_BOOKING_EMBED_URL.trim()) ||
+  '';
+
+const TIME_SLOTS = [
+  '9:00 AM',
+  '9:30 AM',
+  '10:00 AM',
+  '10:30 AM',
+  '11:00 AM',
+  '11:30 AM',
+  '12:00 PM',
+  '12:30 PM',
+  '1:00 PM',
+  '1:30 PM',
+  '2:00 PM',
+  '2:30 PM',
+  '3:00 PM',
+  '3:30 PM',
+  '4:00 PM',
+  '4:30 PM',
+];
 ---
 
 <div style="background: #0A1D38; color: #F4F7FB; position: relative; overflow: hidden;">
@@ -57,23 +91,114 @@ const form = {...defaults.form, ...(doc?.form ?? {})};
         <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: rgba(244,247,251,.82);">{defaults.preCallNote}</p>
       </div>
     </div>
-    <form data-cgs-form="contact" style="display: grid; gap: 14px; padding: 40px; background: rgba(244,247,251,.06); border: 1px solid rgba(244,247,251,.16); border-radius: 4px; backdrop-filter: blur(8px); animation: rise .8s .2s both;">
-      <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" />
-      <input name="name" class="cgs-f2" placeholder={form.namePlaceholder} required style="padding: 15px 16px; font-family: 'Archivo', sans-serif; font-size: 15px; color: #F4F7FB; background: rgba(10,29,56,.5); border: 1px solid rgba(244,247,251,.2); border-radius: 3px; outline: none;" />
-      <input name="clinic" class="cgs-f3" placeholder={form.clinicPlaceholder} style="padding: 15px 16px; font-family: 'Archivo', sans-serif; font-size: 15px; color: #F4F7FB; background: rgba(10,29,56,.5); border: 1px solid rgba(244,247,251,.2); border-radius: 3px; outline: none;" />
-      <input name="email" class="cgs-f4" type="email" placeholder={form.emailPlaceholder} required style="padding: 15px 16px; font-family: 'Archivo', sans-serif; font-size: 15px; color: #F4F7FB; background: rgba(10,29,56,.5); border: 1px solid rgba(244,247,251,.2); border-radius: 3px; outline: none;" />
-      <textarea name="message" class="cgs-f5" rows="4" placeholder={form.messagePlaceholder} style="padding: 15px 16px; font-family: 'Archivo', sans-serif; font-size: 15px; color: #F4F7FB; background: rgba(10,29,56,.5); border: 1px solid rgba(244,247,251,.2); border-radius: 3px; outline: none; resize: vertical;"></textarea>
-      <label style="display: flex; align-items: center; gap: 10px; font-size: 14px; color: rgba(244,247,251,.78); cursor: pointer;">
-        <input name="newsletter" type="checkbox" checked style="width: 16px; height: 16px; accent-color: #1A4FD0;" />
-        {form.newsletterCheckboxLabel}
-      </label>
-      <button class="cgs-h49" type="submit" style="margin-top: 6px; padding: 16px 0; font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 15.5px; color: #FFFFFF; background: #1A4FD0; border: none; border-radius: 3px; cursor: pointer; transition: transform .2s, background .2s;" data-cgs-label-idle={form.submitLabelIdle} data-cgs-label-done={form.submitLabelDone}>{form.submitLabelIdle}</button>
-      <div style="font-size: 12.5px; line-height: 1.5; color: rgba(244,247,251,.55);"><span data-cgs-note data-cgs-note-idle={form.noteIdle} data-cgs-note-done={form.noteDone}>{form.noteIdle}</span></div>
-    </form>
+
+    {bookingEmbedUrl ? (
+      <div class="cgs-booking" style="animation: rise .8s .2s both;">
+        <div style="padding: 12px 14px 0; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #7FB0FF;">Pick a day &amp; time</div>
+        <iframe
+          src={bookingEmbedUrl}
+          title="Book a Growth Gap Call"
+          loading="lazy"
+          style="display: block; width: 100%; min-height: 720px; margin-top: 10px; border: 1px solid rgba(244,247,251,.16); border-radius: 4px; background: #fff;"
+        ></iframe>
+        <p style="margin: 14px 0 0; font-size: 12.5px; line-height: 1.5; color: rgba(244,247,251,.55);">
+          Times sync to our calendar automatically — you’ll get a confirmation right away.
+        </p>
+      </div>
+    ) : (
+      <form data-cgs-form="contact" class="cgs-contact-form" style="display: grid; gap: 14px; padding: 40px; background: rgba(244,247,251,.06); border: 1px solid rgba(244,247,251,.16); border-radius: 4px; backdrop-filter: blur(8px); animation: rise .8s .2s both;">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" />
+        <input name="name" class="cgs-f2" placeholder={form.namePlaceholder} required style="padding: 15px 16px; font-family: 'Archivo', sans-serif; font-size: 15px; color: #F4F7FB; background: rgba(10,29,56,.5); border: 1px solid rgba(244,247,251,.2); border-radius: 3px; outline: none;" />
+        <input name="clinic" class="cgs-f3" placeholder={form.clinicPlaceholder} style="padding: 15px 16px; font-family: 'Archivo', sans-serif; font-size: 15px; color: #F4F7FB; background: rgba(10,29,56,.5); border: 1px solid rgba(244,247,251,.2); border-radius: 3px; outline: none;" />
+        <input name="email" class="cgs-f4" type="email" placeholder={form.emailPlaceholder} required style="padding: 15px 16px; font-family: 'Archivo', sans-serif; font-size: 15px; color: #F4F7FB; background: rgba(10,29,56,.5); border: 1px solid rgba(244,247,251,.2); border-radius: 3px; outline: none;" />
+
+        <div data-cgs-scheduler style="display: grid; gap: 12px; margin-top: 4px;">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px;">
+            <div style="font-size: 12.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #7FB0FF;">1. Pick a day</div>
+            <div style="font-size: 12px; color: rgba(244,247,251,.45);">Eastern Time</div>
+          </div>
+          <div data-cgs-days class="cgs-day-grid" role="listbox" aria-label="Preferred day"></div>
+          <input type="hidden" name="preferredDay" required />
+
+          <div style="margin-top: 6px; font-size: 12.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #7FB0FF;">2. Pick a time</div>
+          <div data-cgs-times class="cgs-time-grid" role="listbox" aria-label="Preferred time">
+            {TIME_SLOTS.map((slot) => (
+              <button type="button" class="cgs-slot" data-cgs-time={slot} aria-pressed="false">{slot}</button>
+            ))}
+          </div>
+          <input type="hidden" name="preferredTime" required />
+          <p data-cgs-schedule-error hidden style="margin: 0; font-size: 13px; color: #F97066;">Choose a day and time to continue.</p>
+        </div>
+
+        <textarea name="message" class="cgs-f5" rows="3" placeholder={form.messagePlaceholder} style="padding: 15px 16px; font-family: 'Archivo', sans-serif; font-size: 15px; color: #F4F7FB; background: rgba(10,29,56,.5); border: 1px solid rgba(244,247,251,.2); border-radius: 3px; outline: none; resize: vertical;"></textarea>
+        <label style="display: flex; align-items: center; gap: 10px; font-size: 14px; color: rgba(244,247,251,.78); cursor: pointer;">
+          <input name="newsletter" type="checkbox" checked style="width: 16px; height: 16px; accent-color: #1A4FD0;" />
+          {form.newsletterCheckboxLabel}
+        </label>
+        <button class="cgs-h49" type="submit" style="margin-top: 6px; padding: 16px 0; font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 15.5px; color: #FFFFFF; background: #1A4FD0; border: none; border-radius: 3px; cursor: pointer; transition: transform .2s, background .2s;" data-cgs-label-idle={form.submitLabelIdle} data-cgs-label-done={form.submitLabelDone}>{form.submitLabelIdle}</button>
+        <div style="font-size: 12.5px; line-height: 1.5; color: rgba(244,247,251,.55);"><span data-cgs-note data-cgs-note-idle={form.noteIdle} data-cgs-note-done={form.noteDone}>{form.noteIdle}</span></div>
+      </form>
+    )}
   </div>
 </div>
 
 <style>
+  .cgs-day-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .cgs-time-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .cgs-day,
+  .cgs-slot {
+    appearance: none;
+    margin: 0;
+    padding: 10px 8px;
+    font-family: 'Archivo', sans-serif;
+    font-size: 13px;
+    line-height: 1.25;
+    color: rgba(244, 247, 251, 0.88);
+    background: rgba(10, 29, 56, 0.55);
+    border: 1px solid rgba(244, 247, 251, 0.18);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.15s;
+  }
+  .cgs-day {
+    display: grid;
+    gap: 2px;
+    justify-items: center;
+    min-height: 58px;
+  }
+  .cgs-day strong {
+    font-size: 15px;
+    font-weight: 700;
+    color: #f4f7fb;
+  }
+  .cgs-day span {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: rgba(244, 247, 251, 0.55);
+  }
+  .cgs-day:hover,
+  .cgs-slot:hover {
+    border-color: rgba(127, 176, 255, 0.55);
+    background: rgba(26, 79, 208, 0.22);
+  }
+  .cgs-day[aria-pressed='true'],
+  .cgs-slot[aria-pressed='true'] {
+    color: #ffffff;
+    background: #1a4fd0;
+    border-color: #7fb0ff;
+  }
+  .cgs-day[aria-pressed='true'] span {
+    color: rgba(244, 247, 251, 0.82);
+  }
   @media (max-width: 860px) {
     .cgs-contact {
       grid-template-columns: 1fr !important;
@@ -83,8 +208,109 @@ const form = {...defaults.form, ...(doc?.form ?? {})};
     }
   }
   @media (max-width: 560px) {
-    .cgs-contact form {
+    .cgs-contact-form {
       padding: 28px 20px !important;
+    }
+    .cgs-day-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .cgs-time-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
 </style>
+
+{!bookingEmbedUrl && (
+  <script>
+    const WEEKDAY = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+    function nextWeekdays(count = 10) {
+      const days = [];
+      const cursor = new Date();
+      // Start from tomorrow so same-day rush slots stay out of the default set.
+      cursor.setHours(12, 0, 0, 0);
+      cursor.setDate(cursor.getDate() + 1);
+      while (days.length < count) {
+        const day = cursor.getDay();
+        if (day !== 0 && day !== 6) {
+          const iso = cursor.toISOString().slice(0, 10);
+          days.push({
+            iso,
+            label: WEEKDAY[day],
+            date: String(cursor.getDate()),
+            full: cursor.toLocaleDateString('en-US', {
+              weekday: 'short',
+              month: 'short',
+              day: 'numeric',
+            }),
+          });
+        }
+        cursor.setDate(cursor.getDate() + 1);
+      }
+      return days;
+    }
+
+    function initScheduler(root) {
+      const dayGrid = root.querySelector('[data-cgs-days]');
+      const dayInput = root.querySelector('input[name="preferredDay"]');
+      const timeInput = root.querySelector('input[name="preferredTime"]');
+      const error = root.querySelector('[data-cgs-schedule-error]');
+      if (
+        !(dayGrid instanceof HTMLElement) ||
+        !(dayInput instanceof HTMLInputElement) ||
+        !(timeInput instanceof HTMLInputElement)
+      ) {
+        return;
+      }
+
+      nextWeekdays(10).forEach((day, index) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'cgs-day';
+        btn.setAttribute('role', 'option');
+        btn.setAttribute('aria-pressed', 'false');
+        btn.dataset.cgsDay = day.iso;
+        btn.dataset.cgsDayLabel = day.full;
+        btn.innerHTML = `<span>${day.label}</span><strong>${day.date}</strong>`;
+        if (index === 0) {
+          btn.setAttribute('aria-pressed', 'true');
+          dayInput.value = `${day.full} (${day.iso})`;
+        }
+        dayGrid.appendChild(btn);
+      });
+
+      dayGrid.addEventListener('click', (event) => {
+        const target = event.target instanceof Element ? event.target.closest('[data-cgs-day]') : null;
+        if (!(target instanceof HTMLButtonElement)) return;
+        dayGrid.querySelectorAll('[data-cgs-day]').forEach((el) => el.setAttribute('aria-pressed', 'false'));
+        target.setAttribute('aria-pressed', 'true');
+        dayInput.value = `${target.dataset.cgsDayLabel} (${target.dataset.cgsDay})`;
+        if (error) error.hidden = true;
+      });
+
+      root.querySelectorAll('[data-cgs-time]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          root.querySelectorAll('[data-cgs-time]').forEach((el) => el.setAttribute('aria-pressed', 'false'));
+          btn.setAttribute('aria-pressed', 'true');
+          timeInput.value = btn.getAttribute('data-cgs-time') || '';
+          if (error) error.hidden = true;
+        });
+      });
+
+      const form = root.closest('form');
+      form?.addEventListener(
+        'submit',
+        (event) => {
+          if (!dayInput.value || !timeInput.value) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            if (error) error.hidden = false;
+          }
+        },
+        true,
+      );
+    }
+
+    document.querySelectorAll('[data-cgs-scheduler]').forEach((root) => initScheduler(root));
+  </script>
+)}
