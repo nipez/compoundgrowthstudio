@@ -14,7 +14,8 @@ Go to [sheets.new](https://sheets.new) and name it something like
 ## 2. Add the script
 
 In that sheet: **Extensions → Apps Script**. Delete whatever is in the editor
-and paste this in full:
+and paste the full script from [`scripts/google-sheet-collector.js`](../scripts/google-sheet-collector.js),
+or copy the block below:
 
 ```javascript
 const HEADERS = [
@@ -32,6 +33,11 @@ const HEADERS = [
   'Page',
   'Referrer',
   'Calculator',
+];
+
+const NOTIFY_EMAILS = [
+  'nick@compoundgrowthstudio.com',
+  'conor@compoundgrowthstudio.com',
 ];
 
 function doPost(e) {
@@ -78,6 +84,12 @@ function doPost(e) {
       data.calculator || '',
     ]);
 
+    try {
+      notifyTeam(data);
+    } catch (mailError) {
+      console.error('notifyTeam failed', mailError);
+    }
+
     return ContentService.createTextOutput(JSON.stringify({ ok: true })).setMimeType(
       ContentService.MimeType.JSON,
     );
@@ -87,6 +99,36 @@ function doPost(e) {
   } finally {
     lock.releaseLock();
   }
+}
+
+function notifyTeam(data) {
+  const kind = data.kind || 'submission';
+  const subject =
+    kind === 'contact'
+      ? `New Growth Gap Call — ${data.name || data.email}`
+      : `New ${kind} lead — ${data.email || 'unknown'}`;
+
+  const lines = [
+    `Type: ${kind}`,
+    `Email: ${data.email || ''}`,
+    data.name ? `Name: ${data.name}` : '',
+    data.clinic ? `Clinic: ${data.clinic}` : '',
+    data.city ? `City: ${data.city}` : '',
+    data.preferredDay ? `Preferred day: ${data.preferredDay}` : '',
+    data.preferredTime ? `Preferred time: ${data.preferredTime}` : '',
+    data.newsletter ? 'Newsletter: Yes' : '',
+    data.message ? `\nMessage:\n${data.message}` : '',
+    data.calculator ? `\nCalculator:\n${data.calculator}` : '',
+    `\nPage: ${data.sourcePage || ''}`,
+    data.sourceUrl ? `URL: ${data.sourceUrl}` : '',
+    data.referrer ? `Referrer: ${data.referrer}` : '',
+  ].filter(Boolean);
+
+  MailApp.sendEmail({
+    to: NOTIFY_EMAILS.join(','),
+    subject: subject,
+    body: lines.join('\n'),
+  });
 }
 ```
 
@@ -142,9 +184,13 @@ blocker or content blocker on `script.google.com`, or confirm the deployment's
 
 ## Getting notified
 
-To get an email whenever a submission arrives, in the sheet go to
-**Tools → Notification settings → Edit notifications**, then choose
-*Any changes are made* and *Email — right away*.
+Every submission emails **nick@compoundgrowthstudio.com** and
+**conor@compoundgrowthstudio.com** automatically (via `MailApp` in the script
+above). Contact requests use the subject line `New Growth Gap Call — {name}` and
+include the preferred day/time.
+
+You can also turn on sheet notifications: **Tools → Notification settings → Edit
+notifications**, then choose *Any changes are made* and *Email — right away*.
 
 ## Changing the script later
 
