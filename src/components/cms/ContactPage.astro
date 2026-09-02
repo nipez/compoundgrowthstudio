@@ -69,6 +69,16 @@ const TIME_SLOTS = [
   '4:00 PM',
   '4:30 PM',
 ];
+
+const tomorrow = new Date();
+tomorrow.setDate(tomorrow.getDate() + 1);
+const minBookingDate = tomorrow.toISOString().slice(0, 10);
+const maxBookingDate = new Date(tomorrow.getFullYear(), tomorrow.getMonth() + 3, tomorrow.getDate())
+  .toISOString()
+  .slice(0, 10);
+
+const fieldStyle =
+  "padding: 15px 16px; font-family: 'Archivo', sans-serif; font-size: 15px; color: #F4F7FB; background: rgba(10,29,56,.5); border: 1px solid rgba(244,247,251,.2); border-radius: 3px; outline: none;";
 ---
 
 <div style="background: #0A1D38; color: #F4F7FB; position: relative; overflow: hidden;">
@@ -114,11 +124,19 @@ const TIME_SLOTS = [
 
         <div data-cgs-scheduler style="display: grid; gap: 12px; margin-top: 4px;">
           <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px;">
-            <div style="font-size: 12.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #7FB0FF;">1. Pick a day</div>
-            <div style="font-size: 12px; color: rgba(244,247,251,.45);">Eastern Time</div>
+            <label for="preferredDay" style="font-size: 12.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #7FB0FF;">1. Pick a date</label>
+            <div style="font-size: 12px; color: rgba(244,247,251,.45);">Eastern Time · weekdays only</div>
           </div>
-          <div data-cgs-days class="cgs-day-grid" role="listbox" aria-label="Preferred day"></div>
-          <input type="hidden" name="preferredDay" required />
+          <input
+            id="preferredDay"
+            name="preferredDay"
+            type="date"
+            class="cgs-date-input"
+            required
+            min={minBookingDate}
+            max={maxBookingDate}
+            style={fieldStyle}
+          />
 
           <div style="margin-top: 6px; font-size: 12.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #7FB0FF;">2. Pick a time</div>
           <div data-cgs-times class="cgs-time-grid" role="listbox" aria-label="Preferred time">
@@ -127,7 +145,7 @@ const TIME_SLOTS = [
             ))}
           </div>
           <input type="hidden" name="preferredTime" required />
-          <p data-cgs-schedule-error hidden style="margin: 0; font-size: 13px; color: #F97066;">Choose a day and time to continue.</p>
+          <p data-cgs-schedule-error hidden style="margin: 0; font-size: 13px; color: #F97066;">Choose a weekday, date, and time to continue.</p>
         </div>
 
         <textarea name="message" class="cgs-f5" rows="3" placeholder={form.messagePlaceholder} style="padding: 15px 16px; font-family: 'Archivo', sans-serif; font-size: 15px; color: #F4F7FB; background: rgba(10,29,56,.5); border: 1px solid rgba(244,247,251,.2); border-radius: 3px; outline: none; resize: vertical;"></textarea>
@@ -143,17 +161,11 @@ const TIME_SLOTS = [
 </div>
 
 <style>
-  .cgs-day-grid {
-    display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 8px;
-  }
   .cgs-time-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 8px;
   }
-  .cgs-day,
   .cgs-slot {
     appearance: none;
     margin: 0;
@@ -168,36 +180,23 @@ const TIME_SLOTS = [
     cursor: pointer;
     transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.15s;
   }
-  .cgs-day {
-    display: grid;
-    gap: 2px;
-    justify-items: center;
-    min-height: 58px;
-  }
-  .cgs-day strong {
-    font-size: 15px;
-    font-weight: 700;
-    color: #f4f7fb;
-  }
-  .cgs-day span {
-    font-size: 11px;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: rgba(244, 247, 251, 0.55);
-  }
-  .cgs-day:hover,
   .cgs-slot:hover {
     border-color: rgba(127, 176, 255, 0.55);
     background: rgba(26, 79, 208, 0.22);
   }
-  .cgs-day[aria-pressed='true'],
   .cgs-slot[aria-pressed='true'] {
     color: #ffffff;
     background: #1a4fd0;
     border-color: #7fb0ff;
   }
-  .cgs-day[aria-pressed='true'] span {
-    color: rgba(244, 247, 251, 0.82);
+  .cgs-date-input {
+    color-scheme: dark;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .cgs-date-input::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    filter: invert(0.85);
   }
   @media (max-width: 860px) {
     .cgs-contact {
@@ -211,9 +210,6 @@ const TIME_SLOTS = [
     .cgs-contact-form {
       padding: 28px 20px !important;
     }
-    .cgs-day-grid {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
     .cgs-time-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
@@ -222,70 +218,28 @@ const TIME_SLOTS = [
 
 {!bookingEmbedUrl && (
   <script>
-    const WEEKDAY = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
-    function nextWeekdays(count = 10) {
-      const days = [];
-      const cursor = new Date();
-      // Start from tomorrow so same-day rush slots stay out of the default set.
-      cursor.setHours(12, 0, 0, 0);
-      cursor.setDate(cursor.getDate() + 1);
-      while (days.length < count) {
-        const day = cursor.getDay();
-        if (day !== 0 && day !== 6) {
-          const iso = cursor.toISOString().slice(0, 10);
-          days.push({
-            iso,
-            label: WEEKDAY[day],
-            date: String(cursor.getDate()),
-            full: cursor.toLocaleDateString('en-US', {
-              weekday: 'short',
-              month: 'short',
-              day: 'numeric',
-            }),
-          });
-        }
-        cursor.setDate(cursor.getDate() + 1);
-      }
-      return days;
+    function isWeekday(isoDate) {
+      const day = new Date(`${isoDate}T12:00:00`).getDay();
+      return day !== 0 && day !== 6;
     }
 
     function initScheduler(root) {
-      const dayGrid = root.querySelector('[data-cgs-days]');
       const dayInput = root.querySelector('input[name="preferredDay"]');
       const timeInput = root.querySelector('input[name="preferredTime"]');
       const error = root.querySelector('[data-cgs-schedule-error]');
-      if (
-        !(dayGrid instanceof HTMLElement) ||
-        !(dayInput instanceof HTMLInputElement) ||
-        !(timeInput instanceof HTMLInputElement)
-      ) {
-        return;
-      }
+      if (!(dayInput instanceof HTMLInputElement) || !(timeInput instanceof HTMLInputElement)) return;
 
-      nextWeekdays(10).forEach((day, index) => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'cgs-day';
-        btn.setAttribute('role', 'option');
-        btn.setAttribute('aria-pressed', 'false');
-        btn.dataset.cgsDay = day.iso;
-        btn.dataset.cgsDayLabel = day.full;
-        btn.innerHTML = `<span>${day.label}</span><strong>${day.date}</strong>`;
-        if (index === 0) {
-          btn.setAttribute('aria-pressed', 'true');
-          dayInput.value = `${day.full} (${day.iso})`;
+      dayInput.addEventListener('change', () => {
+        if (dayInput.value && !isWeekday(dayInput.value)) {
+          dayInput.setCustomValidity('Please pick a weekday (Mon–Fri).');
+          if (error) {
+            error.textContent = 'Please pick a weekday (Mon–Fri).';
+            error.hidden = false;
+          }
+        } else {
+          dayInput.setCustomValidity('');
+          if (error) error.hidden = true;
         }
-        dayGrid.appendChild(btn);
-      });
-
-      dayGrid.addEventListener('click', (event) => {
-        const target = event.target instanceof Element ? event.target.closest('[data-cgs-day]') : null;
-        if (!(target instanceof HTMLButtonElement)) return;
-        dayGrid.querySelectorAll('[data-cgs-day]').forEach((el) => el.setAttribute('aria-pressed', 'false'));
-        target.setAttribute('aria-pressed', 'true');
-        dayInput.value = `${target.dataset.cgsDayLabel} (${target.dataset.cgsDay})`;
-        if (error) error.hidden = true;
       });
 
       root.querySelectorAll('[data-cgs-time]').forEach((btn) => {
@@ -304,7 +258,20 @@ const TIME_SLOTS = [
           if (!dayInput.value || !timeInput.value) {
             event.preventDefault();
             event.stopImmediatePropagation();
-            if (error) error.hidden = false;
+            if (error) {
+              error.textContent = 'Choose a date and time to continue.';
+              error.hidden = false;
+            }
+            return;
+          }
+          if (!isWeekday(dayInput.value)) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            dayInput.setCustomValidity('Please pick a weekday (Mon–Fri).');
+            if (error) {
+              error.textContent = 'Please pick a weekday (Mon–Fri).';
+              error.hidden = false;
+            }
           }
         },
         true,

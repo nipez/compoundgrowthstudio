@@ -179,7 +179,7 @@ async function submitContact(form: HTMLFormElement) {
   const message = String(
     (form.elements.namedItem('message') as HTMLTextAreaElement | null)?.value || '',
   ).trim();
-  const preferredDay = String(
+  const preferredDayRaw = String(
     (form.elements.namedItem('preferredDay') as HTMLInputElement | null)?.value || '',
   ).trim();
   const preferredTime = String(
@@ -193,6 +193,14 @@ async function submitContact(form: HTMLFormElement) {
     form.reportValidity();
     return;
   }
+
+  const preferredDay = preferredDayRaw
+    ? new Date(`${preferredDayRaw}T12:00:00`).toLocaleDateString('en-US', {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
+      }) + ` (${preferredDayRaw})`
+    : '';
 
   const scheduleLine =
     preferredDay && preferredTime ? `Preferred time: ${preferredDay} at ${preferredTime} ET` : '';
@@ -218,7 +226,7 @@ async function submitContact(form: HTMLFormElement) {
   markSuccess(form);
   form
     .querySelectorAll<HTMLInputElement | HTMLTextAreaElement | HTMLButtonElement>(
-      'input:not([type="hidden"]):not([name="website"]), textarea, button.cgs-day, button.cgs-slot',
+      'input:not([type="hidden"]):not([name="website"]), textarea, button.cgs-slot',
     )
     .forEach((el) => {
       if (el instanceof HTMLInputElement && el.type === 'checkbox') return;
